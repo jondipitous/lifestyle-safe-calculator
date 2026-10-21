@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <meta name="theme-color" content="#f6f8fa">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Lifestyle Safe">
+
+  <meta name="description" content="Lifestyle-Safe Upgrade Calculator - Singapore property purchase planning, CPF OA forecasts and mortgage protection.">
+
+  <title>Lifestyle-Safe Upgrade Calculator™</title>
+
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <p class="version">
+        LIFESTYLE-SAFE CALCULATOR · V28.7
+      </p>
+
+      <h1>Lifestyle-Safe Upgrade Calculator™</h1>
+
+      <p class="subtitle">
+        HDB to Private Property · Purchase Power &amp; Mortgage Protection
+      </p>
+    </header>
+
+    <nav class="step-tabs" aria-label="Calculator steps">
+      <button type="button" data-step="0">
+        <span class="step-number">1</span>
+        <span>Funds</span>
+      </button>
+
+      <button type="button" data-step="1">
+        <span class="step-number">2</span>
+        <span>CPF OA</span>
+      </button>
+
+      <button type="button" data-step="2">
+        <span class="step-number">3</span>
+        <span>Backup</span>
+      </button>
+
+      <button type="button" data-step="3">
+        <span class="step-number">4</span>
+        <span>Results</span>
+      </button>
+    </nav>
+
+    <section id="calculator-content" aria-live="polite">
+      <p>Loading calculator...</p>
+    </section>
+
+    <div class="bottom-navigation">
+      <button id="back-button" type="button">
+        ← Back
+      </button>
+
+      <button id="next-button" type="button">
+        Next →
+      </button>
+    </div>
+
+    <footer class="disclaimer">
+      <p>
+        Indicative planning estimates only. Loan approval,
+        CPF usage, stamp duties and ABSD eligibility must
+        be independently verified.
+      </p>
+
+      <p>
+        Mortgage Shield is a conceptual planning reserve,
+        not formally ring-fenced CPF funds.
+      </p>
+    </footer>
+  </main>
+</body>
+</html>
