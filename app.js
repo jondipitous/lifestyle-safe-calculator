@@ -398,6 +398,13 @@ function results(R){
 }
 
 function render(){
+ 
+try {
+  const test = results(calculate());
+} catch (error) {
+  alert("Step 4 error: " + error.message);
+}
+
  const R=calculate();
  const views=[funds,cpfStep,backupStep,results];
  $("calculator-content").innerHTML=views[step](R);
