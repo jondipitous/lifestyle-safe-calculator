@@ -41,8 +41,8 @@ const pills=(k,opts)=>`<div class="pills">${
  data-val="${n}" class="${v[k]===n?"active":""}">
  ${label}</button>`).join("")
 }</div>`;
+const presets = pills;
 const note=s=>`<p class="small">${s}</p>`;
-
 function calculate(){
  const selling=v.sale*.0218+2800;
  const net=v.sale-v.hdb-selling;
