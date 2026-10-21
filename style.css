@@ -1,0 +1,408 @@
+
+/* Lifestyle-Safe Upgrade Calculator V28.7 */
+/* Mobile-first design */
+
+:root {
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Arial, sans-serif;
+  color: #263348;
+  background: #f6f8fa;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 14px 10px 60px;
+  min-height: 100vh;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid #dce2e8;
+  border-radius: 9px;
+  background: #f5f7f9;
+  color: #263348;
+  padding: 10px;
+}
+
+button:active {
+  opacity: 0.8;
+}
+
+button.active,
+button.primary {
+  background: #2c4663;
+  color: white;
+  border-color: #2c4663;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.app-shell {
+  max-width: 740px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #e0e5eb;
+  border-radius: 20px;
+  padding: 15px;
+}
+
+.app-header {
+  margin-bottom: 18px;
+}
+
+.version {
+  margin: 0 0 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  color: #778496;
+}
+
+h1 {
+  font-size: 21px;
+  line-height: 1.25;
+  margin: 4px 0 6px;
+}
+
+h2 {
+  font-size: 18px;
+  margin: 5px 0 14px;
+}
+
+h3 {
+  font-size: 15px;
+  margin: 0 0 8px;
+}
+
+.subtitle,
+.small,
+.muted {
+  color: #69778a;
+}
+
+.subtitle {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.small {
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.tiny {
+  font-size: 11px;
+  color: #788497;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.money {
+  font-variant-numeric: tabular-nums;
+}
+
+.step-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  margin-bottom: 20px;
+}
+
+.step-tabs button {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+  padding: 9px 3px;
+  font-size: 12px;
+}
+
+.step-number {
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+.section,
+.gap {
+  display: grid;
+  gap: 12px;
+}
+
+.section {
+  margin: 12px 0;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.grid4,
+.pills {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.pills button {
+  padding: 9px 2px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.flex,
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.row {
+  font-size: 13px;
+}
+
+.row > :last-child {
+  text-align: right;
+}
+
+.panel {
+  background: #f2f4f6;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.card {
+  border: 1px solid #dde3e9;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.structure-a,
+.blue {
+  background: #eef7fd;
+  border-color: #c9e1f4;
+}
+
+.structure-b,
+.green {
+  background: #f0faf4;
+  border-color: #c6e5d4;
+}
+
+.statlabel {
+  font-size: 12px;
+  color: #637286;
+  margin-bottom: 5px;
+}
+
+.big {
+  font-size: 22px;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+
+.med {
+  font-size: 17px;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 5px;
+}
+
+input,
+select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #d5dce5;
+  border-radius: 9px;
+  padding: 11px 9px;
+  background: #fff;
+  color: #263348;
+  font-size: 16px;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid #8dbbe2;
+  outline-offset: 1px;
+}
+
+.inputwrap {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #d5dce5;
+  border-radius: 9px;
+}
+
+.prefix {
+  flex-shrink: 0;
+  padding-left: 10px;
+  color: #708095;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.inputwrap input {
+  border: 0;
+  outline: 0;
+  padding: 10px 7px;
+}
+
+.inputwrap:focus-within {
+  outline: 2px solid #8dbbe2;
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+input::-webkit-inner-spin-button {
+  appearance: none;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #dce1e6;
+  margin: 10px 0;
+}
+
+.segment {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  padding: 4px;
+  border-radius: 12px;
+  background: #eef1f4;
+}
+
+.segment button {
+  border: 0;
+  font-size: 12px;
+  padding: 10px 3px;
+}
+
+.finance {
+  min-width: 0;
+  background: #f2f4f6;
+  border-radius: 10px;
+  padding: 10px;
+  display: grid;
+  align-content: start;
+  gap: 4px;
+}
+
+.finance .med {
+  font-size: clamp(14px, 4.5vw, 20px);
+}
+
+.finance .tiny {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bars {
+  display: grid;
+  gap: 5px;
+}
+
+.bar {
+  height: 16px;
+  display: flex;
+  overflow: hidden;
+  background: #e4eaf0;
+  border-radius: 5px;
+}
+
+.bar > div {
+  height: 100%;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 11px;
+}
+
+.dot {
+  display: inline-block;
+  height: 9px;
+  width: 9px;
+  border-radius: 2px;
+  margin-right: 4px;
+}
+
+.warning {
+  color: #b35124;
+  font-size: 12px;
+}
+
+.bottom-navigation {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.bottom-navigation button {
+  flex: 1;
+}
+
+.disclaimer {
+  margin-top: 20px;
+  font-size: 11px;
+  color: #788496;
+  line-height: 1.5;
+}
+
+@media (max-width: 360px) {
+  body {
+    padding: 7px 5px 40px;
+  }
+
+  .app-shell {
+    padding: 10px;
+  }
+
+  .big {
+    font-size: 19px;
+  }
+
+  .finance {
+    padding: 7px;
+  }
+
+  .pills button {
+    font-size: 10px;
+  }
+}
