@@ -1,6 +1,6 @@
 
-/* Lifestyle-Safe Upgrade Calculator V28.7 */
-/* Mobile-first design */
+/* Lifestyle Upgrade Protection V33.9 */
+/* Part 1 of 2 — Base and form styling */
 
 :root {
   font-family: -apple-system, BlinkMacSystemFont,
@@ -54,7 +54,7 @@ button:disabled {
 .app-shell {
   max-width: 740px;
   margin: 0 auto;
-  background: #fff;
+  background: white;
   border: 1px solid #e0e5eb;
   border-radius: 20px;
   padding: 15px;
@@ -110,10 +110,6 @@ h3 {
   color: #788497;
 }
 
-.bold {
-  font-weight: 700;
-}
-
 .money {
   font-variant-numeric: tabular-nums;
 }
@@ -155,19 +151,6 @@ h3 {
   gap: 10px;
 }
 
-.grid4,
-.pills {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 5px;
-}
-
-.pills button {
-  padding: 9px 2px;
-  font-size: 11px;
-  white-space: nowrap;
-}
-
 .flex,
 .row {
   display: flex;
@@ -188,23 +171,23 @@ h3 {
   background: #f2f4f6;
   border-radius: 12px;
   padding: 12px;
+  min-width: 0;
 }
 
 .card {
   border: 1px solid #dde3e9;
   border-radius: 14px;
   padding: 12px;
+  min-width: 0;
 }
 
-.structure-a,
-.blue {
-  background: #eef7fd;
+.structure-a {
+  background: #edf5fc;
   border-color: #c9e1f4;
 }
 
-.structure-b,
-.green {
-  background: #f0faf4;
+.structure-b {
+  background: #eff8f2;
   border-color: #c6e5d4;
 }
 
@@ -227,12 +210,20 @@ h3 {
   overflow-wrap: anywhere;
 }
 
+.field {
+  min-width: 0;
+}
+
 label {
   display: block;
   font-size: 12px;
   font-weight: 600;
   line-height: 1.4;
   margin-bottom: 5px;
+}
+
+label.center {
+  text-align: center;
 }
 
 input,
@@ -242,7 +233,7 @@ select {
   border: 1px solid #d5dce5;
   border-radius: 9px;
   padding: 11px 9px;
-  background: #fff;
+  background: white;
   color: #263348;
   font-size: 16px;
 }
@@ -251,34 +242,6 @@ input:focus,
 select:focus {
   outline: 2px solid #8dbbe2;
   outline-offset: 1px;
-}
-
-.inputwrap {
-  display: flex;
-  align-items: center;
-  min-width: 0;
-  overflow: hidden;
-  background: #fff;
-  border: 1px solid #d5dce5;
-  border-radius: 9px;
-}
-
-.prefix {
-  flex-shrink: 0;
-  padding-left: 10px;
-  color: #708095;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.inputwrap input {
-  border: 0;
-  outline: 0;
-  padding: 10px 7px;
-}
-
-.inputwrap:focus-within {
-  outline: 2px solid #8dbbe2;
 }
 
 input[type="number"] {
@@ -303,106 +266,382 @@ hr {
   padding: 4px;
   border-radius: 12px;
   background: #eef1f4;
+  min-width: 0;
 }
 
 .segment button {
   border: 0;
   font-size: 12px;
   padding: 10px 3px;
+  min-width: 0;
+}
+
+.pills {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.pills button {
+  padding: 9px 2px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.checkline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkline input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.buyer-group {
+  min-width: 0;
+}
+
+.buyer-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.3fr 1fr;
+  gap: 8px;
+  align-items: end;
+}
+
+.buyer-grid .segment {
+  height: 43px;
+  align-items: stretch;
+}
+
+.buyer-grid .segment button {
+  padding: 6px 2px;
+}
+/* ---------------------------------------
+   PART 2 — CHARTS AND RESULT STYLING
+---------------------------------------- */
+
+/* CPF OA charts */
+
+.cpf-chart {
+  min-width: 0;
+}
+
+.chart-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.chart-row {
+  display: grid;
+  grid-template-columns: 57px minmax(0, 1fr) 76px;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.chart-age {
+  font-size: 11px;
+  color: #718095;
+  white-space: nowrap;
+}
+
+.chart-value {
+  font-size: 11px;
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.bar {
+  display: flex;
+  width: 100%;
+  background: #e0e6eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.pill-bar {
+  height: 13px;
+}
+
+.pill-bar > div,
+.stack {
+  height: 100%;
+  min-width: 0;
+}
+
+.stack {
+  display: flex;
+  overflow: hidden;
+  border-radius: 999px;
+}
+
+.stack > div {
+  height: 100%;
+}
+
+.dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  font-size: 11px;
+  color: #66758a;
+}
+
+.legend.centered {
+  justify-content: center;
+}
+
+/* Income and purchase capacity */
+
+.capacity-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.capacity-stat {
+  min-width: 0;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 8px;
+}
+
+.capacity-stat b {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.equity-bar {
+  height: 15px;
+}
+
+.equity-bar > div {
+  height: 100%;
+}
+
+.warning {
+  background: #fff1ed;
+  color: #a33c2c;
+  border-radius: 10px;
+  padding: 11px;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+/* Structure A and B */
+
+.structure-a,
+.structure-b {
+  gap: 13px;
+}
+
+.structure-a h3 {
+  color: #28678e;
+}
+
+.structure-b h3 {
+  color: #367a60;
+}
+
+.structure-a > .grid2,
+.structure-b > .grid2 {
+  gap: 8px;
+}
+
+.structure-a .big,
+.structure-b .big {
+  font-size: clamp(17px, 4.5vw, 25px);
 }
 
 .finance {
   min-width: 0;
-  background: #f2f4f6;
-  border-radius: 10px;
-  padding: 10px;
-  display: grid;
-  align-content: start;
-  gap: 4px;
+  border: 1px solid rgba(100, 120, 140, 0.13);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.76);
+  padding: 11px;
 }
 
 .finance .med {
-  font-size: clamp(14px, 4.5vw, 20px);
+  font-size: clamp(15px, 4vw, 19px);
 }
 
-.finance .tiny {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.finance hr {
+  margin: 9px 0;
 }
+
+/* Mortgage payment charts */
 
 .bars {
   display: grid;
   gap: 5px;
 }
 
-.bar {
-  height: 16px;
-  display: flex;
-  overflow: hidden;
-  background: #e4eaf0;
-  border-radius: 5px;
+.funding-bar {
+  height: 13px;
 }
 
-.bar > div {
+.funding-bar > div {
   height: 100%;
+  flex-shrink: 0;
 }
 
-.legend {
+.funding-labels {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  font-size: 11px;
+  justify-content: space-between;
+  gap: 4px 9px;
+  font-size: 10px;
+  color: #6d7b8e;
 }
 
-.dot {
-  display: inline-block;
-  height: 9px;
-  width: 9px;
-  border-radius: 2px;
-  margin-right: 4px;
+/* Interactive option panels */
+
+.structure-b .panel {
+  background: rgba(255, 255, 255, 0.74);
 }
 
-.warning {
-  color: #b35124;
-  font-size: 12px;
+.structure-b .flex > div:first-child {
+  min-width: 0;
 }
 
-.bottom-navigation {
+.structure-b .flex > button {
+  flex-shrink: 0;
+  min-width: 62px;
+}
+
+.structure-b .segment {
+  background: #e6eeea;
+}
+
+.structure-b .segment button.active {
+  background: #2d765d;
+  border-color: #2d765d;
+}
+
+.structure-b .row {
+  align-items: baseline;
+}
+
+/* Navigation */
+
+.step-navigation,
+.nav-actions,
+.footer-actions {
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
   margin-top: 20px;
 }
 
-.bottom-navigation button {
-  flex: 1;
+#back-button,
+#next-button {
+  min-width: 115px;
+  padding: 12px 14px;
+  font-weight: 700;
 }
 
-.disclaimer {
-  margin-top: 20px;
+#next-button {
+  background: #2c4663;
+  border-color: #2c4663;
+  color: #fff;
+}
+
+#back-button {
+  background: #eef1f4;
+}
+
+.app-footer {
+  margin-top: 22px;
   font-size: 11px;
-  color: #788496;
-  line-height: 1.5;
+  line-height: 1.6;
+  color: #788597;
 }
 
-@media (max-width: 360px) {
+/* Mobile layout */
+
+@media (max-width: 480px) {
   body {
-    padding: 7px 5px 40px;
+    padding: 8px 5px 35px;
   }
 
   .app-shell {
+    padding: 12px 10px;
+    border-radius: 14px;
+  }
+
+  .step-tabs {
+    gap: 4px;
+  }
+
+  .step-tabs button {
+    font-size: 11px;
+    padding: 9px 2px;
+  }
+
+  .grid2 {
+    gap: 8px;
+  }
+
+  .panel,
+  .card {
     padding: 10px;
   }
 
-  .big {
-    font-size: 19px;
+  .buyer-grid {
+    grid-template-columns:
+      minmax(0, 0.72fr)
+      minmax(0, 1.25fr)
+      minmax(0, 1fr);
+    gap: 6px;
   }
 
-  .finance {
-    padding: 7px;
+  .buyer-grid input {
+    padding: 11px 5px;
   }
 
-  .pills button {
+  .buyer-grid .segment {
+    gap: 2px;
+    padding: 3px;
+  }
+
+  .buyer-grid .segment button {
+    font-size: 11px;
+  }
+
+  .chart-row {
+    grid-template-columns:
+      52px minmax(0, 1fr) 72px;
+    gap: 5px;
+  }
+
+  .chart-age,
+  .chart-value {
     font-size: 10px;
   }
-}
+
+  .capacity-grid {
+    gap: 5px;
+  }
+
+  .capacity-stat {
+    padding
