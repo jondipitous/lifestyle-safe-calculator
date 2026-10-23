@@ -5,669 +5,215 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Personal Upgrade Discovery | Jonathan Fok</title>
-
 <style>
 :root{
-  --navy:#1F4E78;
-  --muted:#697989;
-  --line:#E0E6EC;
-  --ivory:#F4F3EE;
-  --blue:#F0F4F7;
-  --teal:#65ADA2;
-  --orange:#DDA45C;
-  --loan:#5685AF;
-  --purple:#8972CE;
+  --navy:#1F4E78;--muted:#697989;--line:#E0E6EC;
+  --ivory:#F4F3EE;--blue:#F0F4F7;--teal:#65ADA2;
+  --orange:#DDA45C;--loan:#5685AF;--purple:#8972CE;
+  --danger:#B45E49;
 }
-
 *{box-sizing:border-box}
-
-body{
-  margin:0;
-  background:#edf1f4;
-  color:#293d4e;
-  font-family:Inter,-apple-system,BlinkMacSystemFont,
-    "Segoe UI",Arial,sans-serif;
-}
-
-main{
-  max-width:750px;
-  margin:30px auto;
-  background:white;
-  border:1px solid #e5e9ee;
-  border-radius:22px;
-  padding:25px;
-}
-
+body{margin:0;background:#edf1f4;color:#293d4e;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+main{max-width:750px;margin:30px auto;background:white;
+  border:1px solid #e5e9ee;border-radius:22px;padding:25px}
 button,input,select{font:inherit}
 button{cursor:pointer}
 button:disabled{opacity:.35;cursor:default}
-
-.brand{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  font-size:10px;
-  font-weight:750;
-  letter-spacing:.6px;
-  color:var(--navy);
-}
+.brand{display:flex;justify-content:space-between;align-items:center;
+  gap:12px;font-size:10px;font-weight:750;letter-spacing:.6px;color:var(--navy)}
 .brand span{display:flex;align-items:center;gap:6px}
-.reset{
-  border:0;
-  background:transparent;
-  color:#768697;
-  font-size:12px;
-}
-
-.hero{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  margin:22px 0 16px;
-}
-.avatar{
-  width:68px;
-  height:68px;
-  border-radius:100%;
-  background:#e1eaf2;
-  display:grid;
-  place-items:center;
-  flex-shrink:0;
-  color:var(--navy);
-  font-size:29px;
-}
-.avatar img{
-  width:100%;
-  height:100%;
-  border-radius:100%;
-  object-fit:cover;
-}
-.eyebrow,.section-label{
-  font-size:11px;
-  font-weight:750;
-  letter-spacing:.65px;
-  color:var(--navy);
-}
-.hero h1{
-  margin:5px 0 2px;
-  color:var(--navy);
-  font-size:24px;
-  line-height:1.13;
-  font-weight:750;
-}
-.hero h1 span{
-  display:block;
-  color:#64788b;
-  font-weight:450;
-}
-.hero p{
-  font-size:12px;
-  color:#64788b;
-  margin:7px 0 0;
-}
-.rule{
-  height:2px;
-  width:36px;
-  background:var(--navy);
-  margin:12px 0;
-}
-
-.tabs{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:5px;
-  margin:12px 0 15px;
-}
-.tab{
-  border:0;
-  background:#f0f4f7;
-  color:var(--navy);
-  border-radius:8px;
-  padding:10px 3px;
-  font-size:14px;
-  font-weight:700;
-}
-.tab small{
-  display:block;
-  font-size:9px;
-  margin-bottom:3px;
-  color:#718395;
-  letter-spacing:.5px;
-}
+.reset{border:0;background:transparent;color:#768697;font-size:12px}
+.hero{display:flex;align-items:center;gap:15px;margin:22px 0 16px}
+.avatar{width:68px;height:68px;border-radius:100%;background:#e1eaf2;
+  display:grid;place-items:center;flex-shrink:0;color:var(--navy);font-size:29px}
+.avatar img{width:100%;height:100%;border-radius:100%;object-fit:cover}
+.eyebrow,.section-label{font-size:11px;font-weight:750;
+  letter-spacing:.65px;color:var(--navy)}
+.hero h1{margin:5px 0 2px;color:var(--navy);font-size:24px;
+  line-height:1.13;font-weight:750}
+.hero h1 span{display:block;color:#64788b;font-weight:450}
+.hero p{font-size:12px;color:#64788b;margin:7px 0 0}
+.rule{height:2px;width:36px;background:var(--navy);margin:12px 0}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:12px 0 15px}
+.tab{border:0;background:#f0f4f7;color:var(--navy);
+  border-radius:8px;padding:10px 3px;font-size:14px;font-weight:700}
+.tab small{display:block;font-size:9px;margin-bottom:3px;
+  color:#718395;letter-spacing:.5px}
 .tab.active{background:var(--navy);color:white}
 .tab.active small{color:#d5e4f0}
-
-.intro{
-  background:var(--ivory);
-  padding:19px;
-  border-radius:14px;
-  margin:0 0 20px;
-}
-.intro small{
-  font-size:10px;
-  color:#6d6254;
-  font-weight:750;
-  letter-spacing:.6px;
-}
-.intro h2{
-  font-size:24px;
-  line-height:1.17;
-  margin:16px 0 13px;
-  color:#293d4e;
-}
-.intro h2 span{
-  display:block;
-  font-weight:450;
-  color:#70695f;
-}
-.gold-rule{
-  height:2px;
-  width:36px;
-  background:#a18a66;
-}
-
-.section-label{
-  display:block;
-  margin:18px 0 10px;
-}
+.intro{background:var(--ivory);padding:19px;border-radius:14px;margin:0 0 20px}
+.intro small{font-size:10px;color:#6d6254;font-weight:750;letter-spacing:.6px}
+.intro h2{font-size:24px;line-height:1.17;margin:16px 0 13px;color:#293d4e}
+.intro h2 span{display:block;font-weight:450;color:#70695f}
+.gold-rule{height:2px;width:36px;background:#a18a66}
+.section-label{display:block;margin:18px 0 10px}
 .journeys{display:grid;gap:8px}
-.journey{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  background:white;
-  border:1px solid var(--line);
-  border-radius:11px;
-  padding:13px;
-  width:100%;
-  text-align:left;
-  color:var(--navy);
-  font-size:14px;
-  font-weight:650;
-}
-.journey.active{
-  background:#eef4f9;
-  border-color:var(--navy);
-}
-.journey .ico{
-  width:34px;
-  height:34px;
-  border-radius:8px;
-  background:#f1f4f6;
-  display:grid;
-  place-items:center;
-  font-size:18px;
-}
+.journey{display:flex;align-items:center;gap:12px;background:white;
+  border:1px solid var(--line);border-radius:11px;padding:13px;
+  width:100%;text-align:left;color:var(--navy);font-size:14px;font-weight:650}
+.journey.active{background:#eef4f9;border-color:var(--navy)}
+.journey .ico{width:34px;height:34px;border-radius:8px;background:#f1f4f6;
+  display:grid;place-items:center;font-size:18px}
 .journey.active .ico{background:#dce8f2}
-.journey .tick{
-  margin-left:auto;
-  color:#c6d0d8;
-  font-size:19px;
-}
+.journey .tick{margin-left:auto;color:#c6d0d8;font-size:19px}
 .journey.active .tick{color:var(--navy)}
-
-.grid2{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:14px;
-}
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-  min-width:0;
-}
-.field label{
-  font-size:13px;
-  font-weight:700;
-  color:var(--navy);
-  padding-left:15px;
-}
-.input-row{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  color:var(--muted);
-}
-input{
-  width:100%;
-  min-width:0;
-  border:1px solid #d5dde6;
-  border-radius:8px;
-  background:#fff;
-  padding:10px 12px;
-  color:#293d4e;
-  outline:none;
-}
-input:focus{
-  border-color:var(--navy);
-  box-shadow:0 0 0 2px #dce8f2;
-}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field label{font-size:13px;font-weight:700;color:var(--navy);padding-left:15px}
+.input-row{display:flex;align-items:center;gap:7px;color:var(--muted)}
+input{width:100%;min-width:0;border:1px solid #d5dde6;border-radius:8px;
+  background:#fff;padding:10px 12px;color:#293d4e;outline:none}
+input:focus{border-color:var(--navy);box-shadow:0 0 0 2px #dce8f2}
 .input-row input{flex:1}
-
-.panel{
-  background:var(--blue);
-  border-radius:12px;
-  padding:17px;
-  margin-top:16px;
-}
-.row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-.line{
-  display:flex;
-  justify-content:space-between;
-  gap:8px;
-  font-size:12px;
-  color:var(--muted);
-  margin:10px 0;
-}
-.line strong{
-  color:var(--navy);
-  font-weight:650;
-}
-hr{
-  border:0;
-  border-top:1px solid #d6dce4;
-  margin:15px 0;
-}
-.big{
-  font-size:30px;
-  font-weight:750;
-  color:var(--navy);
-  letter-spacing:-.8px;
-}
-.mid{
-  font-size:20px;
-  font-weight:750;
-  color:var(--navy);
-}
-.small{
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.5;
-}
-
-.segment{
-  display:flex;
-  gap:4px;
-  background:#f0f4f7;
-  border-radius:8px;
-  padding:4px;
-}
-.segment button{
-  flex:1;
-  border:0;
-  background:transparent;
-  color:#627689;
-  border-radius:6px;
-  padding:9px 6px;
-  font-size:12px;
-  font-weight:650;
-}
-.segment button.active{
-  background:var(--navy);
-  color:white;
-}
-
-.btn{
-  border:1px solid #d0dbe4;
-  background:white;
-  color:var(--navy);
-  padding:9px 12px;
-  border-radius:9px;
-  font-size:12px;
-  font-weight:650;
-}
-.btn.active{
-  background:var(--navy);
-  color:white;
-  border-color:var(--navy);
-}
-.presets{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:5px;
-  margin-top:9px;
-}
-.stack{
-  display:flex;
-  height:11px;
-  border-radius:50px;
-  overflow:hidden;
-  background:#e5ebe8;
-  margin:10px 0;
-}
+.panel{background:var(--blue);border-radius:12px;padding:17px;margin-top:16px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.line{display:flex;justify-content:space-between;gap:8px;
+  font-size:12px;color:var(--muted);margin:10px 0}
+.line strong{color:var(--navy);font-weight:650}
+hr{border:0;border-top:1px solid #d6dce4;margin:15px 0}
+.big{font-size:30px;font-weight:750;color:var(--navy);letter-spacing:-.8px}
+.mid{font-size:20px;font-weight:750;color:var(--navy)}
+.small{font-size:11px;color:var(--muted);line-height:1.5}
+.segment{display:flex;gap:4px;background:#f0f4f7;border-radius:8px;padding:4px}
+.segment button{flex:1;border:0;background:transparent;color:#627689;
+  border-radius:6px;padding:9px 6px;font-size:12px;font-weight:650}
+.segment button.active{background:var(--navy);color:white}
+.btn{border:1px solid #d0dbe4;background:white;color:var(--navy);
+  padding:9px 12px;border-radius:9px;font-size:12px;font-weight:650}
+.btn.active{background:var(--navy);color:white;border-color:var(--navy)}
+.presets{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:9px}
+.stack{display:flex;height:11px;border-radius:50px;overflow:hidden;
+  background:#e5ebe8;margin:10px 0}
 .stack div{height:100%}
-.label-dot{
-  display:inline-block;
-  width:8px;
-  height:8px;
-  border-radius:100%;
-  margin-right:5px;
-}
-
-.buyer-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:15px 0;
-}
-.buyer-name{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  color:var(--navy);
-  font-size:12px;
-  font-weight:750;
-}
-.buyer-icon{
-  width:30px;
-  height:30px;
-  border-radius:100%;
-  background:#e6edf3;
-  display:grid;
-  place-items:center;
-  font-size:15px;
-}
-.chart-row{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  margin:7px 0;
-}
-.chart-label{
-  width:58px;
-  font-size:10px;
-  color:var(--muted);
-  flex-shrink:0;
-}
-.chart-track{
-  height:12px;
-  border-radius:30px;
-  background:#e8efed;
-  flex:1;
-  overflow:hidden;
-  display:flex;
-}
-.chart-value{
-  width:74px;
-  text-align:right;
-  font-size:10px;
-  color:#485e72;
-}
-
-.result-card{
-  border-radius:13px;
-  padding:17px;
-  margin:14px 0;
-}
+.label-dot{display:inline-block;width:8px;height:8px;border-radius:100%;margin-right:5px}
+.buyer-head{display:flex;justify-content:space-between;align-items:center;margin:15px 0}
+.buyer-name{display:flex;align-items:center;gap:9px;color:var(--navy);
+  font-size:12px;font-weight:750}
+.buyer-icon{width:30px;height:30px;border-radius:100%;background:#e6edf3;
+  display:grid;place-items:center;font-size:15px}
+.chart-row{display:flex;align-items:center;gap:9px;margin:7px 0}
+.chart-label{width:58px;font-size:10px;color:var(--muted);flex-shrink:0}
+.chart-track{height:12px;border-radius:30px;background:#e8efed;
+  flex:1;overflow:hidden;display:flex}
+.chart-value{width:74px;text-align:right;font-size:10px;color:#485e72}
+.result-card{border-radius:13px;padding:17px;margin:14px 0}
 .result-card.a{background:#eff4f8}
 .result-card.b{background:#f3f4f1}
-.card-head{
-  display:flex;
-  align-items:start;
-  justify-content:space-between;
-  gap:12px;
-  cursor:pointer;
-}
-.card-head small{
-  font-size:10px;
-  color:var(--navy);
-  font-weight:750;
-}
-.card-head h3{
-  font-size:22px;
-  line-height:1.15;
-  margin:12px 0 10px;
-  color:var(--navy);
-}
-.card-head h3 span{
-  display:block;
-  color:#738698;
-  font-weight:450;
-}
+.card-head{display:flex;align-items:start;justify-content:space-between;
+  gap:12px;cursor:pointer}
+.card-head small{font-size:10px;color:var(--navy);font-weight:750}
+.card-head h3{font-size:22px;line-height:1.15;margin:12px 0 10px;color:var(--navy)}
+.card-head h3 span{display:block;color:#738698;font-weight:450}
 .result-card.b h3{color:#324e62}
 .result-card.b h3 span{color:#75858b}
-
-.metrics{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-  margin:14px 0;
-}
-.metric .small{
-  display:block;
-  margin-bottom:5px;
-}
-.mixlabels{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  text-align:center;
-  gap:5px;
-}
-.mixlabels .mid{font-size:14px}
-
-.accordion{
-  border:1px solid #c7d4e0;
-  border-radius:12px;
-  padding:16px;
-  margin:15px 0;
-}
-.acc-button{
-  background:transparent;
-  border:0;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  width:100%;
-  color:var(--navy);
-  font-size:11px;
-  font-weight:750;
-  letter-spacing:.5px;
-  text-align:left;
-}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+.metric .small{display:block;margin-bottom:5px}
+.mixlabels{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;gap:5px}
+.mixlabels .mid{font-size:14px;overflow-wrap:anywhere}
+.accordion{border:1px solid #c7d4e0;border-radius:12px;padding:16px;margin:15px 0}
+.acc-button{background:transparent;border:0;display:flex;
+  justify-content:space-between;align-items:center;width:100%;
+  color:var(--navy);font-size:11px;font-weight:750;letter-spacing:.5px;text-align:left}
 .year-row{margin:14px 0}
-.year-row .row{
-  font-size:11px;
-  color:var(--muted);
-}
-.nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:16px;
-}
-footer{
-  font-size:10px;
-  line-height:1.55;
-  color:#788591;
-  margin-top:18px;
-}
-.warning{
-  font-size:12px;
-  color:#ac624c;
-  margin:10px 0;
-}
+.year-row .row{font-size:11px;color:var(--muted)}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+footer{font-size:10px;line-height:1.55;color:#788591;margin-top:18px}
+.warning{font-size:12px;color:#ac624c;margin:10px 0}
 
-/* Updated Purchase Funding Mix */
-.funding-mix{margin-top:15px}
-.funding-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-}
-.funding-head strong{
-  font-size:13px;
-  color:var(--navy);
-}
-.funding-head span{
-  font-size:13px;
-  color:var(--muted);
-}
-.funding-guide{
-  position:relative;
-  padding-top:30px;
-  margin-top:11px;
-}
-.funding-guide-label{
-  position:absolute;
-  top:0;
-  transform:translateX(-50%);
-  font-size:12px;
-  color:#52695c;
-  font-weight:700;
-}
-.funding-guide-label.last{
-  transform:translateX(-100%);
-}
-.funding-track{
-  position:relative;
-  height:30px;
-}
-.funding-fill{
-  display:flex;
-  overflow:hidden;
-  border-radius:999px;
-  height:30px;
-  background:#e5ebe8;
-}
-.funding-marker{
-  position:absolute;
-  top:-5px;
-  height:40px;
-  border-left:2px dashed #355f45;
-  pointer-events:none;
-  z-index:2;
-}
-.funding-marker.end{
-  border-left-style:solid;
-  transform:translateX(-2px);
-}
-.funding-legend{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:5px;
-  text-align:center;
-  margin-top:18px;
-}
-.funding-legend .mid{
-  font-size:14px;
-  overflow-wrap:anywhere;
-}
+/* PURCHASE FUNDING MIX */
+.funding-mix{margin:16px 0 6px}
+.funding-head{display:flex;justify-content:space-between;
+  align-items:center;gap:8px;color:var(--navy)}
+.funding-head strong{font-size:14px}
+.funding-head span{color:var(--muted);font-size:13px}
+.funding-guide{position:relative;padding-top:28px;margin-top:14px}
+.funding-guide-label{position:absolute;top:0;transform:translateX(-50%);
+  font-size:12px;color:#52695c;font-weight:700}
+.funding-guide-label.last{transform:translateX(-100%)}
+.funding-track{height:30px;position:relative}
+.funding-fill{height:100%;display:flex;border-radius:999px;
+  overflow:hidden;background:#e5ebe8}
+.funding-marker{position:absolute;top:-5px;height:40px;
+  border-left:2px dashed #355f45;pointer-events:none;z-index:2}
+.funding-marker.end{border-left-style:solid;transform:translateX(-2px)}
+.funding-legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:5px;text-align:center;margin-top:18px}
+.funding-legend .mid{font-size:14px;overflow-wrap:anywhere}
 .funding-legend .small{margin-top:3px}
-.funding-note{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:12px;
-}
+.funding-note{font-size:11px;color:var(--muted);margin-top:12px}
+
+/* REDESIGNED INCOME-BASED PURCHASE CAPACITY */
+.capacity-header{font-size:13px;letter-spacing:.3px}
+.capacity-price{text-align:center;margin:22px 0 22px}
+.capacity-price .big{margin:8px 0;font-size:32px}
+.capacity-price .small{font-size:12px}
+.capacity-metrics{display:grid;grid-template-columns:1fr 1fr;
+  gap:18px;margin:18px 0}
+.capacity-metrics .small{font-size:13px}
+.capacity-metrics .mid{margin-top:7px}
+.capacity-subtext{font-size:11px;color:var(--muted);margin-top:5px}
+.capacity-danger{color:var(--danger)!important}
+.capacity-position{padding:17px;margin-top:18px}
+.capacity-position .mid{margin-top:6px}
+.capacity-message{font-size:12px;line-height:1.5;
+  color:var(--danger);margin:16px 0}
+.capacity-breakdown{font-size:13px!important;letter-spacing:0!important;
+  padding:8px 0;margin-top:16px}
+.capacity-breakdown-rows .line{font-size:12px;margin:15px 0}
+.capacity-footnote{font-size:11px;color:var(--muted);
+  margin-top:20px;letter-spacing:.2px}
 
 @media(max-width:450px){
-  main{
-    margin:0;
-    border-radius:0;
-    padding:16px;
-  }
+  main{margin:0;border-radius:0;padding:16px}
   .hero h1{font-size:21px}
   .avatar{width:56px;height:56px}
   .grid2{gap:9px}
   .intro h2{font-size:22px}
   .big{font-size:25px}
   .metrics{gap:10px}
+  .capacity-price .big{font-size:30px}
+  .capacity-metrics{gap:10px}
 }
 </style>
 </head>
-
 <body>
 <main id="app"></main>
-
 <script>
 "use strict";
 
 const initial=()=>({
-  journey:"private",
-  sale:0,
-  hdb:0,
-  refund:0,
-  oa:0,
-  pureCash:0,
-  pureCPF:0,
-  extraOn:false,
-  extra:0,
-  b2:false,
-  b3:false,
-  name1:"Buyer 1",
-  age1:35,
-  wage1:5000,
-  status1:"SC",
-  name2:"Buyer 2",
-  age2:43,
-  wage2:6500,
-  status2:"SC",
-  name3:"Buyer 3",
-  age3:30,
-  wage3:5000,
-  status3:"SC",
-  backup:0,
-  debts:0,
-  rate:3,
-  commit:0,
-  protection:false,
-  period:48,
-  choice:"protect"
+  journey:"private",sale:0,hdb:0,refund:0,oa:0,
+  pureCash:0,pureCPF:0,extraOn:false,extra:0,
+  b2:false,b3:false,
+  name1:"Buyer 1",age1:35,wage1:5000,status1:"SC",
+  name2:"Buyer 2",age2:43,wage2:6500,status2:"SC",
+  name3:"Buyer 3",age3:30,wage3:5000,status3:"SC",
+  backup:0,debts:0,rate:3,commit:0,
+  protection:false,period:48,choice:"protect"
 });
 
 let v=initial(),tab=0;
-
-const opened={
-  capacity:false,
-  breakdown:false,
-  A:false,
-  B:false
-};
-
+const opened={capacity:false,breakdown:false,A:false,B:false};
 const $=s=>document.querySelector(s);
 const num=x=>Math.max(0,Number(x)||0);
 const cash=x=>"$"+Math.round(Number(x)||0).toLocaleString("en-SG");
-
-const short=x=>x>=1e6?
-  "$"+(x/1e6).toFixed(2)+"m":
+const short=x=>x>=1e6?"$"+(x/1e6).toFixed(2)+"m":
   x>=1e3?"$"+(x/1e3).toFixed(1)+"k":cash(x);
-
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({
-  "&":"&amp;",
-  "<":"&lt;",
-  ">":"&gt;",
-  '"':"&quot;",
-  "'":"&#39;"
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
 }[c]));
-
 const clamp=(x,min,max)=>Math.max(min,Math.min(max,x));
-
-const people=()=>[
-  1,
-  ...(v.b2?[2]:[]),
-  ...(v.b2&&v.b3?[3]:[])
-];
+const people=()=>[1,...(v.b2?[2]:[]),...(v.b2&&v.b3?[3]:[])];
 
 function bsd(price){
   let left=price,sum=0;
   for(const [width,rate] of [
-    [180000,.01],
-    [180000,.02],
-    [640000,.03],
-    [500000,.04],
-    [1500000,.05],
-    [Infinity,.06]
+    [180000,.01],[180000,.02],[640000,.03],
+    [500000,.04],[1500000,.05],[Infinity,.06]
   ]){
     const part=Math.min(Math.max(left,0),width);
-    sum+=part*rate;
-    left-=part;
+    sum+=part*rate;left-=part;
     if(left<=0)break;
   }
   return sum;
@@ -680,12 +226,8 @@ function factor(rate,years){
 }
 
 function oaRate(age){
-  return age<=35?.23:
-    age<=45?.21:
-    age<=50?.19:
-    age<=55?.15:
-    age<=60?.12:
-    age<=65?.035:
+  return age<=35?.23:age<=45?.21:age<=50?.19:
+    age<=55?.15:age<=60?.12:age<=65?.035:
     age<=70?.01:0;
 }
 
@@ -842,6 +384,7 @@ function calc(){
         price,loan-reduction,
         backup,commit,protect,period
       );
+
       if(found)return found;
     }
 
@@ -908,7 +451,6 @@ function calc(){
   }
 
   const bench=cap/.75;
-
   const benchFees=cap>0?
     bsd(bench)+3000+bench*absd:0;
 
@@ -930,8 +472,7 @@ function calc(){
     commission,fee,net,
     cash:availableCash,cpf,equity,
     income,age,tenure,cap,absd,
-    perBuyer,combined,
-    A,B,spare,reduction,
+    perBuyer,combined,A,B,spare,reduction,
 
     extraPurchase:
       v.protection&&originalB&&baselineB?
@@ -941,8 +482,7 @@ function calc(){
     benchCashLeft,benchCPFLeft,benchOK,
 
     benchShortfall:Math.max(
-      0,
-      -benchCashLeft,
+      0,-benchCashLeft,
       -benchCPFLeft,
       benchUp-equity
     )
@@ -1226,7 +766,6 @@ function step2(R){
         )}
       </div>
     </div>
-
   `).join("")}
 
   <hr>
@@ -1366,19 +905,12 @@ function step3(R){
 }
 
 /*
- * UPDATED PURCHASE FUNDING MIX
+ * PURCHASE FUNDING MIX
+ * Fixed percentage reference lines at:
+ * 5%, 25%, and 100%.
  *
- * Three fixed reference markers:
- * 5%   Mandatory cash
- * 25%  Total downpayment threshold
- * 100% Total property price
- *
- * The markers stay fixed while the funding
- * proportions change dynamically.
- *
- * Used by both Structure A and Structure B.
+ * Used automatically for Structure A and B.
  */
-
 function fundingMix(X){
   const p=Math.max(1,X.price);
 
@@ -1487,7 +1019,6 @@ function mortgageChart(X,id){
 
     ${X.years.map((y,i)=>`
       <div class="year-row">
-
         <div class="row">
           <span>Year ${i+1}</span>
           <span>Mortgage ${cash(X.monthly)}/mo</span>
@@ -1513,11 +1044,9 @@ function mortgageChart(X,id){
         <div class="row small">
           <span>CPF ${cash(y.cpf)}</span>
           <span>Cash ${cash(y.cash)}</span>
-
           ${id==="B"&&v.protection?
             `<span>Shield ${cash(y.shield)}</span>`:""}
         </div>
-
       </div>
     `).join("")}
 
@@ -1525,24 +1054,17 @@ function mortgageChart(X,id){
 
     <div class="row small">
       <span>48-month totals</span>
-
       <span>
-        CPF ${short(
-          X.years.reduce((a,y)=>a+y.cpf*12,0)
-        )}
+        CPF ${short(X.years.reduce((a,y)=>a+y.cpf*12,0))}
       </span>
-
       <span>
-        Cash ${short(
-          X.years.reduce((a,y)=>a+y.cash*12,0)
-        )}
+        Cash ${short(X.years.reduce((a,y)=>a+y.cash*12,0))}
       </span>
-
       ${id==="B"&&v.protection?
         `<span>
-          Shield ${short(
-            X.years.reduce((a,y)=>a+y.shield*12,0)
-          )}
+          Shield ${short(X.years.reduce(
+            (a,y)=>a+y.shield*12,0
+          ))}
         </span>`:""}
     </div>`;
 }
@@ -1556,7 +1078,6 @@ function resultCard(id,R){
 
     <div class="card-head" data-open="${id}">
       <div style="flex:1">
-
         <small>
           STRUCTURE ${id} ·
           ${B?'PROTECTED UPGRADE':
@@ -1567,7 +1088,6 @@ function resultCard(id,R){
           <span>
             ${B?'Elevate Your Address.':'Just Because You Can.'}
           </span>
-
           ${B?'Preserve Your Lifestyle.':
             "Doesn't Mean You Should."}
         </h3>
@@ -1585,16 +1105,12 @@ function resultCard(id,R){
       ${X?`
         <div class="metrics">
           <div class="metric">
-            <span class="small">
-              Max Purchase Price
-            </span>
+            <span class="small">Max Purchase Price</span>
             <div class="mid">${cash(X.price)}</div>
           </div>
 
           <div class="metric">
-            <span class="small">
-              Monthly Mortgage
-            </span>
+            <span class="small">Monthly Mortgage</span>
             <div class="mid">${cash(X.monthly)}</div>
           </div>
         </div>
@@ -1602,18 +1118,13 @@ function resultCard(id,R){
         <hr>
 
         <div class="metrics">
-
           <div class="metric">
-            <span class="small">
-              Max Eligible Loan
-            </span>
+            <span class="small">Max Eligible Loan</span>
             <div class="mid">${cash(R.cap)}</div>
           </div>
 
           <div class="metric">
-            <span class="small">
-              Total Avail Equity
-            </span>
+            <span class="small">Total Avail Equity</span>
             <div class="mid">${cash(R.equity)}</div>
           </div>
 
@@ -1621,39 +1132,22 @@ function resultCard(id,R){
             <span class="small">
               ${B?'Adjusted Loan':'Selected Loan'}
             </span>
-
-            <div class="mid">
-              ${cash(X.loan)}
-            </div>
-
-            <span class="small">
-              ${X.ltv.toFixed(1)}% LTV
-            </span>
+            <div class="mid">${cash(X.loan)}</div>
+            <span class="small">${X.ltv.toFixed(1)}% LTV</span>
           </div>
 
           <div class="metric">
             <span class="small">
               ${B?'Adjusted Upfront':'Upfront Required'}
             </span>
-
-            <div class="mid">
-              ${cash(X.upfront)}
-            </div>
-
-            <span class="small">
-              Downpay: ${cash(X.down)}
-            </span>
-
+            <div class="mid">${cash(X.upfront)}</div>
+            <span class="small">Downpay: ${cash(X.down)}</span>
             <br>
-
             <span class="small">
-              ${R.absd?
-                'BSD + ABSD + Legal':
-                'BSD + Legal'}:
+              ${R.absd?'BSD + ABSD + Legal':'BSD + Legal'}:
               ${cash(X.fees)}
             </span>
           </div>
-
         </div>
 
         <hr>
@@ -1671,14 +1165,12 @@ function resultCard(id,R){
       ${B?`
 
         ${X&&R.spare>=1000?`
-
           <hr>
 
           <div class="row">
             <strong style="font-size:13px">
               Smart CPF Allocation
             </strong>
-
             <span class="small">
               Spare CPF: ${cash(R.spare)}
             </span>
@@ -1686,25 +1178,18 @@ function resultCard(id,R){
 
           <div class="segment" style="margin-top:10px">
             ${selectButton(
-              "Protect Mortgage",
-              "choice",
-              "protect"
+              "Protect Mortgage","choice","protect"
             )}
-
             ${selectButton(
-              "Reduce Loan",
-              "choice",
-              "reduce"
+              "Reduce Loan","choice","reduce"
             )}
           </div>
 
           ${R.reduction?`
             <p class="small">
-              Loan Reduction:
-              ${cash(R.reduction)}
+              Loan Reduction: ${cash(R.reduction)}
             </p>
           `:""}
-
         `:""}
 
         <hr>
@@ -1714,7 +1199,6 @@ function resultCard(id,R){
             <strong style="font-size:13px">
               Mortgage Protection
             </strong>
-
             <div class="small">
               ${v.protection?
                 v.period+"-month protection enabled":
@@ -1725,67 +1209,40 @@ function resultCard(id,R){
           <button
             class="btn ${v.protection?'active':''}"
             data-toggle="protection">
-
             ${v.protection?'ON':'OFF'}
           </button>
         </div>
 
         ${v.protection?`
-
           <div class="row" style="margin-top:15px">
-            <span class="small">
-              Protection Period
-            </span>
-
+            <span class="small">Protection Period</span>
             <div class="segment">
-              ${selectButton(
-                "24 months",
-                "period",
-                24
-              )}
-
-              ${selectButton(
-                "48 months",
-                "period",
-                48
-              )}
+              ${selectButton("24 months","period",24)}
+              ${selectButton("48 months","period",48)}
             </div>
           </div>
 
           <div style="margin-top:13px">
-
             <div class="row">
               <strong style="font-size:12px">
                 Monthly Cash Commitment
               </strong>
-
               <span class="small" style="color:#318461">
                 PP + ${cash(R.extraPurchase)}
               </span>
             </div>
 
-            ${field(
-              "Amount",
-              "commit",
-              {prefix:true}
-            )}
+            ${field("Amount","commit",{prefix:true})}
 
-            ${presets(
-              "commit",
-              [0,1000,2000,3000]
-            )}
-
+            ${presets("commit",[0,1000,2000,3000])}
           </div>
 
           ${X?`
             <div class="line">
               Mortgage Shield Required
-              <strong>
-                ${cash(X.shield)}
-              </strong>
+              <strong>${cash(X.shield)}</strong>
             </div>
           `:""}
-
         `:""}
 
         <hr>
@@ -1799,37 +1256,23 @@ function resultCard(id,R){
         </h3>
 
         <div class="mixlabels">
-
           <div>
             ⌂
-            <div class="small">
-              Your Home
-            </div>
-            <strong>
-              ${X?cash(X.price):"—"}
-            </strong>
+            <div class="small">Your Home</div>
+            <strong>${X?cash(X.price):"—"}</strong>
           </div>
 
           <div>
             ▣
-            <div class="small">
-              Cash Kept
-            </div>
-            <strong>
-              ${cash(v.backup)}
-            </strong>
+            <div class="small">Cash Kept</div>
+            <strong>${cash(v.backup)}</strong>
           </div>
 
           <div>
             ◇
-            <div class="small">
-              Mortgage Shield
-            </div>
-            <strong>
-              ${X?cash(X.shield):"—"}
-            </strong>
+            <div class="small">Mortgage Shield</div>
+            <strong>${X?cash(X.shield):"—"}</strong>
           </div>
-
         </div>
 
         <hr>
@@ -1839,7 +1282,6 @@ function resultCard(id,R){
             "Mortgage protection uses the selected cash commitment and duration.":
             "Mortgage protection is not activated."}
         </div>
-
       `:""}
 
       ${X?`
@@ -1848,7 +1290,6 @@ function resultCard(id,R){
       `:""}
 
     `:""}
-
   </section>`;
 }
 
@@ -1860,15 +1301,11 @@ function step4(R){
   )}
 
   <div class="panel">
-
     <div class="row">
       <strong style="font-size:13px">
         ▣ What You Have
       </strong>
-
-      <span class="small">
-        Available Equity
-      </span>
+      <span class="small">Available Equity</span>
     </div>
 
     <div class="big" style="margin-top:10px">
@@ -1878,13 +1315,8 @@ function step4(R){
     ${balanceBar(R.cash,R.cpf)}
 
     <div class="row small">
-      <span>
-        Cash ${cash(R.cash)}
-      </span>
-
-      <span>
-        CPF ${cash(R.cpf)}
-      </span>
+      <span>Cash ${cash(R.cash)}</span>
+      <span>CPF ${cash(R.cpf)}</span>
     </div>
 
     <hr>
@@ -1893,17 +1325,11 @@ function step4(R){
       <strong style="font-size:13px">
         Your Maximum Loan
       </strong>
-
-      <span class="small">
-        Est. Capacity
-      </span>
+      <span class="small">Est. Capacity</span>
     </div>
 
     <div class="row" style="margin-top:8px">
-      <div class="big">
-        ${cash(R.cap)}
-      </div>
-
+      <div class="big">${cash(R.cap)}</div>
       <span class="small">
         ${R.tenure}-year tenure
       </span>
@@ -1912,16 +1338,8 @@ function step4(R){
     <hr>
 
     <div class="grid2">
-      ${field(
-        "Monthly Debts",
-        "debts",
-        {prefix:true}
-      )}
-
-      ${field(
-        "Mortgage Rate (%)",
-        "rate"
-      )}
+      ${field("Monthly Debts","debts",{prefix:true})}
+      ${field("Mortgage Rate (%)","rate")}
     </div>
 
     <p class="small">
@@ -1930,27 +1348,24 @@ function step4(R){
       The mortgage rate above is used for the
       repayment forecast.
     </p>
-
   </div>
+
+  <!-- REDESIGNED INCOME-BASED PURCHASE CAPACITY -->
 
   <section class="accordion">
 
     <button
-      class="acc-button"
+      class="acc-button capacity-header"
       data-open="capacity">
-
       <span>
         ⚿ &nbsp; INCOME-BASED PURCHASE CAPACITY
       </span>
-
-      <span>
-        ${opened.capacity?'⌃':'⌄'}
-      </span>
+      <span>${opened.capacity?'⌃':'⌄'}</span>
     </button>
 
     ${opened.capacity?`
 
-      <div style="text-align:center;margin:19px 0">
+      <div class="capacity-price">
         <div class="small">
           Potential Property Price
         </div>
@@ -1960,13 +1375,13 @@ function step4(R){
         </div>
 
         <div class="small">
-          Based on estimated 75% financing
+          Based on estimated 75% bank financing
         </div>
       </div>
 
-      <hr>
+      <hr style="margin:20px 0">
 
-      <div class="grid2">
+      <div class="capacity-metrics">
 
         <div>
           <div class="small">
@@ -1976,101 +1391,143 @@ function step4(R){
           <div class="mid">
             ${cash(R.benchUp)}
           </div>
+
+          <div class="capacity-subtext">
+            Downpay + BSD/Legal
+          </div>
         </div>
 
         <div>
-          <div class="small">
+          <div class="small
+            ${R.benchOK?'':'capacity-danger'}">
             ${R.benchOK?
               "Equity Remaining":
               "Funding Shortfall"}
           </div>
 
-          <div class="mid">
+          <div class="mid
+            ${R.benchOK?'':'capacity-danger'}">
             ${cash(R.benchOK?
               R.equity-R.benchUp:
               R.benchShortfall)}
           </div>
+
+          <div class="capacity-subtext">
+            ${R.benchOK?
+              "Available funding after purchase":
+              "Additional funding needed"}
+          </div>
         </div>
 
       </div>
 
-      <div class="panel">
+      <div class="panel capacity-position">
 
-        <span class="eyebrow">
-          FUNDING POSITION
-        </span>
-
-        <div class="line">
-          Cash ${R.benchCashLeft>=0?
-            'Remaining':'Shortfall'}
-
-          <strong>
-            ${cash(Math.abs(R.benchCashLeft))}
-          </strong>
+        <div class="row">
+          <span class="eyebrow">
+            FUNDING POSITION
+          </span>
+          <span style="
+            font-size:20px;
+            color:var(--navy)">
+            ▣
+          </span>
         </div>
 
-        <div class="line">
-          CPF OA ${R.benchCPFLeft>=0?
-            'Remaining':'Shortfall'}
+        <div class="grid2" style="margin-top:14px">
 
-          <strong>
-            ${cash(Math.abs(R.benchCPFLeft))}
-          </strong>
+          <div>
+            <div class="small">
+              Cash ${R.benchCashLeft>=0?
+                'Remaining':'Shortfall'}
+            </div>
+
+            <div class="mid
+              ${R.benchCashLeft>=0?'':'capacity-danger'}">
+              ${cash(Math.abs(R.benchCashLeft))}
+            </div>
+          </div>
+
+          <div>
+            <div class="small">
+              CPF OA ${R.benchCPFLeft>=0?
+                'Remaining':'Shortfall'}
+            </div>
+
+            <div class="mid
+              ${R.benchCPFLeft>=0?'':'capacity-danger'}">
+              ${cash(Math.abs(R.benchCPFLeft))}
+            </div>
+          </div>
+
         </div>
-
       </div>
+
+      ${!R.benchOK?`
+        <p class="capacity-message">
+          This income-based price is not fully funded
+          by available cash and CPF OA.
+        </p>
+      `:""}
 
       <button
-        class="acc-button"
-        data-open="breakdown"
-        style="margin-top:15px">
-
-        Explore Purchase Breakdown
-
-        <span>
-          ${opened.breakdown?'⌃':'⌄'}
-        </span>
+        class="acc-button capacity-breakdown"
+        data-open="breakdown">
+        <span>Explore Purchase Breakdown</span>
+        <span>${opened.breakdown?'⌃':'⌄'}</span>
       </button>
 
       ${opened.breakdown?`
 
-        <div class="line">
-          Estimated Loan
-          <strong>
-            ${cash(R.cap)}
-          </strong>
-        </div>
+        <hr style="margin:17px 0">
 
-        <div class="line">
-          5% Mandatory Cash
-          <strong>
-            ${cash(R.bench*.05)}
-          </strong>
-        </div>
+        <div class="capacity-breakdown-rows">
 
-        <div class="line">
-          Downpayment
-          <strong>
-            ${cash(R.bench*.25)}
-          </strong>
-        </div>
-
-        <div class="line">
-          BSD + Legal
-          <strong>
-            ${cash(R.benchFees-R.bench*R.absd)}
-          </strong>
-        </div>
-
-        ${R.absd?`
           <div class="line">
-            Assumed ABSD
+            Maximum Bank Loan
+            <strong>${cash(R.cap)}</strong>
+          </div>
+
+          <div class="line">
+            5% Mandatory Cash
+            <strong>${cash(R.bench*.05)}</strong>
+          </div>
+
+          <div class="line">
+            20% CPF / Cash
+            <strong>${cash(R.bench*.20)}</strong>
+          </div>
+
+          <div class="line">
+            BSD + Legal
             <strong>
-              ${cash(R.bench*R.absd)}
+              ${cash(R.benchFees-R.bench*R.absd)}
             </strong>
           </div>
-        `:""}
 
+          ${R.absd?`
+            <div class="line">
+              Assumed ABSD
+              <strong>
+                ${cash(R.bench*R.absd)}
+              </strong>
+            </div>
+          `:""}
+
+          <div class="line">
+            Buyer Age / Loan Tenure
+            <strong>
+              ${R.age.toFixed(1)} yrs /
+              ${R.tenure} yrs
+            </strong>
+          </div>
+
+        </div>
+
+        <div class="capacity-footnote">
+          55% TDSR · 4% stress test ·
+          Loan rounded to $1k
+        </div>
       `:""}
 
     `:""}
@@ -2086,7 +1543,6 @@ function render(){
   const R=calc();
 
   $("#app").innerHTML=`
-
     <div class="brand">
       <span>
         ▤ &nbsp; JONATHAN FOK · PROPERTY ADVISORY
@@ -2100,7 +1556,6 @@ function render(){
     </div>
 
     <div class="hero">
-
       <div class="avatar">
         <img
           src="https://i.postimg.cc/VN3MnPjk/IMG-5337.jpg"
@@ -2112,43 +1567,27 @@ function render(){
         <span class="eyebrow">
           PERSONAL UPGRADE DISCOVERY
         </span>
-
         <h1>
           <span>5 Minutes.</span>
           The Full Picture.
         </h1>
-
-        <p>
-          No more guessing about your Budget.
-        </p>
+        <p>No more guessing about your Budget.</p>
       </div>
-
     </div>
 
     <div class="rule"></div>
 
     <nav class="tabs">
-
       ${[
-        "Funds",
-        "CPF OA",
-        "Backup",
-        "Results"
+        "Funds","CPF OA","Backup","Results"
       ].map((label,i)=>`
-
         <button
           class="tab ${tab===i?'active':''}"
           data-tab="${i}">
-
-          <small>
-            STEP ${i+1}
-          </small>
-
+          <small>STEP ${i+1}</small>
           ${label}
         </button>
-
       `).join("")}
-
     </nav>
 
     ${tab===0?step1(R):
@@ -2159,12 +1598,10 @@ function render(){
     <hr>
 
     <div class="nav">
-
       <button
         class="btn"
         data-action="back"
         ${tab===0?"disabled":""}>
-
         ← Back
       </button>
 
@@ -2175,38 +1612,30 @@ function render(){
       <button
         class="btn"
         data-action="next">
-
-        ${tab===3?
-          "Review Funds":
-          "Continue →"}
+        ${tab===3?"Review Funds":"Continue →"}
       </button>
-
     </div>
 
     <footer>
-
       <strong>Disclaimer:</strong>
-
       Independently designed by Jonathan Fok.
       All figures are estimates and may vary
       based on actual CPF, financing and stamp
       duty requirements.
 
       This planning version uses a simplified
-      ABSD assumption: 0% where any buyer is
-      a Singapore Citizen; otherwise 5% for
-      all-PR buyers.
+      ABSD assumption: 0% where any buyer
+      is a Singapore Citizen; otherwise 5%
+      for all-PR buyers.
 
       Actual IRAS treatment and financing
       eligibility may differ.
-
     </footer>
   `;
 }
 
 document.addEventListener("change",e=>{
   const key=e.target.dataset.field;
-
   if(!key)return;
 
   v[key]=e.target.type==="text"?
@@ -2218,7 +1647,6 @@ document.addEventListener("change",e=>{
 
 document.addEventListener("click",e=>{
   const node=e.target.closest("button,[data-open]");
-
   if(!node)return;
 
   if(node.dataset.tab!==undefined){
@@ -2236,7 +1664,6 @@ document.addEventListener("click",e=>{
 
   }else if(node.dataset.toggle){
     const key=node.dataset.toggle;
-
     v[key]=!v[key];
 
     if(key==="b2"&&!v.b2){
@@ -2245,7 +1672,6 @@ document.addEventListener("click",e=>{
 
   }else if(node.dataset.open){
     const key=node.dataset.open;
-
     opened[key]=!opened[key];
 
   }else if(node.dataset.action==="back"){
