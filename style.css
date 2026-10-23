@@ -1,647 +1,1337 @@
 
-/* Lifestyle Upgrade Protection V33.9 */
-/* Part 1 of 2 — Base and form styling */
+/* =====================================================
+   JONATHAN FOK · PROPERTY ADVISORY
+   Personal Upgrade Discovery Calculator
+   style.css
+   ===================================================== */
+
+/* 1. DESIGN TOKENS */
 
 :root {
-  font-family: -apple-system, BlinkMacSystemFont,
+  --navy: #1f4e78;
+  --navy-dark: #293d4e;
+  --navy-soft: #eef4f9;
+  --navy-light: #dce8f2;
+
+  --white: #ffffff;
+  --ivory: #f4f3ee;
+  --surface-blue: #f0f4f7;
+  --surface-a: #eff4f8;
+  --surface-b: #f3f4f1;
+
+  --text: #293d4e;
+  --text-muted: #697989;
+  --text-light: #708192;
+
+  --border: #e0e6ec;
+  --border-light: #e5e9ee;
+  --gold: #a18a66;
+
+  --cash: #dda45c;
+  --cpf: #65ada2;
+  --loan: #5685af;
+  --shield: #8972ce;
+
+  --success: #367a60;
+  --danger: #b05c49;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  --shadow-soft: 0 6px 24px rgba(31, 78, 120, 0.05);
+
+  font-family: Inter, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Arial, sans-serif;
-  color: #263348;
-  background: #f6f8fa;
-  font-synthesis: none;
 }
 
-* {
+/* 2. RESET */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  padding: 14px 10px 60px;
-  min-height: 100vh;
+  padding: 20px 12px;
+  background: #f7f9fb;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
 
 button {
   cursor: pointer;
-  border: 1px solid #dce2e8;
-  border-radius: 9px;
-  background: #f5f7f9;
-  color: #263348;
-  padding: 10px;
-}
-
-button:active {
-  opacity: 0.8;
-}
-
-button.active,
-button.primary {
-  background: #2c4663;
-  color: white;
-  border-color: #2c4663;
 }
 
 button:disabled {
+  cursor: not-allowed;
   opacity: 0.45;
-  cursor: default;
 }
 
-.app-shell {
-  max-width: 740px;
+[hidden] {
+  display: none !important;
+}
+
+/* 3. MAIN CALCULATOR */
+
+.calculator,
+.calculator-container,
+.calculator-shell {
+  width: 100%;
+  max-width: 760px;
   margin: 0 auto;
-  background: white;
-  border: 1px solid #e0e5eb;
-  border-radius: 20px;
-  padding: 15px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: 22px;
+  box-shadow: var(--shadow-soft);
 }
 
-.app-header {
-  margin-bottom: 18px;
-}
+/* 4. BRAND HEADER */
 
-.version {
-  margin: 0 0 6px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  color: #778496;
-}
-
-h1 {
-  font-size: 21px;
-  line-height: 1.25;
-  margin: 4px 0 6px;
-}
-
-h2 {
-  font-size: 18px;
-  margin: 5px 0 14px;
-}
-
-h3 {
-  font-size: 15px;
-  margin: 0 0 8px;
-}
-
-.subtitle,
-.small,
-.muted {
-  color: #69778a;
-}
-
-.subtitle {
-  font-size: 12px;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.small {
-  font-size: 12px;
-  line-height: 1.55;
-}
-
-.tiny {
-  font-size: 11px;
-  color: #788497;
-}
-
-.money {
-  font-variant-numeric: tabular-nums;
-}
-
-.step-tabs {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 7px;
+.brand-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 20px;
 }
 
-.step-tabs button {
+.brand-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.reset-button {
+  padding: 6px 10px;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.reset-button:hover {
+  background: var(--surface-blue);
+  color: var(--navy);
+}
+
+/* 5. HERO */
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.hero-avatar,
+.profile-photo {
+  width: 68px;
+  height: 68px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #e1eaf2;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-content {
+  min-width: 0;
+}
+
+.hero-eyebrow {
+  margin: 0 0 4px;
+  color: var(--navy);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.045em;
+}
+
+.hero-title {
+  margin: 0;
+  color: var(--navy);
+  font-size: clamp(23px, 5vw, 31px);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.035em;
+}
+
+.hero-title .muted,
+.hero-title-muted {
+  display: block;
+  color: #64788b;
+  font-weight: 400;
+}
+
+.hero-subtitle {
+  margin: 6px 0 0;
+  color: #64788b;
+  font-size: 12px;
+}
+
+.hero-rule,
+.gold-rule {
+  width: 36px;
+  height: 2px;
+  border: 0;
+  border-radius: 99px;
+}
+
+.hero-rule {
+  margin: 0 0 12px;
+  background: var(--navy);
+}
+
+.gold-rule {
+  margin-top: 8px;
+  background: var(--gold);
+}
+
+/* 6. FOUR-STEP NAVIGATION */
+
+.step-navigation,
+.step-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+  margin: 0 0 16px;
+}
+
+.step-tab {
   display: flex;
   flex-direction: column;
-  gap: 3px;
   align-items: center;
-  padding: 9px 3px;
-  font-size: 12px;
+  justify-content: center;
+  min-height: 55px;
+  padding: 9px 4px;
+  background: var(--surface-blue);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--navy);
+  text-align: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.step-tab.active,
+.step-tab[aria-selected="true"] {
+  background: var(--navy);
+  color: white;
 }
 
 .step-number {
+  color: #718395;
   font-size: 10px;
-  opacity: 0.8;
+  font-weight: 700;
+  letter-spacing: 0.03em;
 }
 
-.section,
-.gap {
-  display: grid;
-  gap: 12px;
-}
-
-.section {
-  margin: 12px 0;
-}
-
-.grid2 {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.flex,
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-
-.row {
+.step-label {
   font-size: 13px;
+  font-weight: 650;
 }
 
-.row > :last-child {
-  text-align: right;
+.step-tab.active .step-number,
+.step-tab[aria-selected="true"] .step-number {
+  color: #d5e4f0;
 }
 
-.panel {
-  background: #f2f4f6;
-  border-radius: 12px;
-  padding: 12px;
-  min-width: 0;
+.step-tab:not(.active):hover {
+  background: #e4edf4;
 }
 
-.card {
-  border: 1px solid #dde3e9;
-  border-radius: 14px;
-  padding: 12px;
-  min-width: 0;
+/* 7. STEP INTRO / IVORY PANEL */
+
+.step-intro,
+.section-intro {
+  padding: 20px;
+  margin-bottom: 20px;
+  background: var(--ivory);
+  border-radius: var(--radius-lg);
 }
 
-.structure-a {
-  background: #edf5fc;
-  border-color: #c9e1f4;
+.section-eyebrow {
+  margin: 0 0 12px;
+  color: #6d6254;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
 }
 
-.structure-b {
-  background: #eff8f2;
-  border-color: #c6e5d4;
-}
-
-.statlabel {
-  font-size: 12px;
-  color: #637286;
-  margin-bottom: 5px;
-}
-
-.big {
-  font-size: 22px;
-  font-weight: 750;
+.section-title {
+  margin: 0;
+  color: var(--navy-dark);
+  font-size: clamp(22px, 5vw, 27px);
+  font-weight: 700;
+  line-height: 1.18;
   letter-spacing: -0.025em;
-  overflow-wrap: anywhere;
 }
 
-.med {
-  font-size: 17px;
-  font-weight: 750;
-  overflow-wrap: anywhere;
-}
-
-.field {
-  min-width: 0;
-}
-
-label {
+.section-title .muted {
   display: block;
+  color: #70695f;
+  font-weight: 400;
+}
+
+/* 8. SHARED HEADINGS */
+
+.field-section {
+  margin-bottom: 22px;
+}
+
+.field-heading,
+.block-heading {
+  margin: 0 0 12px;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+/* 9. PURCHASE JOURNEY CARDS */
+
+.journey-options,
+.journey-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.journey-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 62px;
+  padding: 13px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: white;
+  text-align: left;
+  color: var(--navy);
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    transform 0.2s;
+}
+
+.journey-card:hover {
+  border-color: #9db2c5;
+  background: #f8fafc;
+}
+
+.journey-card.active,
+.journey-card.selected,
+.journey-card[aria-pressed="true"] {
+  border-color: var(--navy);
+  background: var(--navy-soft);
+}
+
+.journey-icon {
+  display: grid;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 10px;
+  background: #f1f4f6;
+  color: var(--navy);
+}
+
+.journey-card.active .journey-icon,
+.journey-card.selected .journey-icon {
+  background: var(--navy-light);
+}
+
+.journey-title {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.journey-check {
+  display: grid;
+  flex: 0 0 21px;
+  width: 21px;
+  height: 21px;
+  place-items: center;
+  border: 1px solid #c6d0d8;
+  border-radius: 50%;
+  color: transparent;
+}
+
+.journey-card.active .journey-check,
+.journey-card.selected .journey-check {
+  border-color: var(--navy);
+  background: var(--navy);
+  color: white;
+}
+
+/* 10. CURRENT LOAN / NEXT HOME LOAN */
+
+.loan-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 18px;
+  margin-bottom: 20px;
+}
+
+.loan-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.loan-group-label {
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.segmented-control,
+.loan-segments {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3px;
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #e2e8ef;
+  border-radius: 12px;
+  background: #f0f4f7;
+}
+
+.segmented-control.two-options {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.segment-button,
+.segment {
+  min-width: 0;
+  min-height: 40px;
+  padding: 8px 5px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #667b8e;
   font-size: 12px;
   font-weight: 600;
-  line-height: 1.4;
-  margin-bottom: 5px;
-}
-
-label.center {
   text-align: center;
+  transition: all 0.18s ease;
 }
 
-input,
-select {
+.segment-button.active,
+.segment-button.selected,
+.segment-button[aria-pressed="true"],
+.segment.active {
+  background: white;
+  color: var(--navy);
+  box-shadow: 0 1px 5px rgba(31, 78, 120, 0.11);
+}
+
+/* 11. INPUTS */
+
+.form-grid,
+.fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.form-field,
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.form-field label,
+.input-group label,
+.input-label {
+  padding-left: 20px;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+select,
+textarea {
   width: 100%;
   min-width: 0;
-  border: 1px solid #d5dce5;
-  border-radius: 9px;
-  padding: 11px 9px;
+  min-height: 43px;
+  padding: 10px 13px;
+  border: 1px solid #d7e0e8;
+  border-radius: 10px;
   background: white;
-  color: #263348;
-  font-size: 16px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input:focus,
-select:focus {
-  outline: 2px solid #8dbbe2;
-  outline-offset: 1px;
+select:focus,
+textarea:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(31, 78, 120, 0.09);
+}
+
+.currency-input {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.currency-prefix {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.currency-input input {
+  flex: 1;
 }
 
 input[type="number"] {
-  appearance: textfield;
-  -moz-appearance: textfield;
+  font-variant-numeric: tabular-nums;
 }
 
-input::-webkit-inner-spin-button {
-  appearance: none;
+/* 12. SALE BREAKDOWN */
+
+.sale-breakdown,
+.info-panel {
+  padding: 16px;
+  background: var(--surface-blue);
+  border-radius: var(--radius-md);
 }
 
-hr {
-  border: 0;
-  border-top: 1px solid #dce1e6;
-  margin: 10px 0;
+.sale-breakdown-title {
+  margin: 0 0 12px;
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-.segment {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 5px;
-  padding: 4px;
-  border-radius: 12px;
-  background: #eef1f4;
-  min-width: 0;
-}
-
-.segment button {
-  border: 0;
+.breakdown-row,
+.summary-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 5px 0;
+  color: var(--text-muted);
   font-size: 12px;
-  padding: 10px 3px;
-  min-width: 0;
 }
 
-.pills {
+.breakdown-row strong,
+.summary-row strong {
+  color: var(--navy);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.breakdown-total {
+  margin-top: 9px;
+  padding-top: 12px;
+  border-top: 1px solid #d6dce4;
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* 13. ADDITIONAL CASH / TOGGLES */
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.toggle-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.toggle-title {
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.toggle-description {
+  color: var(--text-light);
+  font-size: 11px;
+}
+
+.toggle-button {
+  padding: 7px 12px;
+  border: 1px solid #d2dbe3;
+  border-radius: 9px;
+  background: white;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.toggle-button.active {
+  border-color: var(--success);
+  background: var(--success);
+  color: white;
+}
+
+.preset-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 5px;
 }
 
-.pills button {
-  padding: 9px 2px;
+.preset-button {
+  min-height: 36px;
+  padding: 7px 4px;
+  border: 1px solid #d6dfe8;
+  border-radius: 9px;
+  background: white;
+  color: var(--text-muted);
   font-size: 11px;
-  white-space: nowrap;
+  font-weight: 600;
 }
 
-.checkline {
+.preset-button.active {
+  background: var(--navy);
+  color: white;
+  border-color: var(--navy);
+}
+
+/* 14. EQUITY CARD */
+
+.equity-card,
+.equity-summary {
+  padding: 18px;
+  background: var(--surface-blue);
+  border-radius: var(--radius-lg);
+}
+
+.equity-label {
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.equity-total {
+  margin: 4px 0 15px;
+  color: var(--navy);
+  font-size: clamp(27px, 6vw, 35px);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.equity-bar,
+.funding-bar,
+.reserve-bar {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  height: 10px;
+  border-radius: 99px;
+  background: #e2e9ee;
+}
+
+.bar-cash {
+  background: var(--cash);
+}
+
+.bar-cpf {
+  background: var(--cpf);
+}
+
+.bar-loan {
+  background: var(--loan);
+}
+
+.bar-shield {
+  background: var(--shield);
+}
+
+.equity-details,
+.two-column-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.metric-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.metric-value {
+  margin-top: 4px;
+  color: var(--navy);
+  font-size: 17px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.color-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.color-dot.cash {
+  background: var(--cash);
+}
+
+.color-dot.cpf {
+  background: var(--cpf);
+}
+
+.color-dot.loan {
+  background: var(--loan);
+}
+
+.color-dot.shield {
+  background: var(--shield);
+}
+
+/* 15. BUYERS */
+
+.buyer-block {
+  margin-bottom: 20px;
+}
+
+.buyer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.buyer-header-left {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.checkline input {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-  margin: 0;
-}
-
-.buyer-group {
-  min-width: 0;
-}
-
-.buyer-grid {
+.buyer-avatar {
   display: grid;
-  grid-template-columns: 0.8fr 1.3fr 1fr;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 50%;
+  background: #e6edf3;
+  color: var(--navy);
+}
+
+.buyer-heading {
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.add-buyer {
+  display: flex;
+  align-items: center;
   gap: 8px;
-  align-items: end;
+  color: #485e72;
+  font-size: 11px;
 }
 
-.buyer-grid .segment {
-  height: 43px;
-  align-items: stretch;
+.buyer-divider {
+  height: 1px;
+  margin: 20px 0;
+  background: var(--border-light);
 }
 
-.buyer-grid .segment button {
-  padding: 6px 2px;
-}
-/* ---------------------------------------
-   PART 2 — CHARTS AND RESULT STYLING
----------------------------------------- */
+/* 16. CPF PROJECTIONS */
 
-/* CPF OA charts */
+.cpf-section-title {
+  margin: 0 0 5px;
+  color: var(--navy-dark);
+  font-size: 18px;
+  font-weight: 700;
+}
 
 .cpf-chart {
-  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.chart-heading {
+.cpf-chart-row {
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1fr) 75px;
+  align-items: center;
+  gap: 10px;
+}
+
+.cpf-chart-age,
+.cpf-chart-amount {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.cpf-chart-amount {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.cpf-chart-track {
+  display: flex;
+  overflow: hidden;
+  height: 12px;
+  border-radius: 99px;
+  background: #e8efed;
+}
+
+.cpf-chart-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--cpf);
+}
+
+.buyer-one-color {
+  background: #65ada2;
+}
+
+.buyer-two-color {
+  background: #426a9b;
+}
+
+.buyer-three-color {
+  background: #dda45c;
+}
+
+/* 17. STEP 3 CASH RESERVE */
+
+.reserve-card {
+  padding: 18px;
+  background: var(--surface-blue);
+  border-radius: var(--radius-lg);
+}
+
+.reserve-amount {
+  color: var(--navy);
+  font-size: 29px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.reserve-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.warning-text {
+  color: var(--danger);
+  font-size: 12px;
+}
+
+/* 18. RESULTS */
+
+.foundation-card {
+  padding: 20px;
+  background: var(--ivory);
+  border-radius: var(--radius-lg);
+}
+
+.foundation-divider {
+  height: 1px;
+  margin: 16px 0;
+  background: #dcd9d1;
+}
+
+.loan-amount {
+  color: var(--navy);
+  font-size: 29px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.loan-tenure {
+  color: #6d6c69;
+  font-size: 12px;
+}
+
+.capacity-card {
+  padding: 16px;
+  border: 1px solid #c7d4e0;
+  border-radius: var(--radius-lg);
+  background: white;
+}
+
+.accordion-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  margin-bottom: 6px;
-}
-
-.chart-row {
-  display: grid;
-  grid-template-columns: 57px minmax(0, 1fr) 76px;
-  align-items: center;
-  gap: 7px;
-  min-width: 0;
-}
-
-.chart-age {
-  font-size: 11px;
-  color: #718095;
-  white-space: nowrap;
-}
-
-.chart-value {
-  font-size: 11px;
-  font-weight: 600;
-  text-align: right;
-  white-space: nowrap;
-}
-
-.bar {
-  display: flex;
+  gap: 12px;
   width: 100%;
-  background: #e0e6eb;
-  border-radius: 999px;
-  overflow: hidden;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--navy);
+  text-align: left;
+  font-size: 12px;
+  font-weight: 700;
 }
 
-.pill-bar {
-  height: 13px;
+.accordion-body {
+  padding-top: 16px;
 }
 
-.pill-bar > div,
-.stack {
-  height: 100%;
-  min-width: 0;
+/* 19. STRUCTURE A AND B */
+
+.structure-card {
+  padding: 18px;
+  border-radius: var(--radius-lg);
 }
 
-.stack {
-  display: flex;
-  overflow: hidden;
-  border-radius: 999px;
+.structure-a {
+  background: var(--surface-a);
 }
 
-.stack > div {
-  height: 100%;
+.structure-b {
+  background: var(--surface-b);
 }
 
-.dot {
-  display: inline-block;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  margin-right: 4px;
-  flex-shrink: 0;
-}
-
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 14px;
+.structure-eyebrow {
+  color: var(--navy);
   font-size: 11px;
-  color: #66758a;
+  font-weight: 700;
+  letter-spacing: 0.025em;
 }
 
-.legend.centered {
-  justify-content: center;
+.structure-title {
+  margin: 8px 0 0;
+  color: var(--navy);
+  font-size: clamp(21px, 5vw, 27px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
-/* Income and purchase capacity */
+.structure-title .muted {
+  display: block;
+  font-weight: 400;
+  color: #6b8398;
+}
 
-.capacity-grid {
+.structure-b .structure-title {
+  color: #324e62;
+}
+
+.structure-b .structure-title .muted {
+  color: #75858b;
+}
+
+.structure-divider {
+  height: 1px;
+  margin: 14px 0;
+  background: #d6dce4;
+}
+
+.structure-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.structure-metric-label {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.structure-metric-value {
+  margin-top: 4px;
+  color: var(--navy);
+  font-size: 19px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 20. FUNDING MIX */
+
+.funding-mix {
+  margin-top: 14px;
+}
+
+.funding-mix-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+  color: #526a60;
+  font-size: 11px;
+}
+
+.funding-mix-bar {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  height: 23px;
+  background: #e5ebe8;
+  border-radius: 99px;
+}
+
+.funding-mix-details {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 7px;
+  gap: 8px;
+  margin-top: 12px;
+  text-align: center;
 }
 
-.capacity-stat {
-  min-width: 0;
-  background: #fff;
-  border-radius: 10px;
-  padding: 10px 8px;
+/* 21. MORTGAGE PROTECTION */
+
+.protection-section {
+  margin-top: 16px;
 }
 
-.capacity-stat b {
+.protection-heading {
+  color: #324e62;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.protection-description {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.protection-positive {
+  color: #318461;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* 22. LIFESTYLE SUMMARY */
+
+.lifestyle-summary {
+  padding-top: 12px;
+}
+
+.lifestyle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.lifestyle-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  text-align: center;
+}
+
+.lifestyle-item-label {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.lifestyle-item-value {
+  color: var(--navy);
   font-size: 13px;
-  overflow-wrap: anywhere;
+  font-weight: 700;
 }
 
-.equity-bar {
-  height: 15px;
+/* 23. MORTGAGE YEARLY CHART */
+
+.mortgage-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.equity-bar > div {
-  height: 100%;
+.mortgage-year-row {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
 }
 
-.warning {
-  background: #fff1ed;
-  color: #a33c2c;
+.mortgage-year-label {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.mortgage-year-bar {
+  display: flex;
+  overflow: hidden;
+  height: 13px;
+  border-radius: 99px;
+  background: #e5ebe8;
+}
+
+.mortgage-year-legend {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 5px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+/* 24. FOOTER NAVIGATION */
+
+.step-footer,
+.calculator-footer-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.footer-button {
+  min-height: 38px;
+  padding: 9px 15px;
+  border: 1px solid #c7d4e0;
   border-radius: 10px;
-  padding: 11px;
+  background: white;
+  color: var(--navy);
   font-size: 12px;
   font-weight: 650;
 }
 
-/* Structure A and B */
-
-.structure-a,
-.structure-b {
-  gap: 13px;
+.footer-button:hover:not(:disabled) {
+  background: var(--navy-soft);
 }
 
-.structure-a h3 {
-  color: #28678e;
+.footer-button.primary {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: white;
 }
 
-.structure-b h3 {
-  color: #367a60;
+.step-counter {
+  color: var(--text-muted);
+  font-size: 11px;
 }
 
-.structure-a > .grid2,
-.structure-b > .grid2 {
-  gap: 8px;
-}
+/* 25. DISCLAIMER */
 
-.structure-a .big,
-.structure-b .big {
-  font-size: clamp(17px, 4.5vw, 25px);
-}
-
-.finance {
-  min-width: 0;
-  border: 1px solid rgba(100, 120, 140, 0.13);
-  border-radius: 11px;
-  background: rgba(255, 255, 255, 0.76);
-  padding: 11px;
-}
-
-.finance .med {
-  font-size: clamp(15px, 4vw, 19px);
-}
-
-.finance hr {
-  margin: 9px 0;
-}
-
-/* Mortgage payment charts */
-
-.bars {
-  display: grid;
-  gap: 5px;
-}
-
-.funding-bar {
-  height: 13px;
-}
-
-.funding-bar > div {
-  height: 100%;
-  flex-shrink: 0;
-}
-
-.funding-labels {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 4px 9px;
+.disclaimer {
+  margin: 16px 0 0;
+  color: #7a8793;
   font-size: 10px;
-  color: #6d7b8e;
+  line-height: 1.6;
 }
 
-/* Interactive option panels */
+/* 26. GENERAL UTILITIES */
 
-.structure-b .panel {
-  background: rgba(255, 255, 255, 0.74);
+.divider {
+  height: 1px;
+  margin: 16px 0;
+  background: var(--border-light);
 }
 
-.structure-b .flex > div:first-child {
-  min-width: 0;
+.text-muted {
+  color: var(--text-muted);
 }
 
-.structure-b .flex > button {
-  flex-shrink: 0;
-  min-width: 62px;
+.text-navy {
+  color: var(--navy);
 }
 
-.structure-b .segment {
-  background: #e6eeea;
+.text-success {
+  color: var(--success);
 }
 
-.structure-b .segment button.active {
-  background: #2d765d;
-  border-color: #2d765d;
+.text-danger {
+  color: var(--danger);
 }
 
-.structure-b .row {
-  align-items: baseline;
+.text-center {
+  text-align: center;
 }
 
-/* Navigation */
-
-.step-navigation,
-.nav-actions,
-.footer-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
+.font-semibold {
+  font-weight: 650;
 }
 
-#back-button,
-#next-button {
-  min-width: 115px;
-  padding: 12px 14px;
+.font-bold {
   font-weight: 700;
 }
 
-#next-button {
-  background: #2c4663;
-  border-color: #2c4663;
-  color: #fff;
+.mt-12 {
+  margin-top: 12px;
 }
 
-#back-button {
-  background: #eef1f4;
+.mt-20 {
+  margin-top: 20px;
 }
 
-.app-footer {
-  margin-top: 22px;
-  font-size: 11px;
-  line-height: 1.6;
-  color: #788597;
+.mb-12 {
+  margin-bottom: 12px;
 }
 
-/* Mobile layout */
+.mb-20 {
+  margin-bottom: 20px;
+}
 
-@media (max-width: 480px) {
+/* 27. ACCESSIBILITY */
+
+button:focus-visible,
+.journey-card:focus-visible,
+.step-tab:focus-visible,
+.accordion-header:focus-visible {
+  outline: 3px solid rgba(31, 78, 120, 0.3);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* 28. MOBILE RESPONSIVE */
+
+@media (max-width: 600px) {
   body {
-    padding: 8px 5px 35px;
+    padding: 8px;
   }
 
-  .app-shell {
-    padding: 12px 10px;
-    border-radius: 14px;
+  .calculator,
+  .calculator-container,
+  .calculator-shell {
+    padding: 14px;
+    border-radius: 17px;
   }
 
-  .step-tabs {
-    gap: 4px;
+  .brand-name {
+    font-size: 9px;
   }
 
-  .step-tabs button {
+  .hero {
+    gap: 12px;
+  }
+
+  .hero-avatar,
+  .profile-photo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .hero-title {
+    font-size: 23px;
+  }
+
+  .step-intro,
+  .section-intro,
+  .foundation-card {
+    padding: 16px;
+  }
+
+  .form-grid,
+  .fields-grid {
+    gap: 12px;
+  }
+
+  .form-field label,
+  .input-group label {
+    padding-left: 8px;
+    font-size: 12px;
+  }
+
+  .journey-card {
+    min-height: 58px;
+    padding: 11px 12px;
+  }
+
+  .segment-button,
+  .segment {
+    padding: 9px 3px;
     font-size: 11px;
-    padding: 9px 2px;
   }
 
-  .grid2 {
-    gap: 8px;
+  .structure-card {
+    padding: 15px;
   }
 
-  .panel,
-  .card {
-    padding: 10px;
+  .structure-metric-value {
+    font-size: 17px;
   }
+}
 
-  .buyer-grid {
-    grid-template-columns:
-      minmax(0, 0.72fr)
-      minmax(0, 1.25fr)
-      minmax(0, 1fr);
-    gap: 6px;
-  }
-
-  .buyer-grid input {
-    padding: 11px 5px;
-  }
-
-  .buyer-grid .segment {
-    gap: 2px;
-    padding: 3px;
-  }
-
-  .buyer-grid .segment button {
+@media (max-width: 370px) {
+  .step-label {
     font-size: 11px;
   }
 
-  .chart-row {
-    grid-template-columns:
-      52px minmax(0, 1fr) 72px;
-    gap: 5px;
+  .step-number {
+    font-size: 9px;
   }
 
-  .chart-age,
-  .chart-value {
+  .journey-title {
+    font-size: 13px;
+  }
+
+  .segment-button,
+  .segment {
     font-size: 10px;
   }
 
-  .capacity-grid {
-    gap: 5px;
+  .equity-total,
+  .loan-amount {
+    font-size: 25px;
   }
 
-  .capacity-stat {
-    padding
+  .lifestyle-item-value {
+    font-size: 11px;
+  }
+}
