@@ -5,164 +5,522 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Personal Upgrade Discovery | Jonathan Fok</title>
+
 <style>
 :root{
-  --navy:#1F4E78;--muted:#697989;--line:#E0E6EC;
-  --ivory:#F4F3EE;--blue:#F0F4F7;--teal:#65ADA2;
-  --orange:#DDA45C;--loan:#5685AF;--purple:#8972CE;
+  --navy:#1F4E78;
+  --muted:#697989;
+  --line:#E0E6EC;
+  --ivory:#F4F3EE;
+  --blue:#F0F4F7;
+  --teal:#65ADA2;
+  --orange:#DDA45C;
+  --loan:#5685AF;
+  --purple:#8972CE;
   --danger:#B45E49;
 }
 *{box-sizing:border-box}
-body{margin:0;background:#edf1f4;color:#293d4e;
-  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-main{max-width:750px;margin:30px auto;background:white;
-  border:1px solid #e5e9ee;border-radius:22px;padding:25px}
+body{
+  margin:0;
+  background:#edf1f4;
+  color:#293d4e;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,
+    "Segoe UI",Arial,sans-serif;
+}
+main{
+  max-width:750px;
+  margin:30px auto;
+  background:white;
+  border:1px solid #e5e9ee;
+  border-radius:22px;
+  padding:25px;
+}
 button,input,select{font:inherit}
 button{cursor:pointer}
 button:disabled{opacity:.35;cursor:default}
-.brand{display:flex;justify-content:space-between;align-items:center;
-  gap:12px;font-size:10px;font-weight:750;letter-spacing:.6px;color:var(--navy)}
+.brand{
+  display:flex;justify-content:space-between;
+  align-items:center;gap:12px;
+  font-size:10px;font-weight:750;
+  letter-spacing:.6px;color:var(--navy);
+}
 .brand span{display:flex;align-items:center;gap:6px}
-.reset{border:0;background:transparent;color:#768697;font-size:12px}
-.hero{display:flex;align-items:center;gap:15px;margin:22px 0 16px}
-.avatar{width:68px;height:68px;border-radius:100%;background:#e1eaf2;
-  display:grid;place-items:center;flex-shrink:0;color:var(--navy);font-size:29px}
-.avatar img{width:100%;height:100%;border-radius:100%;object-fit:cover}
-.eyebrow,.section-label{font-size:11px;font-weight:750;
-  letter-spacing:.65px;color:var(--navy)}
-.hero h1{margin:5px 0 2px;color:var(--navy);font-size:24px;
-  line-height:1.13;font-weight:750}
-.hero h1 span{display:block;color:#64788b;font-weight:450}
-.hero p{font-size:12px;color:#64788b;margin:7px 0 0}
-.rule{height:2px;width:36px;background:var(--navy);margin:12px 0}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:12px 0 15px}
-.tab{border:0;background:#f0f4f7;color:var(--navy);
-  border-radius:8px;padding:10px 3px;font-size:14px;font-weight:700}
-.tab small{display:block;font-size:9px;margin-bottom:3px;
-  color:#718395;letter-spacing:.5px}
+.reset{
+  border:0;background:transparent;
+  color:#768697;font-size:12px;
+}
+.hero{
+  display:flex;align-items:center;
+  gap:15px;margin:22px 0 16px;
+}
+.avatar{
+  width:68px;height:68px;border-radius:100%;
+  background:#e1eaf2;display:grid;
+  place-items:center;flex-shrink:0;
+  color:var(--navy);font-size:29px;
+}
+.avatar img{
+  width:100%;height:100%;border-radius:100%;
+  object-fit:cover;
+}
+.eyebrow,.section-label{
+  font-size:11px;font-weight:750;
+  letter-spacing:.65px;color:var(--navy);
+}
+.hero h1{
+  margin:5px 0 2px;color:var(--navy);
+  font-size:24px;line-height:1.13;font-weight:750;
+}
+.hero h1 span{
+  display:block;color:#64788b;font-weight:450;
+}
+.hero p{
+  font-size:12px;color:#64788b;margin:7px 0 0;
+}
+.rule{
+  height:2px;width:36px;
+  background:var(--navy);margin:12px 0;
+}
+.tabs{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:5px;margin:12px 0 15px;
+}
+.tab{
+  border:0;background:#f0f4f7;color:var(--navy);
+  border-radius:8px;padding:10px 3px;
+  font-size:14px;font-weight:700;
+}
+.tab small{
+  display:block;font-size:9px;margin-bottom:3px;
+  color:#718395;letter-spacing:.5px;
+}
 .tab.active{background:var(--navy);color:white}
 .tab.active small{color:#d5e4f0}
-.intro{background:var(--ivory);padding:19px;border-radius:14px;margin:0 0 20px}
-.intro small{font-size:10px;color:#6d6254;font-weight:750;letter-spacing:.6px}
-.intro h2{font-size:24px;line-height:1.17;margin:16px 0 13px;color:#293d4e}
-.intro h2 span{display:block;font-weight:450;color:#70695f}
-.gold-rule{height:2px;width:36px;background:#a18a66}
+.intro{
+  background:var(--ivory);padding:19px;
+  border-radius:14px;margin:0 0 20px;
+}
+.intro small{
+  font-size:10px;color:#6d6254;
+  font-weight:750;letter-spacing:.6px;
+}
+.intro h2{
+  font-size:24px;line-height:1.17;
+  margin:16px 0 13px;color:#293d4e;
+}
+.intro h2 span{
+  display:block;font-weight:450;color:#70695f;
+}
+.gold-rule{
+  height:2px;width:36px;background:#a18a66;
+}
 .section-label{display:block;margin:18px 0 10px}
 .journeys{display:grid;gap:8px}
-.journey{display:flex;align-items:center;gap:12px;background:white;
-  border:1px solid var(--line);border-radius:11px;padding:13px;
-  width:100%;text-align:left;color:var(--navy);font-size:14px;font-weight:650}
-.journey.active{background:#eef4f9;border-color:var(--navy)}
-.journey .ico{width:34px;height:34px;border-radius:8px;background:#f1f4f6;
-  display:grid;place-items:center;font-size:18px}
+.journey{
+  display:flex;align-items:center;gap:12px;
+  background:white;border:1px solid var(--line);
+  border-radius:11px;padding:13px;width:100%;
+  text-align:left;color:var(--navy);
+  font-size:14px;font-weight:650;
+}
+.journey.active{
+  background:#eef4f9;border-color:var(--navy);
+}
+.journey .ico{
+  width:34px;height:34px;border-radius:8px;
+  background:#f1f4f6;display:grid;
+  place-items:center;font-size:18px;
+}
 .journey.active .ico{background:#dce8f2}
-.journey .tick{margin-left:auto;color:#c6d0d8;font-size:19px}
+.journey .tick{
+  margin-left:auto;color:#c6d0d8;font-size:19px;
+}
 .journey.active .tick{color:var(--navy)}
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.field{display:flex;flex-direction:column;gap:7px;min-width:0}
-.field label{font-size:13px;font-weight:700;color:var(--navy);padding-left:15px}
-.input-row{display:flex;align-items:center;gap:7px;color:var(--muted)}
-input{width:100%;min-width:0;border:1px solid #d5dde6;border-radius:8px;
-  background:#fff;padding:10px 12px;color:#293d4e;outline:none}
-input:focus{border-color:var(--navy);box-shadow:0 0 0 2px #dce8f2}
+.grid2{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.field{
+  display:flex;flex-direction:column;gap:7px;min-width:0;
+}
+.field label{
+  font-size:13px;font-weight:700;
+  color:var(--navy);padding-left:15px;
+}
+.input-row{
+  display:flex;align-items:center;gap:7px;
+  color:var(--muted);
+}
+input{
+  width:100%;min-width:0;
+  border:1px solid #d5dde6;border-radius:8px;
+  background:#fff;padding:10px 12px;
+  color:#293d4e;outline:none;
+}
+input:focus{
+  border-color:var(--navy);
+  box-shadow:0 0 0 2px #dce8f2;
+}
 .input-row input{flex:1}
-.panel{background:var(--blue);border-radius:12px;padding:17px;margin-top:16px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.line{display:flex;justify-content:space-between;gap:8px;
-  font-size:12px;color:var(--muted);margin:10px 0}
+.panel{
+  background:var(--blue);border-radius:12px;
+  padding:17px;margin-top:16px;
+}
+.row{
+  display:flex;justify-content:space-between;
+  align-items:center;gap:10px;
+}
+.line{
+  display:flex;justify-content:space-between;gap:8px;
+  font-size:12px;color:var(--muted);margin:10px 0;
+}
 .line strong{color:var(--navy);font-weight:650}
-hr{border:0;border-top:1px solid #d6dce4;margin:15px 0}
-.big{font-size:30px;font-weight:750;color:var(--navy);letter-spacing:-.8px}
-.mid{font-size:20px;font-weight:750;color:var(--navy)}
-.small{font-size:11px;color:var(--muted);line-height:1.5}
-.segment{display:flex;gap:4px;background:#f0f4f7;border-radius:8px;padding:4px}
-.segment button{flex:1;border:0;background:transparent;color:#627689;
-  border-radius:6px;padding:9px 6px;font-size:12px;font-weight:650}
-.segment button.active{background:var(--navy);color:white}
-.btn{border:1px solid #d0dbe4;background:white;color:var(--navy);
-  padding:9px 12px;border-radius:9px;font-size:12px;font-weight:650}
-.btn.active{background:var(--navy);color:white;border-color:var(--navy)}
-.presets{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:9px}
-.stack{display:flex;height:11px;border-radius:50px;overflow:hidden;
-  background:#e5ebe8;margin:10px 0}
+hr{
+  border:0;border-top:1px solid #d6dce4;
+  margin:15px 0;
+}
+.big{
+  font-size:30px;font-weight:750;
+  color:var(--navy);letter-spacing:-.8px;
+}
+.mid{
+  font-size:20px;font-weight:750;color:var(--navy);
+}
+.small{
+  font-size:11px;color:var(--muted);line-height:1.5;
+}
+.segment{
+  display:flex;gap:4px;
+  background:#f0f4f7;border-radius:8px;padding:4px;
+}
+.segment button{
+  flex:1;min-width:0;border:0;background:transparent;
+  color:#627689;border-radius:6px;padding:9px 6px;
+  font-size:12px;font-weight:650;
+}
+.segment button.active{
+  background:var(--navy);color:white;
+}
+.btn{
+  border:1px solid #d0dbe4;background:white;
+  color:var(--navy);padding:9px 12px;
+  border-radius:9px;font-size:12px;font-weight:650;
+}
+.btn.active{
+  background:var(--navy);color:white;
+  border-color:var(--navy);
+}
+.presets{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:5px;margin-top:9px;
+}
+.stack{
+  display:flex;height:11px;border-radius:50px;
+  overflow:hidden;background:#e5ebe8;margin:10px 0;
+}
 .stack div{height:100%}
-.label-dot{display:inline-block;width:8px;height:8px;border-radius:100%;margin-right:5px}
-.buyer-head{display:flex;justify-content:space-between;align-items:center;margin:15px 0}
-.buyer-name{display:flex;align-items:center;gap:9px;color:var(--navy);
-  font-size:12px;font-weight:750}
-.buyer-icon{width:30px;height:30px;border-radius:100%;background:#e6edf3;
-  display:grid;place-items:center;font-size:15px}
-.chart-row{display:flex;align-items:center;gap:9px;margin:7px 0}
-.chart-label{width:58px;font-size:10px;color:var(--muted);flex-shrink:0}
-.chart-track{height:12px;border-radius:30px;background:#e8efed;
-  flex:1;overflow:hidden;display:flex}
-.chart-value{width:74px;text-align:right;font-size:10px;color:#485e72}
-.result-card{border-radius:13px;padding:17px;margin:14px 0}
+.label-dot{
+  display:inline-block;width:8px;height:8px;
+  border-radius:100%;margin-right:5px;
+}
+.buyer-head{
+  display:flex;justify-content:space-between;
+  align-items:center;margin:15px 0;
+}
+.buyer-name{
+  display:flex;align-items:center;gap:9px;
+  color:var(--navy);font-size:12px;font-weight:750;
+}
+.buyer-icon{
+  width:30px;height:30px;border-radius:100%;
+  background:#e6edf3;display:grid;
+  place-items:center;font-size:15px;
+}
+.chart-row{
+  display:flex;align-items:center;gap:9px;margin:7px 0;
+}
+.chart-label{
+  width:58px;font-size:10px;
+  color:var(--muted);flex-shrink:0;
+}
+.chart-track{
+  height:12px;border-radius:30px;
+  background:#e8efed;flex:1;
+  overflow:hidden;display:flex;
+}
+.chart-value{
+  width:74px;text-align:right;
+  font-size:10px;color:#485e72;
+}
+.result-card{
+  border-radius:13px;padding:17px;margin:14px 0;
+}
 .result-card.a{background:#eff4f8}
 .result-card.b{background:#f3f4f1}
-.card-head{display:flex;align-items:start;justify-content:space-between;
-  gap:12px;cursor:pointer}
-.card-head small{font-size:10px;color:var(--navy);font-weight:750}
-.card-head h3{font-size:22px;line-height:1.15;margin:12px 0 10px;color:var(--navy)}
-.card-head h3 span{display:block;color:#738698;font-weight:450}
+.card-head{
+  display:flex;align-items:start;
+  justify-content:space-between;gap:12px;cursor:pointer;
+}
+.card-head small{
+  font-size:10px;color:var(--navy);font-weight:750;
+}
+.card-head h3{
+  font-size:22px;line-height:1.15;
+  margin:12px 0 10px;color:var(--navy);
+}
+.card-head h3 span{
+  display:block;color:#738698;font-weight:450;
+}
 .result-card.b h3{color:#324e62}
 .result-card.b h3 span{color:#75858b}
-.metrics{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+.metrics{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:16px;margin:14px 0;
+}
 .metric .small{display:block;margin-bottom:5px}
-.mixlabels{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;gap:5px}
-.mixlabels .mid{font-size:14px;overflow-wrap:anywhere}
-.accordion{border:1px solid #c7d4e0;border-radius:12px;padding:16px;margin:15px 0}
-.acc-button{background:transparent;border:0;display:flex;
-  justify-content:space-between;align-items:center;width:100%;
-  color:var(--navy);font-size:11px;font-weight:750;letter-spacing:.5px;text-align:left}
+.mixlabels{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  text-align:center;gap:5px;
+}
+.mixlabels .mid{
+  font-size:14px;overflow-wrap:anywhere;
+}
+.accordion{
+  border:1px solid #c7d4e0;border-radius:12px;
+  padding:16px;margin:15px 0;
+}
+.acc-button{
+  background:transparent;border:0;display:flex;
+  justify-content:space-between;align-items:center;
+  width:100%;color:var(--navy);
+  font-size:11px;font-weight:750;
+  letter-spacing:.5px;text-align:left;
+}
 .year-row{margin:14px 0}
-.year-row .row{font-size:11px;color:var(--muted)}
-.nav{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
-footer{font-size:10px;line-height:1.55;color:#788591;margin-top:18px}
-.warning{font-size:12px;color:#ac624c;margin:10px 0}
+.year-row .row{
+  font-size:11px;color:var(--muted);
+}
+.nav{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-top:16px;
+}
+footer{
+  font-size:10px;line-height:1.55;
+  color:#788591;margin-top:18px;
+}
+.warning{
+  font-size:12px;color:#ac624c;margin:10px 0;
+}
 
 /* PURCHASE FUNDING MIX */
 .funding-mix{margin:16px 0 6px}
-.funding-head{display:flex;justify-content:space-between;
-  align-items:center;gap:8px;color:var(--navy)}
+.funding-head{
+  display:flex;justify-content:space-between;
+  align-items:center;gap:8px;color:var(--navy);
+}
 .funding-head strong{font-size:14px}
-.funding-head span{color:var(--muted);font-size:13px}
-.funding-guide{position:relative;padding-top:28px;margin-top:14px}
-.funding-guide-label{position:absolute;top:0;transform:translateX(-50%);
-  font-size:12px;color:#52695c;font-weight:700}
-.funding-guide-label.last{transform:translateX(-100%)}
+.funding-head span{
+  color:var(--muted);font-size:13px;
+}
+.funding-guide{
+  position:relative;padding-top:28px;margin-top:14px;
+}
+.funding-guide-label{
+  position:absolute;top:0;
+  transform:translateX(-50%);
+  font-size:12px;color:#52695c;font-weight:700;
+}
+.funding-guide-label.last{
+  transform:translateX(-100%);
+}
 .funding-track{height:30px;position:relative}
-.funding-fill{height:100%;display:flex;border-radius:999px;
-  overflow:hidden;background:#e5ebe8}
-.funding-marker{position:absolute;top:-5px;height:40px;
-  border-left:2px dashed #355f45;pointer-events:none;z-index:2}
-.funding-marker.end{border-left-style:solid;transform:translateX(-2px)}
-.funding-legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:5px;text-align:center;margin-top:18px}
-.funding-legend .mid{font-size:14px;overflow-wrap:anywhere}
+.funding-fill{
+  height:100%;display:flex;border-radius:999px;
+  overflow:hidden;background:#e5ebe8;
+}
+.funding-marker{
+  position:absolute;top:-5px;height:40px;
+  border-left:2px dashed #355f45;
+  pointer-events:none;z-index:2;
+}
+.funding-marker.end{
+  border-left-style:solid;transform:translateX(-2px);
+}
+.funding-legend{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:5px;text-align:center;margin-top:18px;
+}
+.funding-legend .mid{
+  font-size:14px;overflow-wrap:anywhere;
+}
 .funding-legend .small{margin-top:3px}
-.funding-note{font-size:11px;color:var(--muted);margin-top:12px}
+.funding-note{
+  font-size:11px;color:var(--muted);margin-top:12px;
+}
 
-/* REDESIGNED INCOME-BASED PURCHASE CAPACITY */
+/* INCOME-BASED PURCHASE CAPACITY */
 .capacity-header{font-size:13px;letter-spacing:.3px}
-.capacity-price{text-align:center;margin:22px 0 22px}
+.capacity-price{text-align:center;margin:22px 0}
 .capacity-price .big{margin:8px 0;font-size:32px}
 .capacity-price .small{font-size:12px}
-.capacity-metrics{display:grid;grid-template-columns:1fr 1fr;
-  gap:18px;margin:18px 0}
+.capacity-metrics{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:18px;margin:18px 0;
+}
 .capacity-metrics .small{font-size:13px}
 .capacity-metrics .mid{margin-top:7px}
-.capacity-subtext{font-size:11px;color:var(--muted);margin-top:5px}
+.capacity-subtext{
+  font-size:11px;color:var(--muted);margin-top:5px;
+}
 .capacity-danger{color:var(--danger)!important}
 .capacity-position{padding:17px;margin-top:18px}
 .capacity-position .mid{margin-top:6px}
-.capacity-message{font-size:12px;line-height:1.5;
-  color:var(--danger);margin:16px 0}
-.capacity-breakdown{font-size:13px!important;letter-spacing:0!important;
-  padding:8px 0;margin-top:16px}
-.capacity-breakdown-rows .line{font-size:12px;margin:15px 0}
-.capacity-footnote{font-size:11px;color:var(--muted);
-  margin-top:20px;letter-spacing:.2px}
+.capacity-message{
+  font-size:12px;line-height:1.5;
+  color:var(--danger);margin:16px 0;
+}
+.capacity-breakdown{
+  font-size:13px!important;
+  letter-spacing:0!important;
+  padding:8px 0;margin-top:16px;
+}
+.capacity-breakdown-rows .line{
+  font-size:12px;margin:15px 0;
+}
+.capacity-footnote{
+  font-size:11px;color:var(--muted);
+  margin-top:20px;letter-spacing:.2px;
+}
+
+/* MORTGAGE PROTECTION - DESIGN 2 */
+.protect-top{margin-top:6px}
+.protect-head{
+  display:flex;justify-content:space-between;
+  align-items:flex-start;gap:12px;
+}
+.protect-head h4{
+  margin:0;font-size:18px;color:#293d4e;
+}
+.protect-sub{
+  font-size:12px;color:var(--muted);margin-top:5px;
+}
+.protect-toggle{
+  display:flex;align-items:center;
+  justify-content:center;gap:8px;
+  border:0;border-radius:999px;
+  background:#0EAF43;color:white;
+  font-size:16px;font-weight:750;
+  padding:10px 16px;min-width:104px;
+}
+.protect-toggle.off{background:#9AA6B2}
+.protect-toggle svg{
+  width:23px;height:23px;
+  fill:none;stroke:currentColor;
+  stroke-width:2;stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.protect-row2{
+  display:grid;grid-template-columns:1fr auto;
+  gap:10px;align-items:center;margin-top:20px;
+}
+.protect-period-label{
+  font-size:15px;color:var(--muted);
+}
+.period-pills{
+  display:flex;gap:8px;
+}
+.period-pill{
+  border:1px solid transparent;
+  border-radius:999px;background:#f0f0f0;
+  color:#666;font-size:15px;
+  padding:12px 16px;font-weight:650;
+}
+.period-pill.active{
+  color:#111;background:#fff;
+  border-color:#e5e5e5;
+  box-shadow:0 0 0 1px #eee inset;
+}
+.commit-head{
+  display:flex;justify-content:space-between;
+  align-items:center;gap:10px;
+  margin-top:21px;
+}
+.commit-head h4{
+  margin:0;font-size:17px;color:#293d4e;
+}
+.commit-pp{
+  color:#31966A;font-size:15px;
+  white-space:nowrap;font-weight:700;
+}
+.commit-input{margin-top:13px}
+.commit-input input{
+  border:2px solid #d8d8d8;
+  border-radius:999px;
+  background:transparent;
+  padding:15px 19px;font-size:19px;
+  min-height:54px;
+}
+.commit-presets{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:8px;margin-top:12px;
+}
+.commit-pill{
+  border:2px solid #d3d3d3;
+  border-radius:999px;background:transparent;
+  color:#666;padding:12px 5px;
+  font-size:16px;font-weight:750;
+}
+.commit-pill.active{
+  background:#171717;border-color:#171717;color:white;
+}
+.protect-shield{
+  display:flex;justify-content:space-between;
+  gap:10px;align-items:center;
+  margin-top:18px;font-size:14px;
+  color:var(--muted);
+}
+.protect-shield strong{
+  color:#293d4e;font-size:18px;
+}
+.summary-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;margin-top:20px;text-align:center;
+}
+.summary-item svg{
+  width:32px;height:32px;fill:none;
+  stroke:var(--navy);stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.summary-label{
+  color:var(--muted);font-size:12px;margin-top:9px;
+}
+.summary-value{
+  color:#293d4e;font-size:16px;
+  font-weight:750;margin-top:5px;
+  overflow-wrap:anywhere;
+}
+.life-card{
+  display:flex;gap:14px;align-items:center;
+  margin-top:20px;
+}
+.life-icon{
+  width:56px;height:56px;border-radius:50%;
+  background:#e5edf7;display:grid;
+  place-items:center;flex-shrink:0;
+}
+.life-icon svg{
+  width:29px;height:29px;fill:none;
+  stroke:var(--navy);stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.life-kicker{
+  color:var(--navy);font-size:12px;
+  font-weight:800;letter-spacing:.5px;
+}
+.life-text{
+  color:#293d4e;font-size:17px;
+  font-weight:750;line-height:1.35;margin-top:5px;
+}
 
 @media(max-width:450px){
   main{margin:0;border-radius:0;padding:16px}
@@ -174,11 +532,21 @@ footer{font-size:10px;line-height:1.55;color:#788591;margin-top:18px}
   .metrics{gap:10px}
   .capacity-price .big{font-size:30px}
   .capacity-metrics{gap:10px}
+  .protect-row2{grid-template-columns:1fr}
+  .period-pills{width:100%}
+  .period-pill{flex:1;padding:11px 6px;font-size:14px}
+  .commit-head h4{font-size:14px}
+  .commit-pp{font-size:13px}
+  .commit-pill{font-size:14px;padding:11px 4px}
+  .protect-toggle{min-width:90px;padding:9px 12px}
+  .life-text{font-size:15px}
 }
 </style>
 </head>
+
 <body>
 <main id="app"></main>
+
 <script>
 "use strict";
 
@@ -194,26 +562,47 @@ const initial=()=>({
 });
 
 let v=initial(),tab=0;
-const opened={capacity:false,breakdown:false,A:false,B:false};
+
+const opened={
+  capacity:false,
+  breakdown:false,
+  A:false,
+  B:false
+};
+
 const $=s=>document.querySelector(s);
 const num=x=>Math.max(0,Number(x)||0);
-const cash=x=>"$"+Math.round(Number(x)||0).toLocaleString("en-SG");
+const cash=x=>"$"+Math.round(Number(x)||0)
+  .toLocaleString("en-SG");
 const short=x=>x>=1e6?"$"+(x/1e6).toFixed(2)+"m":
   x>=1e3?"$"+(x/1e3).toFixed(1)+"k":cash(x);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
 }[c]));
 const clamp=(x,min,max)=>Math.max(min,Math.min(max,x));
-const people=()=>[1,...(v.b2?[2]:[]),...(v.b2&&v.b3?[3]:[])];
+const people=()=>[
+  1,
+  ...(v.b2?[2]:[]),
+  ...(v.b2&&v.b3?[3]:[])
+];
 
 function bsd(price){
   let left=price,sum=0;
   for(const [width,rate] of [
-    [180000,.01],[180000,.02],[640000,.03],
-    [500000,.04],[1500000,.05],[Infinity,.06]
+    [180000,.01],
+    [180000,.02],
+    [640000,.03],
+    [500000,.04],
+    [1500000,.05],
+    [Infinity,.06]
   ]){
     const part=Math.min(Math.max(left,0),width);
-    sum+=part*rate;left-=part;
+    sum+=part*rate;
+    left-=part;
     if(left<=0)break;
   }
   return sum;
@@ -226,8 +615,12 @@ function factor(rate,years){
 }
 
 function oaRate(age){
-  return age<=35?.23:age<=45?.21:age<=50?.19:
-    age<=55?.15:age<=60?.12:age<=65?.035:
+  return age<=35?.23:
+    age<=45?.21:
+    age<=50?.19:
+    age<=55?.15:
+    age<=60?.12:
+    age<=65?.035:
     age<=70?.01:0;
 }
 
@@ -384,7 +777,6 @@ function calc(){
         price,loan-reduction,
         backup,commit,protect,period
       );
-
       if(found)return found;
     }
 
@@ -398,7 +790,6 @@ function calc(){
 
     while(lo<=hi){
       const mid=Math.floor((lo+hi)/2);
-
       const candidate=at(
         mid*1000,backup,commit,protect,period
       );
@@ -436,12 +827,8 @@ function calc(){
     const amount=Math.min(spare,B.loan);
 
     const candidate=fit(
-      B.price,
-      B.loan-amount,
-      num(v.backup),
-      0,
-      false,
-      v.period
+      B.price,B.loan-amount,
+      num(v.backup),0,false,v.period
     );
 
     if(candidate){
@@ -740,7 +1127,6 @@ function step2(R){
           <button
             class="btn ${v[id===1?'b2':'b3']?'active':''}"
             data-toggle="${id===1?'b2':'b3'}">
-
             ${v[id===1?'b2':'b3']?'ON':'OFF'}
           </button>
         </div>
@@ -810,9 +1196,7 @@ function step2(R){
 
     ${R.combined.map((total,i)=>`
       <div class="chart-row">
-        <span class="chart-label">
-          Year ${i+1}
-        </span>
+        <span class="chart-label">Year ${i+1}</span>
 
         <div class="chart-track">
           ${R.perBuyer.map((arr,j)=>`
@@ -906,10 +1290,8 @@ function step3(R){
 
 /*
  * PURCHASE FUNDING MIX
- * Fixed percentage reference lines at:
- * 5%, 25%, and 100%.
- *
- * Used automatically for Structure A and B.
+ * Fixed markers: 5%, 25%, 100%.
+ * Shared by Structure A and Structure B.
  */
 function fundingMix(X){
   const p=Math.max(1,X.price);
@@ -945,7 +1327,6 @@ function fundingMix(X){
       <div class="funding-track">
 
         <div class="funding-fill">
-
           <div style="
             width:${cashPct}%;
             background:var(--orange)">
@@ -960,7 +1341,6 @@ function fundingMix(X){
             width:${loanPct}%;
             background:var(--loan)">
           </div>
-
         </div>
 
         <div class="funding-marker"
@@ -979,7 +1359,6 @@ function fundingMix(X){
     </div>
 
     <div class="funding-legend">
-
       ${[
         ["Cash",X.cashDP,"orange"],
         ["CPF OA",X.cpfDP,"teal"],
@@ -992,16 +1371,12 @@ function fundingMix(X){
             ${name}
           </div>
 
-          <div class="mid">
-            ${cash(amount)}
-          </div>
-
+          <div class="mid">${cash(amount)}</div>
           <div class="small">
             ${(amount/p*100).toFixed(1)}%
           </div>
         </div>
       `).join("")}
-
     </div>
 
     <div class="funding-note">
@@ -1009,6 +1384,59 @@ function fundingMix(X){
     </div>
 
   </div>`;
+}
+
+function uiIcon(type){
+  const icons={
+    checkShield:`
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/>
+        <path d="M9 12l2 2 4-5"/>
+      </svg>`,
+
+    home:`
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 10.5L12 3l9 7.5"/>
+        <path d="M5 9.5V21h14V9.5"/>
+        <path d="M10 21v-6h4v6"/>
+      </svg>`,
+
+    wallet:`
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H18
+          a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2
+          H5.5A2.5 2.5 0 0 1 3 16.5v-9z"/>
+        <path d="M3 8h13"/>
+        <path d="M16 13h4"/>
+      </svg>`,
+
+    shield:`
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/>
+        <path d="M9 12l2 2 4-5"/>
+      </svg>`,
+
+    calendar:`
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 2v4M17 2v4"/>
+        <rect x="3" y="5" width="18" height="16" rx="2"/>
+        <path d="M3 10h18"/>
+        <path d="M9 15l2 2 4-4"/>
+      </svg>`
+  };
+
+  return icons[type]||"";
+}
+
+function lifestyleMessage(){
+  const commit=num(v.commit);
+  const period=num(v.period);
+
+  if(commit<=0){
+    return "No additional monthly cash outlay.";
+  }
+
+  return `Up to ${cash(commit)} monthly cash commitment for ${period} months.`;
 }
 
 function mortgageChart(X,id){
@@ -1019,6 +1447,7 @@ function mortgageChart(X,id){
 
     ${X.years.map((y,i)=>`
       <div class="year-row">
+
         <div class="row">
           <span>Year ${i+1}</span>
           <span>Mortgage ${cash(X.monthly)}/mo</span>
@@ -1047,6 +1476,7 @@ function mortgageChart(X,id){
           ${id==="B"&&v.protection?
             `<span>Shield ${cash(y.shield)}</span>`:""}
         </div>
+
       </div>
     `).join("")}
 
@@ -1054,17 +1484,24 @@ function mortgageChart(X,id){
 
     <div class="row small">
       <span>48-month totals</span>
+
       <span>
-        CPF ${short(X.years.reduce((a,y)=>a+y.cpf*12,0))}
+        CPF ${short(
+          X.years.reduce((a,y)=>a+y.cpf*12,0)
+        )}
       </span>
+
       <span>
-        Cash ${short(X.years.reduce((a,y)=>a+y.cash*12,0))}
+        Cash ${short(
+          X.years.reduce((a,y)=>a+y.cash*12,0)
+        )}
       </span>
+
       ${id==="B"&&v.protection?
         `<span>
-          Shield ${short(X.years.reduce(
-            (a,y)=>a+y.shield*12,0
-          ))}
+          Shield ${short(
+            X.years.reduce((a,y)=>a+y.shield*12,0)
+          )}
         </span>`:""}
     </div>`;
 }
@@ -1104,27 +1541,38 @@ function resultCard(id,R){
 
       ${X?`
         <div class="metrics">
+
           <div class="metric">
-            <span class="small">Max Purchase Price</span>
+            <span class="small">
+              Max Purchase Price
+            </span>
             <div class="mid">${cash(X.price)}</div>
           </div>
 
           <div class="metric">
-            <span class="small">Monthly Mortgage</span>
+            <span class="small">
+              Monthly Mortgage
+            </span>
             <div class="mid">${cash(X.monthly)}</div>
           </div>
+
         </div>
 
         <hr>
 
         <div class="metrics">
+
           <div class="metric">
-            <span class="small">Max Eligible Loan</span>
+            <span class="small">
+              Max Eligible Loan
+            </span>
             <div class="mid">${cash(R.cap)}</div>
           </div>
 
           <div class="metric">
-            <span class="small">Total Avail Equity</span>
+            <span class="small">
+              Total Avail Equity
+            </span>
             <div class="mid">${cash(R.equity)}</div>
           </div>
 
@@ -1133,7 +1581,9 @@ function resultCard(id,R){
               ${B?'Adjusted Loan':'Selected Loan'}
             </span>
             <div class="mid">${cash(X.loan)}</div>
-            <span class="small">${X.ltv.toFixed(1)}% LTV</span>
+            <span class="small">
+              ${X.ltv.toFixed(1)}% LTV
+            </span>
           </div>
 
           <div class="metric">
@@ -1141,24 +1591,28 @@ function resultCard(id,R){
               ${B?'Adjusted Upfront':'Upfront Required'}
             </span>
             <div class="mid">${cash(X.upfront)}</div>
-            <span class="small">Downpay: ${cash(X.down)}</span>
+
+            <span class="small">
+              Downpay: ${cash(X.down)}
+            </span>
             <br>
+
             <span class="small">
               ${R.absd?'BSD + ABSD + Legal':'BSD + Legal'}:
               ${cash(X.fees)}
             </span>
           </div>
+
         </div>
 
         <hr>
-
         ${fundingMix(X)}
 
       `:`
         <div class="small" style="margin:17px 0">
           No feasible purchase at the current settings.
-          Enter your funds in Step 1 or adjust your
-          cash reserve.
+          Enter your funds in Step 1 or adjust
+          your cash reserve.
         </div>
       `}
 
@@ -1171,6 +1625,7 @@ function resultCard(id,R){
             <strong style="font-size:13px">
               Smart CPF Allocation
             </strong>
+
             <span class="small">
               Spare CPF: ${cash(R.spare)}
             </span>
@@ -1180,6 +1635,7 @@ function resultCard(id,R){
             ${selectButton(
               "Protect Mortgage","choice","protect"
             )}
+
             ${selectButton(
               "Reduce Loan","choice","reduce"
             )}
@@ -1194,94 +1650,204 @@ function resultCard(id,R){
 
         <hr>
 
-        <div class="row">
-          <div>
-            <strong style="font-size:13px">
-              Mortgage Protection
-            </strong>
-            <div class="small">
-              ${v.protection?
-                v.period+"-month protection enabled":
-                "Protection not activated"}
+        <!-- MORTGAGE PROTECTION - SECOND DESIGN -->
+
+        <div class="protect-top">
+
+          <div class="protect-head">
+            <div>
+              <h4>Mortgage Protection</h4>
+
+              <div class="protect-sub">
+                ${v.protection?
+                  v.period+"-month protection enabled":
+                  "Protection not activated"}
+              </div>
             </div>
-          </div>
 
-          <button
-            class="btn ${v.protection?'active':''}"
-            data-toggle="protection">
-            ${v.protection?'ON':'OFF'}
-          </button>
-        </div>
+            <button
+              class="protect-toggle ${v.protection?'':'off'}"
+              data-toggle="protection"
+              aria-pressed="${v.protection}">
 
-        ${v.protection?`
-          <div class="row" style="margin-top:15px">
-            <span class="small">Protection Period</span>
-            <div class="segment">
-              ${selectButton("24 months","period",24)}
-              ${selectButton("48 months","period",48)}
-            </div>
-          </div>
+              ${uiIcon("checkShield")}
 
-          <div style="margin-top:13px">
-            <div class="row">
-              <strong style="font-size:12px">
-                Monthly Cash Commitment
-              </strong>
-              <span class="small" style="color:#318461">
-                PP + ${cash(R.extraPurchase)}
+              <span>
+                ${v.protection?'ON':'OFF'}
               </span>
-            </div>
-
-            ${field("Amount","commit",{prefix:true})}
-
-            ${presets("commit",[0,1000,2000,3000])}
+            </button>
           </div>
 
-          ${X?`
-            <div class="line">
-              Mortgage Shield Required
-              <strong>${cash(X.shield)}</strong>
+          ${v.protection?`
+
+            <div class="protect-row2">
+              <div class="protect-period-label">
+                Protection Period
+              </div>
+
+              <div class="period-pills">
+
+                <button
+                  class="period-pill
+                    ${Number(v.period)===24?'active':''}"
+                  data-set="period"
+                  data-value="24">
+                  24 months
+                </button>
+
+                <button
+                  class="period-pill
+                    ${Number(v.period)===48?'active':''}"
+                  data-set="period"
+                  data-value="48">
+                  48 months
+                </button>
+
+              </div>
             </div>
+
+            <div class="commit-head">
+              <h4>Monthly Cash Commitment ($)</h4>
+
+              <div class="commit-pp">
+                PP + ${cash(R.extraPurchase)}
+              </div>
+            </div>
+
+            <div class="commit-input">
+              <input
+                data-field="commit"
+                type="number"
+                min="0"
+                aria-label="Monthly Cash Commitment"
+                value="${esc(v.commit)}">
+            </div>
+
+            <div class="commit-presets">
+
+              <button
+                class="commit-pill
+                  ${num(v.commit)===0?'active':''}"
+                data-set="commit"
+                data-value="0">
+                $0
+              </button>
+
+              <button
+                class="commit-pill
+                  ${num(v.commit)===1000?'active':''}"
+                data-set="commit"
+                data-value="1000">
+                $1k
+              </button>
+
+              <button
+                class="commit-pill
+                  ${num(v.commit)===2000?'active':''}"
+                data-set="commit"
+                data-value="2000">
+                $2k
+              </button>
+
+              <button
+                class="commit-pill
+                  ${num(v.commit)===3000?'active':''}"
+                data-set="commit"
+                data-value="3000">
+                $3k
+              </button>
+
+            </div>
+
+            ${X?`
+              <div class="protect-shield">
+                <span>Mortgage Shield Required</span>
+                <strong>${cash(X.shield)}</strong>
+              </div>
+            `:""}
+
           `:""}
-        `:""}
 
-        <hr>
+          <hr>
 
-        <span class="eyebrow">
-          YOUR LIFESTYLE PROTECTION SUMMARY
-        </span>
+          <span class="eyebrow">
+            YOUR LIFESTYLE PROTECTION SUMMARY
+          </span>
 
-        <h3 style="font-size:18px">
-          Your home. Your peace of mind.
-        </h3>
+          <h3 style="font-size:18px;margin:15px 0">
+            Your home. Your peace of mind.
+          </h3>
 
-        <div class="mixlabels">
-          <div>
-            ⌂
-            <div class="small">Your Home</div>
-            <strong>${X?cash(X.price):"—"}</strong>
+          <div class="summary-grid">
+
+            <div class="summary-item">
+              ${uiIcon("home")}
+
+              <div class="summary-label">
+                Your Home
+              </div>
+
+              <div class="summary-value">
+                ${X?cash(X.price):"—"}
+              </div>
+            </div>
+
+            <div class="summary-item">
+              ${uiIcon("wallet")}
+
+              <div class="summary-label">
+                Cash Kept
+              </div>
+
+              <div class="summary-value">
+                ${cash(v.backup)}
+              </div>
+            </div>
+
+            <div class="summary-item">
+              ${uiIcon("shield")}
+
+              <div class="summary-label">
+                Mortgage Shield
+              </div>
+
+              <div class="summary-value">
+                ${X?cash(X.shield):"—"}
+              </div>
+            </div>
+
           </div>
 
-          <div>
-            ▣
-            <div class="small">Cash Kept</div>
-            <strong>${cash(v.backup)}</strong>
-          </div>
+          <hr>
 
-          <div>
-            ◇
-            <div class="small">Mortgage Shield</div>
-            <strong>${X?cash(X.shield):"—"}</strong>
-          </div>
+          ${v.protection?`
+
+            <div class="life-card">
+
+              <div class="life-icon">
+                ${uiIcon("calendar")}
+              </div>
+
+              <div>
+                <div class="life-kicker">
+                  ${v.period}-MONTH LIFESTYLE PROTECTION
+                </div>
+
+                <div class="life-text">
+                  ${lifestyleMessage()}
+                </div>
+              </div>
+
+            </div>
+
+          `:`
+            <div class="small">
+              Mortgage protection is not activated.
+            </div>
+          `}
+
         </div>
 
-        <hr>
-
-        <div class="small">
-          ${v.protection?
-            "Mortgage protection uses the selected cash commitment and duration.":
-            "Mortgage protection is not activated."}
-        </div>
       `:""}
 
       ${X?`
@@ -1290,6 +1856,7 @@ function resultCard(id,R){
       `:""}
 
     `:""}
+
   </section>`;
 }
 
@@ -1301,11 +1868,15 @@ function step4(R){
   )}
 
   <div class="panel">
+
     <div class="row">
       <strong style="font-size:13px">
         ▣ What You Have
       </strong>
-      <span class="small">Available Equity</span>
+
+      <span class="small">
+        Available Equity
+      </span>
     </div>
 
     <div class="big" style="margin-top:10px">
@@ -1325,11 +1896,17 @@ function step4(R){
       <strong style="font-size:13px">
         Your Maximum Loan
       </strong>
-      <span class="small">Est. Capacity</span>
+
+      <span class="small">
+        Est. Capacity
+      </span>
     </div>
 
     <div class="row" style="margin-top:8px">
-      <div class="big">${cash(R.cap)}</div>
+      <div class="big">
+        ${cash(R.cap)}
+      </div>
+
       <span class="small">
         ${R.tenure}-year tenure
       </span>
@@ -1338,8 +1915,13 @@ function step4(R){
     <hr>
 
     <div class="grid2">
-      ${field("Monthly Debts","debts",{prefix:true})}
-      ${field("Mortgage Rate (%)","rate")}
+      ${field(
+        "Monthly Debts","debts",{prefix:true}
+      )}
+
+      ${field(
+        "Mortgage Rate (%)","rate"
+      )}
     </div>
 
     <p class="small">
@@ -1348,6 +1930,7 @@ function step4(R){
       The mortgage rate above is used for the
       repayment forecast.
     </p>
+
   </div>
 
   <!-- REDESIGNED INCOME-BASED PURCHASE CAPACITY -->
@@ -1357,15 +1940,20 @@ function step4(R){
     <button
       class="acc-button capacity-header"
       data-open="capacity">
+
       <span>
         ⚿ &nbsp; INCOME-BASED PURCHASE CAPACITY
       </span>
-      <span>${opened.capacity?'⌃':'⌄'}</span>
+
+      <span>
+        ${opened.capacity?'⌃':'⌄'}
+      </span>
     </button>
 
     ${opened.capacity?`
 
       <div class="capacity-price">
+
         <div class="small">
           Potential Property Price
         </div>
@@ -1377,6 +1965,7 @@ function step4(R){
         <div class="small">
           Based on estimated 75% bank financing
         </div>
+
       </div>
 
       <hr style="margin:20px 0">
@@ -1400,6 +1989,7 @@ function step4(R){
         <div>
           <div class="small
             ${R.benchOK?'':'capacity-danger'}">
+
             ${R.benchOK?
               "Equity Remaining":
               "Funding Shortfall"}
@@ -1407,6 +1997,7 @@ function step4(R){
 
           <div class="mid
             ${R.benchOK?'':'capacity-danger'}">
+
             ${cash(R.benchOK?
               R.equity-R.benchUp:
               R.benchShortfall)}
@@ -1427,9 +2018,10 @@ function step4(R){
           <span class="eyebrow">
             FUNDING POSITION
           </span>
+
           <span style="
-            font-size:20px;
-            color:var(--navy)">
+            color:var(--navy);
+            font-size:20px">
             ▣
           </span>
         </div>
@@ -1444,6 +2036,7 @@ function step4(R){
 
             <div class="mid
               ${R.benchCashLeft>=0?'':'capacity-danger'}">
+
               ${cash(Math.abs(R.benchCashLeft))}
             </div>
           </div>
@@ -1456,6 +2049,7 @@ function step4(R){
 
             <div class="mid
               ${R.benchCPFLeft>=0?'':'capacity-danger'}">
+
               ${cash(Math.abs(R.benchCPFLeft))}
             </div>
           </div>
@@ -1473,8 +2067,14 @@ function step4(R){
       <button
         class="acc-button capacity-breakdown"
         data-open="breakdown">
-        <span>Explore Purchase Breakdown</span>
-        <span>${opened.breakdown?'⌃':'⌄'}</span>
+
+        <span>
+          Explore Purchase Breakdown
+        </span>
+
+        <span>
+          ${opened.breakdown?'⌃':'⌄'}
+        </span>
       </button>
 
       ${opened.breakdown?`
@@ -1528,6 +2128,7 @@ function step4(R){
           55% TDSR · 4% stress test ·
           Loan rounded to $1k
         </div>
+
       `:""}
 
     `:""}
@@ -1543,7 +2144,9 @@ function render(){
   const R=calc();
 
   $("#app").innerHTML=`
+
     <div class="brand">
+
       <span>
         ▤ &nbsp; JONATHAN FOK · PROPERTY ADVISORY
       </span>
@@ -1557,21 +2160,27 @@ function render(){
 
     <div class="hero">
       <div class="avatar">
+
         <img
           src="https://i.postimg.cc/VN3MnPjk/IMG-5337.jpg"
           alt="Jonathan Fok"
           onerror="this.style.display='none'">
+
       </div>
 
       <div>
         <span class="eyebrow">
           PERSONAL UPGRADE DISCOVERY
         </span>
+
         <h1>
           <span>5 Minutes.</span>
           The Full Picture.
         </h1>
-        <p>No more guessing about your Budget.</p>
+
+        <p>
+          No more guessing about your Budget.
+        </p>
       </div>
     </div>
 
@@ -1581,12 +2190,15 @@ function render(){
       ${[
         "Funds","CPF OA","Backup","Results"
       ].map((label,i)=>`
+
         <button
           class="tab ${tab===i?'active':''}"
           data-tab="${i}">
+
           <small>STEP ${i+1}</small>
           ${label}
         </button>
+
       `).join("")}
     </nav>
 
@@ -1598,6 +2210,7 @@ function render(){
     <hr>
 
     <div class="nav">
+
       <button
         class="btn"
         data-action="back"
@@ -1612,12 +2225,15 @@ function render(){
       <button
         class="btn"
         data-action="next">
+
         ${tab===3?"Review Funds":"Continue →"}
       </button>
+
     </div>
 
     <footer>
       <strong>Disclaimer:</strong>
+
       Independently designed by Jonathan Fok.
       All figures are estimates and may vary
       based on actual CPF, financing and stamp
