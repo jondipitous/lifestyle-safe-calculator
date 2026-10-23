@@ -2,84 +2,789 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
-  <meta name="theme-color" content="#f6f8fa">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Lifestyle Upgrade Protection">
-
-  <meta name="description" content="Lifestyle Upgrade Protection - Singapore property purchase planning, CPF OA forecasts and mortgage protection.">
-
-  <title>Lifestyle Upgrade Protection</title>
-
-  <link rel="stylesheet" href="./style.css">
-  <script src="./app.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personal Upgrade Discovery | Jonathan Fok</title>
+<style>
+:root{
+  --navy:#1F4E78;--muted:#697989;--line:#E0E6EC;
+  --ivory:#F4F3EE;--blue:#F0F4F7;--teal:#65ADA2;
+  --orange:#DDA45C;--loan:#5685AF;--purple:#8972CE;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#edf1f4;color:#293d4e;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+main{max-width:750px;margin:30px auto;background:white;
+  border:1px solid #e5e9ee;border-radius:22px;padding:25px}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.35;cursor:default}
+.brand{display:flex;justify-content:space-between;align-items:center;
+  gap:12px;font-size:10px;font-weight:750;letter-spacing:.6px;color:var(--navy)}
+.brand span{display:flex;align-items:center;gap:6px}
+.reset{border:0;background:transparent;color:#768697;font-size:12px}
+.hero{display:flex;align-items:center;gap:15px;margin:22px 0 16px}
+.avatar{width:68px;height:68px;border-radius:100%;background:#e1eaf2;
+  display:grid;place-items:center;flex-shrink:0;color:var(--navy);font-size:29px}
+.avatar img{width:100%;height:100%;border-radius:100%;object-fit:cover}
+.eyebrow,.section-label{font-size:11px;font-weight:750;
+  letter-spacing:.65px;color:var(--navy)}
+.hero h1{margin:5px 0 2px;color:var(--navy);font-size:24px;
+  line-height:1.13;font-weight:750}
+.hero h1 span{display:block;color:#64788b;font-weight:450}
+.hero p{font-size:12px;color:#64788b;margin:7px 0 0}
+.rule{height:2px;width:36px;background:var(--navy);margin:12px 0}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:12px 0 15px}
+.tab{border:0;background:#f0f4f7;color:var(--navy);
+  border-radius:8px;padding:10px 3px;font-size:14px;font-weight:700}
+.tab small{display:block;font-size:9px;margin-bottom:3px;
+  color:#718395;letter-spacing:.5px}
+.tab.active{background:var(--navy);color:white}
+.tab.active small{color:#d5e4f0}
+.intro{background:var(--ivory);padding:19px;border-radius:14px;margin:0 0 20px}
+.intro small{font-size:10px;color:#6d6254;font-weight:750;letter-spacing:.6px}
+.intro h2{font-size:24px;line-height:1.17;margin:16px 0 13px;color:#293d4e}
+.intro h2 span{display:block;font-weight:450;color:#70695f}
+.gold-rule{height:2px;width:36px;background:#a18a66}
+.section-label{display:block;margin:18px 0 10px}
+.journeys{display:grid;gap:8px}
+.journey{display:flex;align-items:center;gap:12px;background:white;
+  border:1px solid var(--line);border-radius:11px;padding:13px;
+  width:100%;text-align:left;color:var(--navy);font-size:14px;font-weight:650}
+.journey.active{background:#eef4f9;border-color:var(--navy)}
+.journey .ico{width:34px;height:34px;border-radius:8px;background:#f1f4f6;
+  display:grid;place-items:center;font-size:18px}
+.journey.active .ico{background:#dce8f2}
+.journey .tick{margin-left:auto;color:#c6d0d8;font-size:19px}
+.journey.active .tick{color:var(--navy)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field label{font-size:13px;font-weight:700;color:var(--navy);padding-left:15px}
+.input-row{display:flex;align-items:center;gap:7px;color:var(--muted)}
+input{width:100%;min-width:0;border:1px solid #d5dde6;border-radius:8px;
+  background:#fff;padding:10px 12px;color:#293d4e;outline:none}
+input:focus{border-color:var(--navy);box-shadow:0 0 0 2px #dce8f2}
+.input-row input{flex:1}
+.panel{background:var(--blue);border-radius:12px;padding:17px;margin-top:16px}
+.row{display:flex;justify-content:space-between;align-items:center;
+  gap:10px}
+.line{display:flex;justify-content:space-between;gap:8px;
+  font-size:12px;color:var(--muted);margin:10px 0}
+.line strong{color:var(--navy);font-weight:650}
+hr{border:0;border-top:1px solid #d6dce4;margin:15px 0}
+.big{font-size:30px;font-weight:750;color:var(--navy);letter-spacing:-.8px}
+.mid{font-size:20px;font-weight:750;color:var(--navy)}
+.small{font-size:11px;color:var(--muted);line-height:1.5}
+.segment{display:flex;gap:4px;background:#f0f4f7;border-radius:8px;padding:4px}
+.segment button{flex:1;border:0;background:transparent;color:#627689;
+  border-radius:6px;padding:9px 6px;font-size:12px;font-weight:650}
+.segment button.active{background:var(--navy);color:white}
+.btn{border:1px solid #d0dbe4;background:white;color:var(--navy);
+  padding:9px 12px;border-radius:9px;font-size:12px;font-weight:650}
+.btn.active{background:var(--navy);color:white;border-color:var(--navy)}
+.presets{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:9px}
+.stack{display:flex;height:11px;border-radius:50px;overflow:hidden;
+  background:#e5ebe8;margin:10px 0}
+.stack div{height:100%}
+.label-dot{display:inline-block;width:8px;height:8px;border-radius:100%;margin-right:5px}
+.buyer-head{display:flex;justify-content:space-between;align-items:center;margin:15px 0}
+.buyer-name{display:flex;align-items:center;gap:9px;color:var(--navy);
+  font-size:12px;font-weight:750}
+.buyer-icon{width:30px;height:30px;border-radius:100%;background:#e6edf3;
+  display:grid;place-items:center;font-size:15px}
+.chart-row{display:flex;align-items:center;gap:9px;margin:7px 0}
+.chart-label{width:58px;font-size:10px;color:var(--muted);flex-shrink:0}
+.chart-track{height:12px;border-radius:30px;background:#e8efed;
+  flex:1;overflow:hidden;display:flex}
+.chart-value{width:74px;text-align:right;font-size:10px;color:#485e72}
+.result-card{border-radius:13px;padding:17px;margin:14px 0}
+.result-card.a{background:#eff4f8}
+.result-card.b{background:#f3f4f1}
+.card-head{display:flex;align-items:start;justify-content:space-between;
+  gap:12px;cursor:pointer}
+.card-head small{font-size:10px;color:var(--navy);font-weight:750}
+.card-head h3{font-size:22px;line-height:1.15;margin:12px 0 10px;color:var(--navy)}
+.card-head h3 span{display:block;color:#738698;font-weight:450}
+.result-card.b h3{color:#324e62}
+.result-card.b h3 span{color:#75858b}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+.metric .small{display:block;margin-bottom:5px}
+.mixlabels{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;gap:5px}
+.mixlabels .mid{font-size:14px}
+.accordion{border:1px solid #c7d4e0;border-radius:12px;padding:16px;margin:15px 0}
+.acc-button{background:transparent;border:0;display:flex;
+  justify-content:space-between;align-items:center;width:100%;
+  color:var(--navy);font-size:11px;font-weight:750;letter-spacing:.5px;text-align:left}
+.year-row{margin:14px 0}
+.year-row .row{font-size:11px;color:var(--muted)}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+footer{font-size:10px;line-height:1.55;color:#788591;margin-top:18px}
+.warning{font-size:12px;color:#ac624c;margin:10px 0}
+@media(max-width:450px){
+  main{margin:0;border-radius:0;padding:16px}
+  .hero h1{font-size:21px}
+  .avatar{width:56px;height:56px}
+  .grid2{gap:9px}
+  .intro h2{font-size:22px}
+  .big{font-size:25px}
+  .metrics{gap:10px}
+}
+</style>
 </head>
-
 <body>
-  <main class="app-shell">
-    <header class="app-header">
-      <p class="version">
-        V33.9 · INTERACTIVE CALCULATOR
-      </p>
+<main id="app"></main>
+<script>
+"use strict";
+const initial=()=>({
+  journey:"private",sale:0,hdb:0,refund:0,oa:0,
+  pureCash:0,pureCPF:0,extraOn:false,extra:0,
+  b2:false,b3:false,
+  name1:"Buyer 1",age1:35,wage1:5000,status1:"SC",
+  name2:"Buyer 2",age2:43,wage2:6500,status2:"SC",
+  name3:"Buyer 3",age3:30,wage3:5000,status3:"SC",
+  backup:0,debts:0,rate:3,commit:0,
+  protection:false,period:48,choice:"protect"
+});
+let v=initial(),tab=0;
+const opened={capacity:false,breakdown:false,A:false,B:false};
+const $=s=>document.querySelector(s);
+const num=x=>Math.max(0,Number(x)||0);
+const cash=x=>"$"+Math.round(Number(x)||0).toLocaleString("en-SG");
+const short=x=>x>=1e6?"$"+(x/1e6).toFixed(2)+"m":
+  x>=1e3?"$"+(x/1e3).toFixed(1)+"k":cash(x);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+const clamp=(x,min,max)=>Math.max(min,Math.min(max,x));
+const people=()=>[1,...(v.b2?[2]:[]),...(v.b2&&v.b3?[3]:[])];
 
-      <h1>Lifestyle Upgrade Protection</h1>
+function bsd(price){
+  let left=price,sum=0;
+  for(const [width,rate] of [
+    [180000,.01],[180000,.02],[640000,.03],
+    [500000,.04],[1500000,.05],[Infinity,.06]
+  ]){
+    const part=Math.min(Math.max(left,0),width);
+    sum+=part*rate;left-=part;
+    if(left<=0)break;
+  }
+  return sum;
+}
+function factor(rate,years){
+  const months=years*12,r=rate/1200;
+  if(!months)return Infinity;
+  return r===0?1/months:r/(1-Math.pow(1+r,-months));
+}
+function oaRate(age){
+  return age<=35?.23:age<=45?.21:age<=50?.19:
+    age<=55?.15:age<=60?.12:age<=65?.035:
+    age<=70?.01:0;
+}
+function calc(){
+  const sale=num(v.sale),fee=sale>0?3000:0;
+  const commission=sale*.0218;
+  const net=sale>0?sale-num(v.hdb)-commission-fee:0;
+  const refunded=Math.min(Math.max(0,net),num(v.refund));
+  const cashRaw=(v.journey==="first"?num(v.pureCash):
+    Math.max(0,net-refunded)+(v.extraOn?num(v.extra):0));
+  const cpfRaw=v.journey==="first"?num(v.pureCPF):
+    refunded+num(v.oa);
+  const equity=Math.floor((cashRaw+cpfRaw)/1000)*1000;
+  const cpf=Math.min(equity,cpfRaw),availableCash=equity-cpf;
+  const ids=people();
+  const income=ids.reduce((a,i)=>a+num(v["wage"+i]),0);
+  const age=income?ids.reduce((a,i)=>
+    a+num(v["age"+i])*num(v["wage"+i]),0)/income:0;
+  const tenure=income?Math.max(0,Math.min(30,Math.floor(65-age))):0;
+  const assessment=factor(4,tenure);
+  const cap=Number.isFinite(assessment)?
+    Math.floor(Math.max(0,income*.55-num(v.debts))/
+      assessment/1000)*1000:0;
+  const monthlyFactor=factor(num(v.rate),tenure);
+  const absd=ids.every(i=>v["status"+i]==="PR")?.05:0;
+  const perBuyer=ids.map(i=>Array.from({length:10},(_,year)=>
+    Math.min(8000,num(v["wage"+i]))*
+    oaRate(num(v["age"+i])+year)));
+  const combined=Array.from({length:10},(_,y)=>
+    perBuyer.reduce((s,arr)=>s+arr[y],0));
+  const flows=Array.from({length:48},(_,month)=>
+    combined[Math.floor(month/12)]);
 
-      <p class="subtitle">
-        Purchase Power &amp; Mortgage Protection
-      </p>
-    </header>
-
-    <nav class="step-tabs" aria-label="Calculator steps">
-      <button type="button" data-step="0">
-        <span class="step-number">1</span>
-        <span>Funds</span>
-      </button>
-
-      <button type="button" data-step="1">
-        <span class="step-number">2</span>
-        <span>CPF OA</span>
-      </button>
-
-      <button type="button" data-step="2">
-        <span class="step-number">3</span>
-        <span>Backup</span>
-      </button>
-
-      <button type="button" data-step="3">
-        <span class="step-number">4</span>
-        <span>Results</span>
-      </button>
-    </nav>
-
-    <section id="calculator-content" aria-live="polite">
-      <p>Loading calculator...</p>
-    </section>
-
-    <div class="bottom-navigation">
-      <button id="back-button" type="button">
-        ← Back
-      </button>
-
-      <button id="next-button" type="button">
-        Next →
-      </button>
+  function forecast(loan,commit,protect,period){
+    const monthly=Number.isFinite(monthlyFactor)?
+      loan*monthlyFactor:0;
+    let carry=0,needed=0;
+    const years=[];
+    for(let year=0;year<4;year++){
+      let cpfPaid=0,cashPaid=0,shieldPaid=0;
+      for(let m=0;m<12;m++){
+        const index=year*12+m;
+        const pool=carry+flows[index];
+        const cp=Math.min(pool,monthly);
+        const gap=Math.max(0,monthly-cp);
+        const shieldActive=protect&&index<period;
+        const ca=shieldActive?Math.min(commit,gap):gap;
+        const sh=shieldActive?gap-ca:0;
+        carry=Math.max(0,pool-cp);
+        cpfPaid+=cp;cashPaid+=ca;shieldPaid+=sh;
+        needed+=sh;
+      }
+      years.push({
+        cpf:cpfPaid/12,cash:cashPaid/12,
+        shield:shieldPaid/12
+      });
+    }
+    return{
+      monthly,years,
+      shield:protect?Math.ceil(needed/1000)*1000:0
+    };
+  }
+  function fit(price,loan,backup,commit,protect,period){
+    if(price<=0||cap<=0||!Number.isFinite(monthlyFactor)||
+      loan<0||loan>Math.min(cap,.75*price)+.001||
+      backup>availableCash||
+      (v.journey==="private"&&sale>0&&net<0))return null;
+    const fees=bsd(price)+3000+price*absd;
+    const down=price-loan,upfront=down+fees;
+    const payment=forecast(loan,commit,protect,period);
+    const cpfFee=Math.min(cpf,fees),cashFee=fees-cpfFee;
+    const cpfShield=Math.min(Math.max(0,cpf-cpfFee),payment.shield);
+    const cashShield=payment.shield-cpfShield;
+    const cpfDownAvailable=cpf-cpfFee-cpfShield;
+    const cashDownAvailable=availableCash-backup-cashFee-cashShield;
+    const cashDP=Math.max(.05*price,down-cpfDownAvailable);
+    const cpfDP=down-cashDP;
+    if(cashDP>cashDownAvailable+0.001||cpfDP<-.001||
+      cpfDP>cpfDownAvailable+.001)return null;
+    return{
+      price,loan,fees,down,upfront,cpfFee,cashFee,
+      cpfDP,cashDP,cpfShield,cashShield,
+      ltv:100*loan/price,...payment
+    };
+  }
+  function at(price,backup,commit,protect,period){
+    const loan=Math.min(cap,.75*price);
+    let found=fit(price,loan,backup,commit,protect,period);
+    if(found||!protect)return found;
+    for(let reduction=5000;
+      reduction<=Math.min(300000,loan);reduction+=5000){
+      found=fit(price,loan-reduction,backup,commit,protect,period);
+      if(found)return found;
+    }
+    return null;
+  }
+  function solve(backup,commit,protect,period){
+    if(!cap)return null;
+    let lo=1,hi=4500,best=null;
+    while(lo<=hi){
+      const mid=Math.floor((lo+hi)/2);
+      const candidate=at(mid*1000,backup,commit,protect,period);
+      if(candidate){best=candidate;lo=mid+1}
+      else hi=mid-1;
+    }
+    return best;
+  }
+  const A=solve(0,0,false,48);
+  const originalB=solve(num(v.backup),num(v.commit),
+    v.protection,v.period);
+  const baselineB=v.protection?
+    solve(num(v.backup),0,true,v.period):null;
+  const spare=originalB?Math.max(0,
+    cpf-originalB.cpfFee-originalB.cpfShield-originalB.cpfDP):0;
+  let B=originalB,reduction=0;
+  if(B&&v.choice==="reduce"&&spare>=1000){
+    const amount=Math.min(spare,B.loan);
+    const candidate=fit(B.price,B.loan-amount,
+      num(v.backup),0,false,v.period);
+    if(candidate){B=candidate;reduction=amount}
+  }
+  const bench=cap/.75;
+  const benchFees=cap>0?bsd(bench)+3000+bench*absd:0;
+  const benchUp=.25*bench+benchFees;
+  const benchCPF=Math.min(cpf,Math.max(0,benchUp-.05*bench));
+  const benchCash=benchUp-benchCPF;
+  const benchCashLeft=availableCash-benchCash;
+  const benchCPFLeft=cpf-benchCPF;
+  const benchOK=cap>0&&benchCashLeft>=0&&benchCPFLeft>=0;
+  return{
+    commission,fee,net,cash:availableCash,cpf,equity,
+    income,age,tenure,cap,absd,
+    perBuyer,combined,A,B,spare,reduction,
+    extraPurchase:v.protection&&originalB&&baselineB?
+      Math.max(0,originalB.price-baselineB.price):0,
+    bench,benchFees,benchUp,benchCashLeft,
+    benchCPFLeft,benchOK,
+    benchShortfall:Math.max(0,-benchCashLeft,
+      -benchCPFLeft,benchUp-equity)
+  };
+}
+function field(label,key,opts={}){
+  const val=esc(v[key]);
+  return `<div class="field"><label>${label}</label>
+  <div class="input-row">${opts.prefix?'<span>$</span>':""}
+  <input data-field="${key}" type="${opts.text?'text':'number'}"
+  ${opts.text?'':'min="0"'} value="${val}"></div></div>`;
+}
+function intro(k,top,bottom){
+  return `<div class="intro"><small>${k}</small>
+  <h2><span>${top}</span>${bottom}</h2>
+  <div class="gold-rule"></div></div>`;
+}
+function selectButton(label,key,value){
+  return `<button class="${v[key]===value?'active':''}"
+    data-set="${key}" data-value="${value}">${label}</button>`;
+}
+function presets(key,amounts){
+  return `<div class="presets">${amounts.map(a=>
+    `<button class="btn ${num(v[key])===a?'active':''}"
+    data-set="${key}" data-value="${a}">${a?'$'+a/1000+'k':'$0'}</button>`
+  ).join("")}</div>`;
+}
+function balanceBar(c,cpf){
+  const t=c+cpf;
+  return `<div class="stack">
+  <div style="width:${t?c/t*100:0}%;background:var(--orange)"></div>
+  <div style="flex:1;background:var(--teal)"></div></div>`;
+}
+function equityPanel(R){
+  return `<div class="panel">
+    <span class="eyebrow">YOUR AVAILABLE EQUITY</span>
+    <div class="big" style="margin-top:7px">${cash(R.equity)}</div>
+    ${balanceBar(R.cash,R.cpf)}
+    <div class="grid2">
+      <div><div class="small"><i class="label-dot" style="background:var(--orange)"></i>Cash Equity</div>
+      <div class="mid">${cash(R.cash)}</div></div>
+      <div><div class="small"><i class="label-dot" style="background:var(--teal)"></i>CPF OA Equity</div>
+      <div class="mid">${cash(R.cpf)}</div></div>
+    </div></div>`;
+}
+function step1(R){
+  return `${intro("01 / YOUR STARTING POSITION",
+    "Let's Start With","What You've Built.")}
+  <span class="section-label">YOUR PURCHASE JOURNEY</span>
+  <div class="journeys">
+    ${[["private","▤","HDB → Private"],
+       ["first","⚿","First Property"]].map(([id,icon,label])=>`
+      <button class="journey ${v.journey===id?'active':''}"
+        data-set="journey" data-value="${id}">
+        <span class="ico">${icon}</span><span>${label}</span>
+        <span class="tick">${v.journey===id?"●":"○"}</span>
+      </button>`).join("")}
+  </div>
+  <span class="section-label">${v.journey==="first"?
+    "YOUR AVAILABLE PURCHASE FUNDS":"YOUR HDB SALE DETAILS"}</span>
+  ${v.journey==="first"?
+    `<div class="grid2">${field("Available Cash","pureCash",{prefix:true})}
+    ${field("Available CPF (OA)","pureCPF",{prefix:true})}</div>`:
+    `<div class="grid2">
+      ${field("HDB Selling Price","sale",{prefix:true})}
+      ${field("Outstanding Loan","hdb",{prefix:true})}
+      ${field("CPF Refund + Int","refund",{prefix:true})}
+      ${field("Existing CPF (OA)","oa",{prefix:true})}
     </div>
-
-    <footer class="disclaimer">
-      <p>
-        Indicative planning estimates only. Loan approval,
-        CPF usage, stamp duties and ABSD eligibility must
-        be independently verified.
-      </p>
-
-      <p>
-        Mortgage Shield is a conceptual planning reserve,
-        not formally ring-fenced CPF funds.
-      </p>
-    </footer>
-  </main>
+    <div class="panel">
+      <span class="eyebrow">ESTIMATED SALE BREAKDOWN</span>
+      <div class="line">Commission incl. GST <strong>${cash(R.commission)}</strong></div>
+      <div class="line">Selling Legal Fees <strong>${cash(R.fee)}</strong></div>
+      <div class="line">Outstanding Loan <strong>${cash(v.hdb)}</strong></div>
+      <hr><div class="row"><strong style="font-size:13px">Net Sale Proceeds</strong>
+      <strong style="color:var(--navy)">${cash(R.net)}</strong></div>
+    </div>
+    <hr>
+    <div class="row">
+      <div><strong style="font-size:13px">Additional Cash Savings</strong>
+      <div class="small">Savings outside the amounts above</div></div>
+      <button class="btn ${v.extraOn?'active':''}" data-toggle="extraOn">
+      ${v.extraOn?'ON':'OFF'}</button></div>
+    ${v.extraOn?`${presets("extra",[0,50000,100000,200000])}
+      <div style="margin-top:14px">${field("Additional Cash Savings","extra",{prefix:true})}</div>`:""}
+    `}
+  ${equityPanel(R)}`;
+}
+function cpfChart(series,start,color){
+  const highest=Math.max(1,...series);
+  return series.map((amount,i)=>`
+    <div class="chart-row">
+      <span class="chart-label">Age ${start+i}</span>
+      <div class="chart-track">
+        <div style="height:100%;width:${amount/highest*100}%;
+          background:${color};border-radius:20px"></div></div>
+      <span class="chart-value">${cash(amount)}</span>
+    </div>`).join("");
+}
+function step2(R){
+  const ids=people(),colors=["#65ADA2","#426A9B","#DDA45C"];
+  return `${intro("02 / YOUR MONTHLY RESOURCES",
+    "Understanding Your Income.","Knowing Your Capacity.")}
+  ${ids.map((id,j)=>`
+    ${j?"<hr>":""}
+    <div class="buyer-head">
+      <div class="buyer-name"><span class="buyer-icon">♙</span>BUYER ${id}</div>
+      ${id<3?`<div class="row">
+        <span class="small">Add Buyer ${id+1}</span>
+        <button class="btn ${v[id===1?'b2':'b3']?'active':''}"
+          data-toggle="${id===1?'b2':'b3'}">
+          ${v[id===1?'b2':'b3']?'ON':'OFF'}</button></div>`:""}
+    </div>
+    ${field("Buyer Name","name"+id,{text:true})}
+    <div class="grid2" style="margin-top:15px">
+      ${field("Age","age"+id)}
+      ${field("Monthly Income","wage"+id,{prefix:true})}
+    </div>
+    <div style="margin-top:14px">
+      <span class="section-label">RESIDENCY</span>
+      <div class="segment">
+        ${selectButton("Singapore Citizen","status"+id,"SC")}
+        ${selectButton("PR","status"+id,"PR")}
+      </div></div>
+  `).join("")}
+  <hr>
+  <h3 style="font-size:18px">Your CPF OA Projection.</h3>
+  <div class="small">Estimated monthly CPF OA contributions over 10 years.</div>
+  ${ids.map((id,j)=>`
+    <div style="margin-top:20px">
+      <div class="row">
+        <strong style="font-size:13px;color:var(--navy)">
+        <i class="label-dot" style="background:${colors[j]}"></i>
+        ${esc(v["name"+id])}</strong>
+        <span class="small">Year 1: ${cash(R.perBuyer[j][0])}/mo</span>
+      </div>
+      ${cpfChart(R.perBuyer[j],num(v["age"+id]),colors[j])}
+    </div>`).join("")}
+  ${ids.length>1?`<hr><strong style="font-size:13px;color:var(--navy)">
+    Combined Monthly CPF OA</strong>
+    ${R.combined.map((total,i)=>`
+      <div class="chart-row">
+        <span class="chart-label">Year ${i+1}</span>
+        <div class="chart-track">${R.perBuyer.map((arr,j)=>`
+          <div style="width:${total?100*arr[i]/total:0}%;
+            background:${colors[j]}"></div>`).join("")}</div>
+        <span class="chart-value">${cash(total)}</span>
+      </div>`).join("")}`:""}
+  <p class="small">Indicative CPF OA forecast based on simplified
+    age-banded allocations and a $8,000 wage ceiling.</p>`;
+}
+function step3(R){
+  const protectedCash=num(v.backup);
+  return `${intro("03 / YOUR CASH RESERVE",
+    "Set Something Aside.","For Life or Renovation.")}
+    <span class="section-label">YOUR CASH RESERVE</span>
+    ${field("Cash to Protect","backup",{prefix:true})}
+    ${presets("backup",[0,25000,50000,100000])}
+    <div class="panel">
+      <span class="eyebrow">YOUR PURCHASE CASH POSITION</span>
+      <div class="big" style="margin-top:9px">
+        ${cash(Math.max(0,R.cash-protectedCash))}</div>
+      <div class="small">Cash remaining for your next purchase</div>
+      <div class="stack">
+        <div style="width:${R.cash?
+          Math.max(0,(R.cash-protectedCash)/R.cash*100):0}%;
+          background:var(--orange)"></div>
+        <div style="flex:1;background:var(--loan)"></div>
+      </div>
+      <div class="row small">
+        <span>Cash for Purchase ${cash(Math.max(0,R.cash-protectedCash))}</span>
+        <span>Protected ${cash(protectedCash)}</span>
+      </div>
+      ${protectedCash>R.cash?`<div class="warning">
+        Protected cash exceeds available cash by
+        ${cash(protectedCash-R.cash)}.</div>`:""}
+    </div>
+    <p class="small">The cash reserve applies to Structure B only.
+    Structure A continues to use the full available equity.</p>`;
+}
+function fundingMix(X){
+  const p=X.price;
+  return `<div class="stack" style="height:18px">
+    <div style="width:${X.cashDP/p*100}%;background:var(--orange)"></div>
+    <div style="width:${X.cpfDP/p*100}%;background:var(--teal)"></div>
+    <div style="width:${X.loan/p*100}%;background:var(--loan)"></div>
+  </div>
+  <div class="mixlabels">
+    ${[["Cash",X.cashDP,"orange"],["CPF OA",X.cpfDP,"teal"],
+      ["Loan",X.loan,"loan"]].map(([name,amount,color])=>
+        `<div><div class="small"><i class="label-dot"
+        style="background:var(--${color})"></i>${name}</div>
+        <div class="mid">${cash(amount)}</div>
+        <div class="small">${(amount/p*100).toFixed(1)}%</div></div>`
+      ).join("")}
+  </div>
+  <div class="small" style="margin-top:12px">
+    Minimum cash downpayment: ${cash(p*.05)} (5% of purchase price)
+  </div>`;
+}
+function mortgageChart(X,id){
+  return `<strong style="font-size:13px;color:var(--navy)">
+    Four-Year Mortgage Funding</strong>
+    <div class="small">Monthly averages</div>
+    ${X.years.map((y,i)=>`
+      <div class="year-row">
+        <div class="row"><span>Year ${i+1}</span>
+        <span>Mortgage ${cash(X.monthly)}/mo</span></div>
+        <div class="stack">
+          <div style="width:${X.monthly?y.cpf/X.monthly*100:0}%;
+            background:var(--loan)"></div>
+          <div style="width:${X.monthly?y.cash/X.monthly*100:0}%;
+            background:var(--orange)"></div>
+          <div style="width:${X.monthly?y.shield/X.monthly*100:0}%;
+            background:var(--purple)"></div>
+        </div>
+        <div class="row small">
+          <span>CPF ${cash(y.cpf)}</span>
+          <span>Cash ${cash(y.cash)}</span>
+          ${id==="B"&&v.protection?`<span>Shield ${cash(y.shield)}</span>`:""}
+        </div>
+      </div>`).join("")}
+    <hr>
+    <div class="row small">
+      <span>48-month totals</span>
+      <span>CPF ${short(X.years.reduce((a,y)=>a+y.cpf*12,0))}</span>
+      <span>Cash ${short(X.years.reduce((a,y)=>a+y.cash*12,0))}</span>
+      ${id==="B"&&v.protection?
+        `<span>Shield ${short(X.years.reduce((a,y)=>a+y.shield*12,0))}</span>`:""}
+    </div>`;
+}
+function resultCard(id,R){
+  const X=R[id],open=opened[id],B=id==="B";
+  return `<section class="result-card ${B?'b':'a'}">
+    <div class="card-head" data-open="${id}">
+      <div style="flex:1">
+        <small>STRUCTURE ${id} · ${B?'PROTECTED UPGRADE':
+          'MAXIMUM PURCHASING POWER'}</small>
+        <h3><span>${B?'Elevate Your Address.':'Just Because You Can.'}</span>
+          ${B?'Preserve Your Lifestyle.':"Doesn't Mean You Should."}</h3>
+        <div class="gold-rule"></div>
+      </div><span style="color:var(--navy)">${open?'⌃':'⌄'}</span>
+    </div>
+    ${open?`
+      ${X?`
+        <div class="metrics">
+          <div class="metric"><span class="small">Max Purchase Price</span>
+          <div class="mid">${cash(X.price)}</div></div>
+          <div class="metric"><span class="small">Monthly Mortgage</span>
+          <div class="mid">${cash(X.monthly)}</div></div>
+        </div><hr>
+        <div class="metrics">
+          <div class="metric"><span class="small">Max Eligible Loan</span>
+          <div class="mid">${cash(R.cap)}</div></div>
+          <div class="metric"><span class="small">Total Avail Equity</span>
+          <div class="mid">${cash(R.equity)}</div></div>
+          <div class="metric"><span class="small">${B?'Adjusted Loan':'Selected Loan'}</span>
+          <div class="mid">${cash(X.loan)}</div>
+          <span class="small">${X.ltv.toFixed(1)}% LTV</span></div>
+          <div class="metric">
+            <span class="small">${B?'Adjusted Upfront':'Upfront Required'}</span>
+            <div class="mid">${cash(X.upfront)}</div>
+            <span class="small">Downpay: ${cash(X.down)}</span><br>
+            <span class="small">${R.absd?'BSD + ABSD + Legal':'BSD + Legal'}:
+              ${cash(X.fees)}</span></div>
+        </div>
+        <hr><strong style="font-size:13px">Purchase Funding Mix</strong>
+        ${fundingMix(X)}
+      `:`<div class="small" style="margin:17px 0">
+        No feasible purchase at the current settings. Enter your funds
+        in Step 1 or adjust your cash reserve.</div>`}
+      ${B?`
+        ${X&&R.spare>=1000?`
+          <hr><div class="row">
+            <strong style="font-size:13px">Smart CPF Allocation</strong>
+            <span class="small">Spare CPF: ${cash(R.spare)}</span>
+          </div>
+          <div class="segment" style="margin-top:10px">
+            ${selectButton("Protect Mortgage","choice","protect")}
+            ${selectButton("Reduce Loan","choice","reduce")}
+          </div>
+          ${R.reduction?`<p class="small">Loan Reduction:
+            ${cash(R.reduction)}</p>`:""}
+        `:""}
+        <hr><div class="row">
+          <div><strong style="font-size:13px">Mortgage Protection</strong>
+          <div class="small">${v.protection?
+            v.period+"-month protection enabled":"Protection not activated"}</div></div>
+          <button class="btn ${v.protection?'active':''}"
+            data-toggle="protection">${v.protection?'ON':'OFF'}</button>
+        </div>
+        ${v.protection?`
+          <div class="row" style="margin-top:15px">
+            <span class="small">Protection Period</span>
+            <div class="segment">
+              ${selectButton("24 months","period",24)}
+              ${selectButton("48 months","period",48)}
+            </div>
+          </div>
+          <div style="margin-top:13px">
+            <div class="row"><strong style="font-size:12px">
+              Monthly Cash Commitment</strong>
+              <span class="small" style="color:#318461">
+                PP + ${cash(R.extraPurchase)}</span></div>
+            ${field("Amount","commit",{prefix:true})}
+            ${presets("commit",[0,1000,2000,3000])}
+          </div>
+          ${X?`<div class="line">Mortgage Shield Required
+            <strong>${cash(X.shield)}</strong></div>`:""}
+        `:""}
+        <hr><span class="eyebrow">YOUR LIFESTYLE PROTECTION SUMMARY</span>
+        <h3 style="font-size:18px">Your home. Your peace of mind.</h3>
+        <div class="mixlabels">
+          <div>⌂<div class="small">Your Home</div>
+            <strong>${X?cash(X.price):"—"}</strong></div>
+          <div>▣<div class="small">Cash Kept</div>
+            <strong>${cash(v.backup)}</strong></div>
+          <div>◇<div class="small">Mortgage Shield</div>
+            <strong>${X?cash(X.shield):"—"}</strong></div>
+        </div>
+        <hr><div class="small">${v.protection?
+          "Mortgage protection uses the selected cash commitment and duration.":
+          "Mortgage protection is not activated."}</div>
+      `:""}
+      ${X?`<hr>${mortgageChart(X,id)}`:""}
+    `:""}
+  </section>`;
+}
+function step4(R){
+  return `${intro("YOUR FINANCIAL FOUNDATION",
+    "Resources You've Built","Over the Years.")}
+    <div class="panel">
+      <div class="row"><strong style="font-size:13px">▣ What You Have</strong>
+      <span class="small">Available Equity</span></div>
+      <div class="big" style="margin-top:10px">${cash(R.equity)}</div>
+      ${balanceBar(R.cash,R.cpf)}
+      <div class="row small">
+        <span>Cash ${cash(R.cash)}</span><span>CPF ${cash(R.cpf)}</span>
+      </div><hr>
+      <div class="row"><strong style="font-size:13px">
+        Your Maximum Loan</strong><span class="small">Est. Capacity</span></div>
+      <div class="row" style="margin-top:8px">
+        <div class="big">${cash(R.cap)}</div>
+        <span class="small">${R.tenure}-year tenure</span></div><hr>
+      <div class="grid2">
+        ${field("Monthly Debts","debts",{prefix:true})}
+        ${field("Mortgage Rate (%)","rate")}
+      </div>
+      <p class="small">Estimated affordability uses a 4% assessment
+        interest rate, 55% TDSR and up to 75% LTV. The mortgage rate
+        above is used for the repayment forecast.</p>
+    </div>
+    <section class="accordion">
+      <button class="acc-button" data-open="capacity">
+        <span>⚿ &nbsp; INCOME-BASED PURCHASE CAPACITY</span>
+        <span>${opened.capacity?'⌃':'⌄'}</span></button>
+      ${opened.capacity?`
+        <div style="text-align:center;margin:19px 0">
+          <div class="small">Potential Property Price</div>
+          <div class="big">${cash(R.bench)}</div>
+          <div class="small">Based on estimated 75% financing</div>
+        </div><hr>
+        <div class="grid2">
+          <div><div class="small">Upfront Required</div>
+          <div class="mid">${cash(R.benchUp)}</div></div>
+          <div><div class="small">${R.benchOK?
+            "Equity Remaining":"Funding Shortfall"}</div>
+            <div class="mid">${cash(R.benchOK?
+              R.equity-R.benchUp:R.benchShortfall)}</div></div>
+        </div>
+        <div class="panel">
+          <span class="eyebrow">FUNDING POSITION</span>
+          <div class="line">Cash ${R.benchCashLeft>=0?
+            'Remaining':'Shortfall'}
+            <strong>${cash(Math.abs(R.benchCashLeft))}</strong></div>
+          <div class="line">CPF OA ${R.benchCPFLeft>=0?
+            'Remaining':'Shortfall'}
+            <strong>${cash(Math.abs(R.benchCPFLeft))}</strong></div>
+        </div>
+        <button class="acc-button" data-open="breakdown"
+          style="margin-top:15px">Explore Purchase Breakdown
+          <span>${opened.breakdown?'⌃':'⌄'}</span></button>
+        ${opened.breakdown?`
+          <div class="line">Estimated Loan <strong>${cash(R.cap)}</strong></div>
+          <div class="line">5% Mandatory Cash
+            <strong>${cash(R.bench*.05)}</strong></div>
+          <div class="line">Downpayment
+            <strong>${cash(R.bench*.25)}</strong></div>
+          <div class="line">BSD + Legal
+            <strong>${cash(R.benchFees-R.bench*R.absd)}</strong></div>
+          ${R.absd?`<div class="line">Assumed ABSD
+            <strong>${cash(R.bench*R.absd)}</strong></div>`:""}
+        `:""}
+      `:""}
+    </section>
+    ${resultCard("A",R)}
+    ${resultCard("B",R)}`;
+}
+function render(){
+  const R=calc();
+  $("#app").innerHTML=`
+    <div class="brand">
+      <span>▤ &nbsp; JONATHAN FOK · PROPERTY ADVISORY</span>
+      <button class="reset" data-action="reset">↺ Reset</button>
+    </div>
+    <div class="hero">
+      <div class="avatar">
+        <img src="https://i.postimg.cc/VN3MnPjk/IMG-5337.jpg"
+          alt="Jonathan Fok" onerror="this.style.display='none'">
+      </div>
+      <div><span class="eyebrow">PERSONAL UPGRADE DISCOVERY</span>
+        <h1><span>5 Minutes.</span>The Full Picture.</h1>
+        <p>No more guessing about your Budget.</p>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <nav class="tabs">
+      ${["Funds","CPF OA","Backup","Results"].map((label,i)=>
+        `<button class="tab ${tab===i?'active':''}" data-tab="${i}">
+         <small>STEP ${i+1}</small>${label}</button>`).join("")}
+    </nav>
+    ${tab===0?step1(R):tab===1?step2(R):
+      tab===2?step3(R):step4(R)}
+    <hr>
+    <div class="nav">
+      <button class="btn" data-action="back"
+        ${tab===0?"disabled":""}>← Back</button>
+      <span class="small">${tab+1} of 4</span>
+      <button class="btn" data-action="next">
+        ${tab===3?"Review Funds":"Continue →"}</button>
+    </div>
+    <footer><strong>Disclaimer:</strong> Independently designed by
+      Jonathan Fok. All figures are estimates and may vary based on
+      actual CPF, financing and stamp duty requirements. This planning
+      version uses a simplified ABSD assumption: 0% where any buyer
+      is a Singapore Citizen; otherwise 5% for all-PR buyers.
+      Actual IRAS treatment and financing eligibility may differ.
+    </footer>`;
+}
+document.addEventListener("change",e=>{
+  const key=e.target.dataset.field;
+  if(!key)return;
+  v[key]=e.target.type==="text"?e.target.value:num(e.target.value);
+  render();
+});
+document.addEventListener("click",e=>{
+  const node=e.target.closest("button,[data-open]");
+  if(!node)return;
+  if(node.dataset.tab!==undefined){
+    tab=Number(node.dataset.tab);
+  }else if(node.dataset.set){
+    const key=node.dataset.set,raw=node.dataset.value;
+    v[key]=["period"].includes(key)?Number(raw):
+      ["backup","extra","commit"].includes(key)?Number(raw):raw;
+  }else if(node.dataset.toggle){
+    const key=node.dataset.toggle;
+    v[key]=!v[key];
+    if(key==="b2"&&!v.b2)v.b3=false;
+  }else if(node.dataset.open){
+    const key=node.dataset.open;
+    opened[key]=!opened[key];
+  }else if(node.dataset.action==="back"){
+    tab=Math.max(0,tab-1);
+  }else if(node.dataset.action==="next"){
+    tab=tab===3?0:tab+1;
+  }else if(node.dataset.action==="reset"){
+    v=initial();tab=0;
+    Object.keys(opened).forEach(k=>opened[k]=false);
+  }else return;
+  render();
+});
+render();
+</script>
 </body>
 </html>
