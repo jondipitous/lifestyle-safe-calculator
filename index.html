@@ -478,7 +478,6 @@ hr{
 .result-card{
   border-radius:13px;
   padding:17px;
-
   margin:14px 0;
 }
 
@@ -899,7 +898,6 @@ footer{
 
 .capacity-legend b{
   color:var(--navy);
-
   font-weight:700;
 }
 
@@ -1740,7 +1738,6 @@ function calc(){
         cap,
         .75*price
       )+.001||
-
       loan!==roundLoan(loan)||
       backup>availableCash||
       (
@@ -2581,7 +2578,6 @@ function step3(R){
   return `${intro(
     "03 / YOUR CASH RESERVE",
     "Set Something Aside.",
-
     "For Life or Renovation."
   )}
 
@@ -3002,7 +2998,6 @@ function mortgageChart(X,id){
         </span>
       `:""}
     </div>
-
   `;
 }
 
@@ -3135,11 +3130,11 @@ function resultCard(id,R){
                 </div>
 
                 <div>
-                  ${R.absd?
-                    "BSD + ABSD + Legal":
-                    "BSD + Legal"}:
-                  ${cash(X.fees)}
+                  BSD + Legal: ${cash(X.fees-X.price*R.absd)}
                 </div>
+                ${R.absd?`<div>
+                  ABSD: ${cash(X.price*R.absd)}
+                </div>`:""}
               </div>
 
             </div>
@@ -3479,15 +3474,19 @@ function incomeCapacity(R){
           <div style="min-width:0">
             <div class="small">Upfront Required</div>
             <div class="mid" style="font-variant-numeric:tabular-nums">${cash(R.benchUp)}</div>
-            <div class="small" style="margin-top:10px">5% Cash ${cash(minCash)}</div>
-            <div class="small">20% Downpay ${cash(down-minCash)}</div>
-            <div class="small">BSD + Legal + ABSD ${cash(R.benchFees)}</div>
+            <div class="small" style="margin-top:10px">5% Cash: ${cash(minCash)}</div>
+            <div class="small">20% Downpay: ${cash(down-minCash)}</div>
+            <div class="small">BSD + Legal: ${cash(R.benchFees-price*R.absd)}</div>
+            ${R.absd?`<div class="small">ABSD: ${cash(price*R.absd)}</div>`:""}
           </div>
           <div style="min-width:0">
             <div class="small">Upfront Available</div>
-            <div class="mid" style="font-variant-numeric:tabular-nums">${cash(available)}</div>
-            <div class="small" style="margin-top:10px">Cash ${cash(R.cash)}</div>
-            <div class="small">CPF ${cash(R.cpf)}</div>
+            <div class="row" style="justify-content:flex-start;gap:9px;align-items:center">
+              <div class="mid" style="font-variant-numeric:tabular-nums">${cash(available)}</div>
+              <span aria-label="${available>R.benchUp+.005?'Available exceeds required':available<R.benchUp-.005?'Available below required':'Available equals required'}" style="font-size:23px;font-weight:800;line-height:1;color:${available>R.benchUp+.005?'var(--success)':available<R.benchUp-.005?'var(--danger)':'var(--muted)'}">${available>R.benchUp+.005?'↑':available<R.benchUp-.005?'↓':'='}</span>
+            </div>
+            <div class="small" style="margin-top:10px">Cash: ${cash(R.cash)}</div>
+            <div class="small">CPF: ${cash(R.cpf)}</div>
           </div>
         </div>
         <div class="panel capacity-position" style="margin-top:12px">
@@ -3500,7 +3499,7 @@ function incomeCapacity(R){
           </div>
           ${valid?(isShort?`
             ${cashShort+F.feeShort>.005?detail("Cash shortfall",cashShort+F.feeShort,"var(--danger)"):""}
-            ${F.twentyShort>.005?detail("20% downpayment shortfall",F.twentyShort,"var(--danger)"):""}
+            ${F.twentyShort>.005?detail("Additional cash required",F.twentyShort,"var(--danger)"):""}
             ${cpfSurplus>.005?detail("CPF surplus",cpfSurplus,"var(--success)"):""}
             ${cashSurplus>.005?detail("Cash surplus",cashSurplus,"var(--success)"):""}
             ${cashOnlyIssue?`<div class="small" style="margin-top:12px">Total funds are sufficient, but more cash is needed for the minimum 5% downpayment.</div>`:""}
@@ -3549,11 +3548,11 @@ function step4(R){
     <div class="row small">
 
       <span>
-        Cash ${cash(R.cash)}
+        Cash: ${cash(R.cash)}
       </span>
 
       <span>
-        CPF ${cash(R.cpf)}
+        CPF: ${cash(R.cpf)}
       </span>
 
     </div>
@@ -3873,5 +3872,3 @@ render();
 </script>
 </body>
 </html>
-
-
