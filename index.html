@@ -1,539 +1,2155 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Personal Upgrade Discovery | Jonathan Fok</title>
+
 <style>
 :root{
-  --navy:#1F4E78;--muted:#697989;--line:#E0E6EC;
-  --ivory:#F4F3EE;--blue:#F0F4F7;--teal:#65ADA2;
-  --orange:#DDA45C;--loan:#5685AF;--purple:#8972CE;
-  --danger:#B45E49;--success:#338363;
-  --cashbar:#3D85BC;--cpfbar:#4CA487;
+  --navy:#1F4E78;
+  --muted:#697989;
+  --line:#E0E6EC;
+  --ivory:#F4F3EE;
+  --blue:#F0F4F7;
+  --teal:#65ADA2;
+  --orange:#DDA45C;
+  --loan:#5685AF;
+  --purple:#8972CE;
+  --danger:#B45E49;
+  --success:#338363;
 }
-*{box-sizing:border-box}
-body{margin:0;background:#edf1f4;color:#293d4e;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-main{max-width:750px;margin:30px auto;background:#fff;border:1px solid #e5e9ee;border-radius:22px;padding:25px}
-button,input{font:inherit}
-button{cursor:pointer}
-button:disabled{opacity:.35;cursor:default}
-.brand{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:10px;font-weight:750;letter-spacing:.6px;color:var(--navy)}
-.brand span{display:flex;align-items:center;gap:6px}
-.reset{border:0;background:transparent;color:#768697;font-size:12px}
-.hero{display:flex;align-items:center;gap:15px;margin:22px 0 16px}
-.avatar{width:68px;height:68px;border-radius:100%;background:#e1eaf2;display:grid;place-items:center;flex-shrink:0;color:var(--navy);font-size:29px;overflow:hidden}
-.avatar img{width:100%;height:100%;object-fit:cover}
-.eyebrow,.section-label{font-size:11px;font-weight:750;letter-spacing:.65px;color:var(--navy)}
-.hero h1{margin:5px 0 2px;color:var(--navy);font-size:24px;line-height:1.13;font-weight:750}
-.hero h1 span{display:block;color:#64788b;font-weight:450}
-.hero p{font-size:12px;color:#64788b;margin:7px 0 0}
-.rule{height:2px;width:36px;background:var(--navy);margin:12px 0}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:12px 0 15px}
-.tab{border:0;background:#f0f4f7;color:var(--navy);border-radius:8px;padding:10px 3px;font-size:14px;font-weight:700}
-.tab small{display:block;font-size:9px;margin-bottom:3px;color:#718395;letter-spacing:.5px}
-.tab.active{background:var(--navy);color:#fff}
-.tab.active small{color:#d5e4f0}
-.intro{background:var(--ivory);padding:19px;border-radius:14px;margin:0 0 20px}
-.intro small{font-size:10px;color:#6d6254;font-weight:750;letter-spacing:.6px}
-.intro h2{font-size:24px;line-height:1.17;margin:16px 0 13px;color:#293d4e}
-.intro h2 span{display:block;font-weight:450;color:#70695f}
-.gold-rule{height:2px;width:36px;background:#a18a66}
-.section-label{display:block;margin:18px 0 10px}
-.journeys{display:grid;gap:8px}
-.journey{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:13px;width:100%;text-align:left;color:var(--navy);font-size:14px;font-weight:650}
-.journey.active{background:#eef4f9;border-color:var(--navy)}
-.journey .ico{width:34px;height:34px;border-radius:8px;background:#f1f4f6;display:grid;place-items:center;font-size:18px}
-.journey.active .ico{background:#dce8f2}
-.journey .tick{margin-left:auto;color:#c6d0d8;font-size:19px}
-.journey.active .tick{color:var(--navy)}
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.field{display:flex;flex-direction:column;gap:7px;min-width:0}
-.field label{font-size:13px;font-weight:700;color:var(--navy);padding-left:15px}
-.input-row{display:flex;align-items:center;gap:7px;color:var(--muted)}
-input{width:100%;min-width:0;border:1px solid #d5dde6;border-radius:8px;background:#fff;padding:10px 12px;color:#293d4e;outline:none}
-input:focus{border-color:var(--navy);box-shadow:0 0 0 2px #dce8f2}
-.input-row input{flex:1}
-.panel{background:var(--blue);border-radius:12px;padding:17px;margin-top:16px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.line{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);margin:10px 0}
-.line strong{color:var(--navy);font-weight:650}
-hr{border:0;border-top:1px solid #d6dce4;margin:15px 0}
-.big{font-size:30px;font-weight:750;color:var(--navy);letter-spacing:-.8px}
-.mid{font-size:20px;font-weight:750;color:var(--navy)}
-.small{font-size:11px;color:var(--muted);line-height:1.5}
-.segment{display:flex;gap:4px;background:#f0f4f7;border-radius:8px;padding:4px}
-.segment button{flex:1;min-width:0;border:0;background:transparent;color:#627689;border-radius:6px;padding:9px 6px;font-size:12px;font-weight:650}
-.segment button.active{background:var(--navy);color:#fff}
-.btn{border:1px solid #d0dbe4;background:#fff;color:var(--navy);padding:9px 12px;border-radius:9px;font-size:12px;font-weight:650}
-.btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
-.presets{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:9px}
-.stack{display:flex;height:11px;border-radius:50px;overflow:hidden;background:#e5ebe8;margin:10px 0}
-.stack div{height:100%}
-.label-dot{display:inline-block;width:8px;height:8px;border-radius:100%;margin-right:5px}
-.buyer-head{display:flex;justify-content:space-between;align-items:center;margin:15px 0}
-.buyer-name{display:flex;align-items:center;gap:9px;color:var(--navy);font-size:12px;font-weight:750}
-.buyer-icon{width:30px;height:30px;border-radius:100%;background:#e6edf3;display:grid;place-items:center;font-size:15px}
-.chart-row{display:flex;align-items:center;gap:9px;margin:7px 0}
-.chart-label{width:58px;font-size:10px;color:var(--muted);flex-shrink:0}
-.chart-track{height:12px;border-radius:30px;background:#e8efed;flex:1;overflow:hidden;display:flex}
-.chart-value{width:74px;text-align:right;font-size:10px;color:#485e72}
-.result-card{border-radius:13px;padding:17px;margin:14px 0}
-.result-card.a{background:#eff4f8}
-.result-card.b{background:#f3f4f1}
-.card-head{display:flex;align-items:start;justify-content:space-between;gap:12px;cursor:pointer}
-.card-head small{font-size:10px;color:var(--navy);font-weight:750}
-.card-head h3{font-size:22px;line-height:1.15;margin:12px 0 10px;color:var(--navy)}
-.card-head h3 span{display:block;color:#738698;font-weight:450}
-.result-card.b h3{color:#324e62}
-.result-card.b h3 span{color:#75858b}
-.metrics{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
-.metric .small{display:block;margin-bottom:5px}
-.accordion{border:1px solid #c7d4e0;border-radius:12px;padding:16px;margin:15px 0}
-.acc-button{background:transparent;border:0;display:flex;justify-content:space-between;align-items:center;width:100%;color:var(--navy);font-size:11px;font-weight:750;letter-spacing:.5px;text-align:left}
-.year-row{margin:14px 0}
-.year-row .row{font-size:11px;color:var(--muted)}
-.nav{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
-footer{font-size:10px;line-height:1.55;color:#788591;margin-top:18px}
-.warning{font-size:12px;color:#ac624c;margin:10px 0}
-.upfront-breakdown{display:flex;flex-direction:column;gap:0;margin-top:1px;font-size:11px;line-height:1.15;color:var(--muted)}
-.upfront-breakdown div{margin:0;padding:0}
 
-/* PURCHASE FUNDING MIX */
+*{
+  box-sizing:border-box;
+}
 
-.funding-mix{margin:16px 0 6px}
-.funding-head{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--navy)}
-.funding-head strong{font-size:14px}
-.funding-head span{color:var(--muted);font-size:13px}
-.funding-guide{position:relative;padding-top:28px;margin-top:14px}
-.funding-guide-label{position:absolute;top:0;transform:translateX(-50%);font-size:12px;color:#52695c;font-weight:700}
-.funding-guide-label.last{transform:translateX(-100%)}
-.funding-track{height:30px;position:relative}
-.funding-fill{height:100%;display:flex;border-radius:999px;overflow:hidden;background:#e5ebe8}
-.funding-marker{position:absolute;top:-5px;height:40px;border-left:2px dashed #355f45;pointer-events:none;z-index:2}
-.funding-marker.end{border-left-style:solid;transform:translateX(-2px)}
-.funding-legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;text-align:center;margin-top:18px}
-.funding-legend .mid{font-size:14px;overflow-wrap:anywhere}
-.funding-legend .small{margin-top:3px}
-.funding-note{font-size:11px;color:var(--muted);margin-top:12px}
+body{
+  margin:0;
+  background:#edf1f4;
+  color:#293d4e;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,
+    "Segoe UI",Arial,sans-serif;
+}
 
-/* INCOME-BASED CAPACITY */
+main{
+  max-width:750px;
+  margin:30px auto;
+  background:white;
+  border:1px solid #e5e9ee;
+  border-radius:22px;
+  padding:25px;
+}
 
-.capacity-header{font-size:13px;letter-spacing:.3px}
-.capacity-title{display:flex;align-items:center;gap:12px;min-width:0}
-.capacity-title svg{width:26px;height:26px;fill:none;stroke:var(--navy);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
-.capacity-price{text-align:center;margin:22px 0}
-.capacity-price .big{margin:8px 0;font-size:32px}
-.capacity-price .small{font-size:12px}
-.capacity-metrics{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0}
-.capacity-metrics .small{font-size:13px}
-.capacity-metrics .mid{margin-top:7px}
-.capacity-subtext{font-size:11px;color:var(--muted);margin-top:5px}
-.capacity-danger{color:var(--danger)!important}
-.capacity-success{color:var(--success)!important}
-.capacity-neutral{color:var(--navy)!important}
-.capacity-position{padding:17px;margin-top:18px}
-.capacity-position .line{align-items:center;margin:12px 0}
-.capacity-position .line strong{font-size:13px}
-.capacity-net-row{border-top:1px solid #d6dfe7;padding-top:11px;margin-top:13px!important}
-.capacity-message{font-size:12px;line-height:1.5;color:var(--danger);margin:16px 0}
-.capacity-breakdown{font-size:13px!important;letter-spacing:0!important;padding:8px 0;margin-top:16px}
-.capacity-breakdown-rows .line{font-size:12px;margin:15px 0}
-.capacity-footnote{font-size:11px;color:var(--muted);margin-top:20px;letter-spacing:.2px}
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+button:disabled{
+  opacity:.35;
+  cursor:default;
+}
+
+.brand{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  font-size:10px;
+  font-weight:750;
+  letter-spacing:.6px;
+  color:var(--navy);
+}
+
+.brand span{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.reset{
+  border:0;
+  background:transparent;
+  color:#768697;
+  font-size:12px;
+}
+
+.hero{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin:22px 0 16px;
+}
+
+.avatar{
+  width:68px;
+  height:68px;
+  border-radius:100%;
+  background:#e1eaf2;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  border-radius:100%;
+  object-fit:cover;
+}
+
+.eyebrow,
+.section-label{
+  font-size:11px;
+  font-weight:750;
+  letter-spacing:.65px;
+  color:var(--navy);
+}
+
+.hero h1{
+  margin:5px 0 2px;
+  color:var(--navy);
+  font-size:24px;
+  line-height:1.13;
+  font-weight:750;
+}
+
+.hero h1 span{
+  display:block;
+  color:#64788b;
+  font-weight:450;
+}
+
+.hero p{
+  font-size:12px;
+  color:#64788b;
+  margin:7px 0 0;
+}
+
+.rule{
+  height:2px;
+  width:36px;
+  background:var(--navy);
+  margin:12px 0;
+}
+
+.tabs{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+  margin:12px 0 15px;
+}
+
+.tab{
+  border:0;
+  background:#f0f4f7;
+  color:var(--navy);
+  border-radius:8px;
+  padding:10px 3px;
+  font-size:14px;
+  font-weight:700;
+}
+
+.tab small{
+  display:block;
+  font-size:9px;
+  margin-bottom:3px;
+  color:#718395;
+  letter-spacing:.5px;
+}
+
+.tab.active{
+  background:var(--navy);
+  color:white;
+}
+
+.tab.active small{
+  color:#d5e4f0;
+}
+
+.intro{
+  background:var(--ivory);
+  padding:19px;
+  border-radius:14px;
+  margin:0 0 20px;
+}
+
+.intro small{
+  font-size:10px;
+  color:#6d6254;
+  font-weight:750;
+  letter-spacing:.6px;
+}
+
+.intro h2{
+  font-size:24px;
+  line-height:1.17;
+  margin:16px 0 13px;
+  color:#293d4e;
+}
+
+.intro h2 span{
+  display:block;
+  font-weight:450;
+  color:#70695f;
+}
+
+.gold-rule{
+  height:2px;
+  width:36px;
+  background:#a18a66;
+}
+
+.section-label{
+  display:block;
+  margin:18px 0 10px;
+}
+
+.journeys{
+  display:grid;
+  gap:8px;
+}
+
+.journey{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:13px;
+  width:100%;
+  text-align:left;
+  color:var(--navy);
+  font-size:14px;
+  font-weight:650;
+}
+
+.journey.active{
+  background:#eef4f9;
+  border-color:var(--navy);
+}
+
+.journey .ico{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  background:#f1f4f6;
+  display:grid;
+  place-items:center;
+  font-size:18px;
+}
+
+.journey .tick{
+  margin-left:auto;
+  color:var(--navy);
+  font-size:19px;
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  min-width:0;
+}
+
+.field label{
+  font-size:13px;
+  font-weight:700;
+  color:var(--navy);
+  padding-left:15px;
+}
+
+.input-row{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:var(--muted);
+}
+
+input{
+  width:100%;
+  min-width:0;
+  border:1px solid #d5dde6;
+  border-radius:8px;
+  background:white;
+  padding:10px 12px;
+  color:#293d4e;
+  outline:none;
+}
+
+input:focus{
+  border-color:var(--navy);
+  box-shadow:0 0 0 2px #dce8f2;
+}
+
+.input-row input{
+  flex:1;
+}
+
+.panel{
+  background:var(--blue);
+  border-radius:12px;
+  padding:17px;
+  margin-top:16px;
+}
+
+.row,
+.line{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.line{
+  font-size:12px;
+  color:var(--muted);
+  margin:10px 0;
+}
+
+.line strong{
+  color:var(--navy);
+  font-weight:650;
+}
+
+hr{
+  border:0;
+  border-top:1px solid #d6dce4;
+  margin:15px 0;
+}
+
+.big{
+  font-size:30px;
+  font-weight:750;
+  color:var(--navy);
+  letter-spacing:-.8px;
+}
+
+.mid{
+  font-size:20px;
+  font-weight:750;
+  color:var(--navy);
+}
+
+.small{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.segment{
+  display:flex;
+  gap:4px;
+  background:#f0f4f7;
+  border-radius:8px;
+  padding:4px;
+}
+
+.segment button{
+  flex:1;
+  min-width:0;
+  border:0;
+  background:transparent;
+  color:#627689;
+  border-radius:6px;
+  padding:9px 6px;
+  font-size:12px;
+  font-weight:650;
+}
+
+.segment button.active{
+  background:var(--navy);
+  color:white;
+}
+
+.btn{
+  border:1px solid #d0dbe4;
+  background:white;
+  color:var(--navy);
+  padding:9px 12px;
+  border-radius:9px;
+  font-size:12px;
+  font-weight:650;
+}
+
+.btn.active{
+  background:var(--navy);
+  color:white;
+  border-color:var(--navy);
+}
+
+.presets{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+  margin-top:9px;
+}
+
+.stack{
+  display:flex;
+  height:11px;
+  border-radius:50px;
+  overflow:hidden;
+  background:#e5ebe8;
+  margin:10px 0;
+}
+
+.stack div{
+  height:100%;
+}
+
+.label-dot{
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius:100%;
+  margin-right:5px;
+}
+
+.buyer-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:15px 0;
+}
+
+.buyer-name{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:var(--navy);
+  font-size:12px;
+  font-weight:750;
+}
+
+.buyer-icon{
+  width:30px;
+  height:30px;
+  border-radius:100%;
+  background:#e6edf3;
+  display:grid;
+  place-items:center;
+  font-size:15px;
+}
+
+.chart-row{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin:7px 0;
+}
+
+.chart-label{
+  width:58px;
+  font-size:10px;
+  color:var(--muted);
+  flex-shrink:0;
+}
+
+.chart-track{
+  height:12px;
+  border-radius:30px;
+  background:#e8efed;
+  flex:1;
+  overflow:hidden;
+  display:flex;
+}
+
+.chart-value{
+  width:74px;
+  text-align:right;
+  font-size:10px;
+  color:#485e72;
+}
+
+.result-card{
+  border-radius:13px;
+  padding:17px;
+  margin:14px 0;
+}
+
+.result-card.a{
+  background:#eff4f8;
+}
+
+.result-card.b{
+  background:#f3f4f1;
+}
+
+.card-head{
+  display:flex;
+  align-items:start;
+  justify-content:space-between;
+  gap:12px;
+  cursor:pointer;
+}
+
+.card-head small{
+  font-size:10px;
+  color:var(--navy);
+  font-weight:750;
+}
+
+.card-head h3{
+  font-size:22px;
+  line-height:1.15;
+  margin:12px 0 10px;
+  color:var(--navy);
+}
+
+.card-head h3 span{
+  display:block;
+  color:#738698;
+  font-weight:450;
+}
+
+.metrics{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin:14px 0;
+}
+
+.metric .small{
+  display:block;
+  margin-bottom:5px;
+}
+
+.accordion{
+  border:1px solid #c7d4e0;
+  border-radius:12px;
+  padding:16px;
+  margin:15px 0;
+}
+
+.acc-button{
+  background:transparent;
+  border:0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:100%;
+  color:var(--navy);
+  font-size:11px;
+  font-weight:750;
+  letter-spacing:.5px;
+  text-align:left;
+}
+
+.year-row{
+  margin:14px 0;
+}
+
+.year-row .row{
+  font-size:11px;
+  color:var(--muted);
+}
+
+.nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:16px;
+}
+
+footer{
+  font-size:10px;
+  line-height:1.55;
+  color:#788591;
+  margin-top:18px;
+}
+
+.warning{
+  font-size:12px;
+  color:var(--danger);
+  margin:10px 0;
+}
+
+.upfront-breakdown{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  margin-top:1px;
+  font-size:11px;
+  line-height:1.15;
+  color:var(--muted);
+}
+
+/* =====================================
+   PURCHASE FUNDING MIX
+===================================== */
+
+.funding-mix{
+  margin:16px 0 6px;
+}
+
+.funding-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  color:var(--navy);
+}
+
+.funding-head strong{
+  font-size:14px;
+}
+
+.funding-head span{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.funding-guide{
+  position:relative;
+  padding-top:28px;
+  margin-top:14px;
+}
+
+.funding-guide-label{
+  position:absolute;
+  top:0;
+  transform:translateX(-50%);
+  font-size:12px;
+  color:#52695c;
+  font-weight:700;
+}
+
+.funding-guide-label.last{
+  transform:translateX(-100%);
+}
+
+.funding-track{
+  height:30px;
+  position:relative;
+}
+
+.funding-fill{
+  height:100%;
+  display:flex;
+  border-radius:999px;
+  overflow:hidden;
+  background:#e5ebe8;
+}
+
+.funding-marker{
+  position:absolute;
+  top:-5px;
+  height:40px;
+  border-left:2px dashed #355f45;
+  pointer-events:none;
+  z-index:2;
+}
+
+.funding-marker.end{
+  border-left-style:solid;
+  transform:translateX(-2px);
+}
+
+.funding-legend{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:5px;
+  text-align:center;
+  margin-top:18px;
+}
+
+.funding-legend .mid{
+  font-size:14px;
+  overflow-wrap:anywhere;
+}
+
+.funding-note{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:12px;
+}
+
+/* =====================================
+   INCOME-BASED PURCHASE CAPACITY
+===================================== */
+
+.capacity-header{
+  font-size:13px;
+  letter-spacing:.3px;
+}
+
+.capacity-title{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.capacity-title svg{
+  width:26px;
+  height:26px;
+  fill:none;
+  stroke:var(--navy);
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  flex-shrink:0;
+}
+
+.capacity-price{
+  text-align:center;
+  margin:22px 0;
+}
+
+.capacity-price .big{
+  margin:8px 0;
+  font-size:32px;
+}
+
+.capacity-price .small{
+  font-size:12px;
+}
+
+.capacity-metrics{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin:18px 0;
+}
+
+.capacity-metrics .small{
+  font-size:13px;
+}
+
+.capacity-metrics .mid{
+  margin-top:7px;
+}
+
+.capacity-subtext{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.capacity-danger{
+  color:var(--danger)!important;
+}
+
+.capacity-success{
+  color:var(--success)!important;
+}
+
+.capacity-neutral{
+  color:var(--navy)!important;
+}
+
+.capacity-position{
+  padding:18px;
+  margin-top:18px;
+  border-radius:14px;
+}
+
+.capacity-breakdown{
+  font-size:13px!important;
+  letter-spacing:0!important;
+  padding:8px 0;
+  margin-top:16px;
+}
+
+.capacity-footnote{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:20px;
+}
 
 /* 25% DOWNPAYMENT BAR */
 
-.capacity-downpayment{margin:20px 0 12px}
-.capacity-downpayment-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:15px}
-.capacity-downpayment-head strong{color:var(--navy);font-size:12px;letter-spacing:.3px}
-.capacity-downpayment-head span{color:var(--muted);font-size:12px}
-.capacity-bar-line{display:flex;align-items:stretch;gap:3px;min-height:38px}
-.capacity-bar{display:flex;width:100%;height:38px;overflow:hidden;border-radius:9px;background:#e8eef2}
-.capacity-five{display:flex;width:20%;height:100%;overflow:hidden;border-right:2px solid white}
-.capacity-twenty{display:flex;width:80%;height:100%;overflow:hidden}
-.capacity-bar-piece{height:100%;flex-shrink:0;min-width:0}
-.capacity-bar-piece.cash{background:var(--cashbar)}
-.capacity-bar-piece.cpf{background:var(--cpfbar)}
-.capacity-bar-piece.cash-short{background:repeating-linear-gradient(135deg,#bf6258 0px,#bf6258 3px,transparent 3px,transparent 9px),#c8ddea}
-.capacity-bar-piece.cpf-short{background:repeating-linear-gradient(135deg,#bf6258 0px,#bf6258 3px,transparent 3px,transparent 9px),#c8e7d9}
-.capacity-bar-line.has-surplus .capacity-bar{width:82%;flex-shrink:0;border-radius:9px 0 0 9px}
-.capacity-surplus-tail{display:none;min-width:0;flex:1;align-items:center;justify-content:center;border-radius:0 9px 9px 0;background:#a4cdbb;color:#245f49;font-size:11px;font-weight:750;white-space:nowrap}
-.capacity-bar-line.has-surplus .capacity-surplus-tail{display:flex}
-.capacity-bar-captions{display:flex;margin-top:8px;color:var(--navy);text-align:center}
-.capacity-bar-caption-five{width:20%;padding:0 3px}
-.capacity-bar-caption-twenty{width:80%;padding:0 3px}
-.capacity-bar-captions strong{display:block;font-size:11px}
-.capacity-bar-captions small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
-.capacity-legend{display:flex;flex-wrap:wrap;align-items:center;gap:9px 17px;margin-top:16px}
-.capacity-legend-item{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;color:#526477;font-size:12px}
-.capacity-legend-item strong{font-size:12px;color:var(--navy)}
-.capacity-legend-dot{display:inline-block;height:10px;width:10px;border-radius:3px;flex-shrink:0}
-.capacity-legend-dot.cash{background:var(--cashbar)}
-.capacity-legend-dot.cpf{background:var(--cpfbar)}
-.capacity-legend-dot.short{background:repeating-linear-gradient(135deg,#bf6258 0 3px,#f5dad5 3px 7px)}
-.capacity-funding-note{color:var(--muted);font-size:11px;line-height:1.5;margin-top:12px}
+.capacity-down-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  margin:19px 0 12px;
+}
 
-/* MORTGAGE PROTECTION */
+.capacity-down-head strong{
+  font-size:12px;
+  letter-spacing:.4px;
+  color:var(--navy);
+}
 
-.protect-top{margin-top:6px}
-.protect-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.protect-head h4{margin:0;font-size:18px;color:#293d4e}
-.protect-sub{font-size:12px;color:var(--muted);margin-top:5px}
-.protect-toggle{display:flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;background:#0EAF43;color:white;font-size:16px;font-weight:750;padding:10px 16px;min-width:104px}
-.protect-toggle.off{background:#9AA6B2}
-.protect-toggle svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.protect-row2{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin-top:20px}
-.protect-period-label{font-size:15px;color:var(--muted)}
-.period-pills{display:flex;gap:8px}
-.period-pill{border:1px solid transparent;border-radius:999px;background:#f0f0f0;color:#666;font-size:15px;padding:12px 16px;font-weight:650}
-.period-pill.active{color:#111;background:#fff;border-color:#e5e5e5;box-shadow:0 0 0 1px #eee inset}
-.commit-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:21px}
-.commit-head h4{margin:0;font-size:17px;color:#293d4e}
-.commit-pp{color:#31966A;font-size:15px;white-space:nowrap;font-weight:700}
-.commit-input{margin-top:13px}
-.commit-input input{border:2px solid #d8d8d8;border-radius:999px;background:transparent;padding:15px 19px;font-size:19px;min-height:54px}
-.commit-presets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
-.commit-pill{border:2px solid #d3d3d3;border-radius:999px;background:transparent;color:#666;padding:12px 5px;font-size:16px;font-weight:750}
-.commit-pill.active{background:#171717;border-color:#171717;color:white}
-.protect-shield{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:18px;font-size:14px;color:var(--muted)}
-.protect-shield strong{color:#293d4e;font-size:18px}
-.summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:20px;text-align:center}
-.summary-item svg{width:32px;height:32px;fill:none;stroke:var(--navy);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.summary-label{color:var(--muted);font-size:12px;margin-top:9px}
-.summary-value{color:#293d4e;font-size:16px;font-weight:750;margin-top:5px;overflow-wrap:anywhere}
-.life-card{display:flex;gap:14px;align-items:center;margin-top:20px}
-.life-icon{width:56px;height:56px;border-radius:50%;background:#e5edf7;display:grid;place-items:center;flex-shrink:0}
-.life-icon svg{width:29px;height:29px;fill:none;stroke:var(--navy);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.life-kicker{color:var(--navy);font-size:12px;font-weight:800;letter-spacing:.5px}
-.life-text{color:#293d4e;font-size:17px;font-weight:750;line-height:1.35;margin-top:5px}
+.capacity-down-head span{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.capacity-fund-bar{
+  width:100%;
+  height:13px;
+  border-radius:99px;
+  overflow:hidden;
+  display:flex;
+  background:#edf1f4;
+}
+
+.capacity-five{
+  width:20%;
+  display:flex;
+  overflow:hidden;
+  border-right:2px solid #fff;
+}
+
+.capacity-twenty{
+  width:80%;
+  display:flex;
+  overflow:hidden;
+}
+
+.capacity-good-cash{
+  background:#3D85BC;
+}
+
+.capacity-good-cpf{
+  background:#53A98A;
+}
+
+.capacity-missing-cash{
+  background:repeating-linear-gradient(
+    135deg,
+    #C66D66 0 3px,
+    #cbdfea 3px 8px
+  );
+}
+
+.capacity-missing-cpf{
+  background:repeating-linear-gradient(
+    135deg,
+    #C66D66 0 3px,
+    #cbe7db 3px 8px
+  );
+}
+
+.capacity-bar-part{
+  height:100%;
+  flex-shrink:0;
+}
+
+.capacity-bar-labels{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin:15px 0 11px;
+}
+
+.capacity-bar-label{
+  display:flex;
+  gap:8px;
+  align-items:flex-start;
+  justify-content:center;
+  font-size:12px;
+  color:var(--navy);
+}
+
+.capacity-bar-label strong{
+  display:block;
+  font-size:12px;
+}
+
+.capacity-bar-label small{
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.capacity-dot{
+  width:10px;
+  height:10px;
+  border-radius:3px;
+  display:inline-block;
+  flex:0 0 10px;
+  margin-top:2px;
+}
+
+.capacity-legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 15px;
+  margin:13px 0;
+}
+
+.capacity-legend span{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+
+.capacity-legend b{
+  color:var(--navy);
+  font-weight:700;
+}
+
+.capacity-position-title{
+  font-size:12px;
+  letter-spacing:.5px;
+  font-weight:800;
+  color:var(--navy);
+}
+
+.capacity-position-primary{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns:
+    minmax(0,1fr) minmax(0,1fr);
+  gap:15px;
+  align-items:center;
+}
+
+.capacity-position-amount{
+  font-size:clamp(21px,5vw,30px);
+  font-weight:780;
+  overflow-wrap:anywhere;
+  margin:5px 0;
+}
+
+.capacity-position-breakdown{
+  border-left:1px solid #d5e0e8;
+  padding-left:14px;
+}
+
+.capacity-pos-line{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  justify-content:space-between;
+  font-size:11px;
+  color:var(--muted);
+  margin:9px 0;
+}
+
+.capacity-pos-line strong{
+  font-size:12px;
+}
+
+.capacity-message{
+  font-size:12px;
+  line-height:1.5;
+  color:var(--danger);
+  margin:16px 0;
+}
+
+/* =====================================
+   MORTGAGE PROTECTION
+===================================== */
+
+.protect-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.protect-head h4{
+  margin:0;
+  font-size:18px;
+}
+
+.protect-sub{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.protect-toggle{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border:0;
+  border-radius:999px;
+  background:#0EAF43;
+  color:white;
+  font-size:16px;
+  font-weight:750;
+  padding:10px 16px;
+  min-width:104px;
+}
+
+.protect-toggle.off{
+  background:#9AA6B2;
+}
+
+.protect-toggle svg{
+  width:23px;
+  height:23px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.protect-row2{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  align-items:center;
+  margin-top:20px;
+}
+
+.protect-period-label{
+  font-size:15px;
+  color:var(--muted);
+}
+
+.period-pills{
+  display:flex;
+  gap:8px;
+}
+
+.period-pill{
+  border:1px solid transparent;
+  border-radius:999px;
+  background:#f0f0f0;
+  color:#666;
+  font-size:15px;
+  padding:12px 16px;
+  font-weight:650;
+}
+
+.period-pill.active{
+  color:#111;
+  background:#fff;
+  border-color:#e5e5e5;
+}
+
+.commit-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:21px;
+}
+
+.commit-head h4{
+  margin:0;
+  font-size:17px;
+}
+
+.commit-pp{
+  color:#31966A;
+  font-size:15px;
+  white-space:nowrap;
+  font-weight:700;
+}
+
+.commit-input{
+  margin-top:13px;
+}
+
+.commit-input input{
+  border:2px solid #d8d8d8;
+  border-radius:999px;
+  padding:15px 19px;
+  font-size:19px;
+  min-height:54px;
+}
+
+.commit-presets{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+
+.commit-pill{
+  border:2px solid #d3d3d3;
+  border-radius:999px;
+  background:transparent;
+  color:#666;
+  padding:12px 5px;
+  font-size:16px;
+  font-weight:750;
+}
+
+.commit-pill.active{
+  background:#171717;
+  border-color:#171717;
+  color:white;
+}
+
+.protect-shield{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  margin-top:18px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+.protect-shield strong{
+  color:#293d4e;
+  font-size:18px;
+}
+
+.summary-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  margin-top:20px;
+  text-align:center;
+}
+
+.summary-item svg{
+  width:32px;
+  height:32px;
+  fill:none;
+  stroke:var(--navy);
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.summary-label{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:9px;
+}
+
+.summary-value{
+  color:#293d4e;
+  font-size:16px;
+  font-weight:750;
+  margin-top:5px;
+  overflow-wrap:anywhere;
+}
+
+.life-card{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  margin-top:20px;
+}
+
+.life-icon{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:#e5edf7;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+}
+
+.life-icon svg{
+  width:29px;
+  height:29px;
+  fill:none;
+  stroke:var(--navy);
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.life-kicker{
+  color:var(--navy);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+
+.life-text{
+  color:#293d4e;
+  font-size:17px;
+  font-weight:750;
+  line-height:1.35;
+  margin-top:5px;
+}
+
+/* =====================================
+   MOBILE RESPONSIVENESS
+===================================== */
 
 @media(max-width:450px){
- main{margin:0;border-radius:0;padding:16px}
- .hero h1{font-size:21px}
- .avatar{width:56px;height:56px}
- .grid2{gap:9px}
- .intro h2{font-size:22px}
- .big{font-size:25px}
- .metrics,.capacity-metrics{gap:10px}
- .capacity-price .big{font-size:30px}
- .capacity-header{font-size:11px}
- .capacity-title{gap:8px}
- .capacity-title svg{width:21px;height:21px}
- .capacity-bar,.capacity-bar-line{height:32px;min-height:32px}
- .capacity-legend{gap:9px 12px}
- .capacity-legend-item,.capacity-legend-item strong{font-size:11px}
- .protect-row2{grid-template-columns:1fr}
- .period-pills{width:100%}
- .period-pill{flex:1;padding:11px 6px;font-size:14px}
- .commit-head h4{font-size:14px}
- .commit-pp{font-size:13px}
- .commit-pill{font-size:14px;padding:11px 4px}
- .protect-toggle{min-width:90px;padding:9px 12px}
- .life-text{font-size:15px}
+
+  main{
+    margin:0;
+    border-radius:0;
+    padding:16px;
+  }
+
+  .hero h1{
+    font-size:21px;
+  }
+
+  .avatar{
+    width:56px;
+    height:56px;
+  }
+
+  .grid2{
+    gap:9px;
+  }
+
+  .intro h2{
+    font-size:22px;
+  }
+
+  .big{
+    font-size:25px;
+  }
+
+  .metrics,
+  .capacity-metrics{
+    gap:10px;
+  }
+
+  .capacity-price .big{
+    font-size:30px;
+  }
+
+  .capacity-header{
+    font-size:11px;
+  }
+
+  .capacity-title{
+    gap:8px;
+  }
+
+  .capacity-title svg{
+    width:21px;
+    height:21px;
+  }
+
+  .capacity-position-primary{
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+
+  .capacity-position-breakdown{
+    border-left:0;
+    border-top:1px solid #d5e0e8;
+    padding:8px 0 0;
+  }
+
+  .protect-row2{
+    grid-template-columns:1fr;
+  }
+
+  .period-pills{
+    width:100%;
+  }
+
+  .period-pill{
+    flex:1;
+    padding:11px 6px;
+    font-size:14px;
+  }
+
+  .commit-head h4{
+    font-size:14px;
+  }
+
+  .commit-pp{
+    font-size:13px;
+  }
+
+  .commit-pill{
+    font-size:14px;
+    padding:11px 4px;
+  }
+
+  .protect-toggle{
+    min-width:90px;
+    padding:9px 12px;
+  }
+
+  .life-text{
+    font-size:15px;
+  }
 }
+
 </style>
 </head>
+
 <body>
 <main id="app"></main>
+
 <script>
 "use strict";
 
-/* APPLICATION STATE */
+/* =====================================
+   APPLICATION STATE
+===================================== */
 
 const initial=()=>({
- journey:"private",sale:0,hdb:0,refund:0,oa:0,
- pureCash:0,pureCPF:0,extraOn:false,extra:0,
- b2:false,b3:false,
- name1:"Buyer 1",age1:35,wage1:5000,status1:"SC",
- name2:"Buyer 2",age2:43,wage2:6500,status2:"SC",
- name3:"Buyer 3",age3:30,wage3:5000,status3:"SC",
- backup:0,debts:0,rate:3,commit:0,
- protection:false,period:48,choice:"protect"
+  journey:"private",
+  sale:0,
+  hdb:0,
+  refund:0,
+  oa:0,
+  pureCash:0,
+  pureCPF:0,
+  extraOn:false,
+  extra:0,
+  b2:false,
+  b3:false,
+
+  name1:"Buyer 1",
+  age1:35,
+  wage1:5000,
+  status1:"SC",
+
+  name2:"Buyer 2",
+  age2:43,
+  wage2:6500,
+  status2:"SC",
+
+  name3:"Buyer 3",
+  age3:30,
+  wage3:5000,
+  status3:"SC",
+
+  backup:0,
+  debts:0,
+  rate:3,
+  commit:0,
+  protection:false,
+  period:48,
+  choice:"protect"
 });
+
 let v=initial();
 let tab=0;
-const opened={capacity:false,breakdown:false,A:false,B:false};
-const $=s=>document.querySelector(s);
-const num=x=>Math.max(0,Number(x)||0);
-const cash=x=>"$"+Math.round(Number(x)||0).toLocaleString("en-SG");
-const short=x=>x>=1e6?"$"+(x/1e6).toFixed(2)+"m":x>=1e3?"$"+(x/1e3).toFixed(1)+"k":cash(x);
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",
- '"':"&quot;","'":"&#39;"
-}[c]));
-const clamp=(x,min,max)=>Math.max(min,Math.min(max,x));
-const people=()=>[1,...(v.b2?[2]:[]),...(v.b2&&v.b3?[3]:[])];
-const floor10k=x=>Math.floor(Math.max(0,x)/10000)*10000;
 
-/* STAMP DUTY AND MORTGAGE */
+const opened={
+  capacity:false,
+  breakdown:false,
+  A:false,
+  B:false
+};
+
+const $=s=>document.querySelector(s);
+
+const num=x=>
+  Math.max(0,Number(x)||0);
+
+const cash=x=>
+  "$"+Math.round(Number(x)||0)
+  .toLocaleString("en-SG");
+
+const short=x=>
+  x>=1e6?
+    "$"+(x/1e6).toFixed(2)+"m":
+  x>=1e3?
+    "$"+(x/1e3).toFixed(1)+"k":
+    cash(x);
+
+const esc=s=>String(s).replace(
+  /[&<>"']/g,
+  c=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[c])
+);
+
+const clamp=(x,a,b)=>
+  Math.max(a,Math.min(b,x));
+
+const people=()=>[
+  1,
+  ...(v.b2?[2]:[]),
+  ...(v.b2&&v.b3?[3]:[])
+];
+
+/* All calculated loans rounded DOWN
+   to nearest $10,000. */
+
+const roundLoan=n=>
+  Math.floor(
+    Math.max(0,n)/10000
+  )*10000;
+
+/* =====================================
+   STAMP DUTY
+===================================== */
 
 function bsd(price){
- let left=price,sum=0;
- for(const [width,rate] of [
-  [180000,.01],[180000,.02],[640000,.03],
-  [500000,.04],[1500000,.05],[Infinity,.06]
- ]){
-  const part=Math.min(Math.max(left,0),width);
-  sum+=part*rate;left-=part;
-  if(left<=0)break;
- }
- return Math.ceil(sum);
+
+  let left=price;
+  let sum=0;
+
+  for(const [width,rate] of [
+    [180000,.01],
+    [180000,.02],
+    [640000,.03],
+    [500000,.04],
+    [1500000,.05],
+    [Infinity,.06]
+  ]){
+
+    const part=Math.min(
+      Math.max(left,0),
+      width
+    );
+
+    sum+=part*rate;
+    left-=part;
+
+    if(left<=0)break;
+  }
+
+  return sum;
 }
+
+/* =====================================
+   MORTGAGE FACTOR
+===================================== */
 
 function factor(rate,years){
- const months=years*12,r=rate/1200;
- if(!months)return Infinity;
- return r===0?1/months:r/(1-Math.pow(1+r,-months));
+
+  const months=years*12;
+  const r=rate/1200;
+
+  if(!months)return Infinity;
+
+  return r===0?
+    1/months:
+    r/(1-Math.pow(1+r,-months));
 }
+
+/* =====================================
+   CPF OA CONTRIBUTION ESTIMATE
+===================================== */
 
 function oaRate(age){
- return age<=35?.23:age<=45?.21:age<=50?.19:
- age<=55?.15:age<=60?.12:age<=65?.035:
- age<=70?.01:0;
+
+  return age<=35?.23:
+    age<=45?.21:
+    age<=50?.19:
+    age<=55?.15:
+    age<=60?.12:
+    age<=65?.035:
+    age<=70?.01:0;
 }
 
-/* COMPLETE FINANCIAL ENGINE */
+/* =====================================
+   BENCHMARK FUNDING ALLOCATION
+===================================== */
+
+/*
+  The 25% downpayment consists of:
+
+  - 5% minimum cash
+  - 20% CPF and/or additional cash
+
+  The bar never extends for surplus.
+
+  Shortfall appears inside the relevant
+  5% or 20% section.
+
+  Stamp duty and fees are assessed
+  separately.
+
+  Funding Position displays either:
+  - Shortfall
+  - Surplus
+  - Exactly funded
+
+  Surplus is split into remaining
+  cash and CPF OA.
+*/
+
+function allocateFunding(
+  price,
+  availableCash,
+  cpf,
+  fees
+){
+
+  /* Mandatory 5% cash */
+
+  const cashNeed=.05*price;
+
+  const twentyNeed=.20*price;
+
+  const cash5=Math.min(
+    availableCash,
+    cashNeed
+  );
+
+  const cashShort=Math.max(
+    0,
+    cashNeed-cash5
+  );
+
+  const cashAfter5=Math.max(
+    0,
+    availableCash-cash5
+  );
+
+  /* Remaining 20% */
+
+  const cpf20=Math.min(
+    cpf,
+    twentyNeed
+  );
+
+  const cash20=Math.min(
+    cashAfter5,
+    twentyNeed-cpf20
+  );
+
+  const twentyShort=Math.max(
+    0,
+    twentyNeed-cpf20-cash20
+  );
+
+  /* Remaining funds */
+
+  let cashRemain=
+    cashAfter5-cash20;
+
+  let cpfRemain=
+    cpf-cpf20;
+
+  /* Allocate eligible fees */
+
+  const feeCPF=Math.min(
+    cpfRemain,
+    fees
+  );
+
+  cpfRemain-=feeCPF;
+
+  const feeCash=Math.min(
+    cashRemain,
+    fees-feeCPF
+  );
+
+  cashRemain-=feeCash;
+
+  const feeShort=Math.max(
+    0,
+    fees-feeCPF-feeCash
+  );
+
+  /* Net shortfall */
+
+  const shortfall=
+    cashShort+
+    twentyShort+
+    feeShort;
+
+  /* Surplus only if fully funded */
+
+  const surplus=shortfall<=.005?
+    cashRemain+cpfRemain:0;
+
+  const net=shortfall>.005?
+    -shortfall:
+    surplus;
+
+  return{
+    cashNeed,
+    twentyNeed,
+    cash5,
+    cashShort,
+    cpf20,
+    cash20,
+    twentyShort,
+    feeShort,
+    cashRemain,
+    cpfRemain,
+    shortfall,
+    surplus,
+    net,
+    feeCash,
+    feeCPF
+  };
+}
+
+/* =====================================
+   MAIN FINANCIAL CALCULATION ENGINE
+===================================== */
 
 function calc(){
- const sale=num(v.sale);
- const fee=sale>0?3000:0;
- const commission=sale*.0218;
- const net=sale>0?sale-num(v.hdb)-commission-fee:0;
 
- const refunded=Math.min(Math.max(0,net),num(v.refund));
- const cashRaw=v.journey==="first"?
-  num(v.pureCash):
-  Math.max(0,net-refunded)+(v.extraOn?num(v.extra):0);
- const cpfRaw=v.journey==="first"?
-  num(v.pureCPF):refunded+num(v.oa);
+  /* Sale proceeds */
 
- const equity=Math.floor((cashRaw+cpfRaw)/1000)*1000;
- const cpf=Math.min(equity,cpfRaw);
- const availableCash=equity-cpf;
+  const sale=num(v.sale);
 
- const ids=people();
- const income=ids.reduce((a,i)=>a+num(v["wage"+i]),0);
- const age=income?ids.reduce(
-  (a,i)=>a+num(v["age"+i])*num(v["wage"+i]),0
- )/income:0;
+  const fee=sale>0?3000:0;
 
- const tenure=income?Math.max(0,Math.min(30,Math.floor(65-age))):0;
- const assessment=factor(4,tenure);
+  const commission=sale*.0218;
 
- // Loan is rounded DOWN to the nearest $10,000
- const cap=Number.isFinite(assessment)?
-  floor10k(Math.max(0,income*.55-num(v.debts))/assessment):0;
+  const net=sale>0?
+    sale-num(v.hdb)-commission-fee:
+    0;
 
- const monthlyFactor=factor(num(v.rate),tenure);
- const absd=ids.every(i=>v["status"+i]==="PR")?.05:0;
-
- /* CPF OA PROJECTIONS */
-
- const perBuyer=ids.map(i=>Array.from(
-  {length:10},(_,year)=>
-   Math.min(8000,num(v["wage"+i]))*
-   oaRate(num(v["age"+i])+year)
- ));
- const combined=Array.from(
-  {length:10},(_,y)=>perBuyer.reduce((s,arr)=>s+arr[y],0)
- );
- const flows=Array.from(
-  {length:48},(_,month)=>combined[Math.floor(month/12)]
- );
-
- /* FOUR-YEAR MORTGAGE FORECAST */
-
- function forecast(loan,commit,protect,period){
-  const monthly=Number.isFinite(monthlyFactor)?
-   loan*monthlyFactor:0;
-  let carry=0,needed=0;
-  const years=[];
-
-  for(let year=0;year<4;year++){
-   let cpfPaid=0,cashPaid=0,shieldPaid=0;
-
-   for(let m=0;m<12;m++){
-    const index=year*12+m;
-    const pool=carry+flows[index];
-    const cp=Math.min(pool,monthly);
-    const gap=Math.max(0,monthly-cp);
-    const active=protect&&index<period;
-    const ca=active?Math.min(commit,gap):gap;
-    const sh=active?gap-ca:0;
-    carry=Math.max(0,pool-cp);
-    cpfPaid+=cp;cashPaid+=ca;shieldPaid+=sh;needed+=sh;
-   }
-   years.push({
-    cpf:cpfPaid/12,cash:cashPaid/12,shield:shieldPaid/12
-   });
-  }
-  return {
-   monthly,years,
-   shield:protect?Math.ceil(needed/1000)*1000:0
-  };
- }
-
- /* PURCHASE FEASIBILITY */
-
- function fit(price,loan,backup,commit,protect,period){
-  if(price<=0||cap<=0||!Number.isFinite(monthlyFactor)||
-   loan<0||loan>Math.min(cap,.75*price)+.001||
-   backup>availableCash||
-   (v.journey==="private"&&sale>0&&net<0)){
-   return null;
-  }
-
-  const fees=bsd(price)+3000+price*absd;
-  const down=price-loan;
-  const upfront=down+fees;
-  const payment=forecast(loan,commit,protect,period);
-
-  const cpfFee=Math.min(cpf,fees);
-  const cashFee=fees-cpfFee;
-  const cpfShield=Math.min(
-   Math.max(0,cpf-cpfFee),payment.shield
+  const refunded=Math.min(
+    Math.max(0,net),
+    num(v.refund)
   );
-  const cashShield=payment.shield-cpfShield;
-  const cpfDownAvailable=cpf-cpfFee-cpfShield;
-  const cashDownAvailable=
-   availableCash-backup-cashFee-cashShield;
-  const cashDP=Math.max(.05*price,down-cpfDownAvailable);
-  const cpfDP=down-cashDP;
 
-  if(cashDP>cashDownAvailable+.001||
-   cpfDP<-.001||cpfDP>cpfDownAvailable+.001){
-   return null;
-  }
+  const cashRaw=v.journey==="first"?
+    num(v.pureCash):
+    Math.max(0,net-refunded)+
+    (v.extraOn?num(v.extra):0);
 
-  return {
-   price,loan,fees,down,upfront,cpfFee,cashFee,
-   cpfDP,cashDP,cpfShield,cashShield,
-   ltv:100*loan/price,...payment
-  };
- }
+  const cpfRaw=v.journey==="first"?
+    num(v.pureCPF):
+    refunded+num(v.oa);
 
- function at(price,backup,commit,protect,period){
-  const loan=floor10k(Math.min(cap,.75*price));
-  let found=fit(price,loan,backup,commit,protect,period);
+  const equity=Math.floor(
+    (cashRaw+cpfRaw)/1000
+  )*1000;
 
-  if(found||!protect)return found;
-
-  for(let reduction=10000;
-      reduction<=Math.min(300000,loan);
-      reduction+=10000){
-   found=fit(
-    price,loan-reduction,backup,commit,protect,period
-   );
-   if(found)return found;
-  }
-  return null;
- }
-
- function solve(backup,commit,protect,period){
-  if(!cap)return null;
-  let lo=1,hi=4500,best=null;
-  while(lo<=hi){
-   const mid=Math.floor((lo+hi)/2);
-   const candidate=at(
-    mid*1000,backup,commit,protect,period
-   );
-   if(candidate){best=candidate;lo=mid+1}
-   else{hi=mid-1}
-  }
-  return best;
- }
-
- /* STRUCTURE A AND B */
-
- const A=solve(0,0,false,48);
- const originalB=solve(
-  num(v.backup),num(v.commit),v.protection,v.period
- );
- const baselineB=v.protection?
-  solve(num(v.backup),0,true,v.period):null;
-
- const spare=originalB?Math.max(
-  0,cpf-originalB.cpfFee-
-  originalB.cpfShield-originalB.cpfDP
- ):0;
-
- let B=originalB,reduction=0;
-
- if(B&&v.choice==="reduce"&&spare>=10000){
-  const amount=Math.min(floor10k(spare),B.loan);
-  const candidate=fit(
-   B.price,B.loan-amount,num(v.backup),0,false,v.period
+  const cpf=Math.min(
+    equity,
+    cpfRaw
   );
-  if(candidate){B=candidate;reduction=amount}
- }
 
- /* INCOME-BASED PURCHASE CAPACITY */
+  const availableCash=
+    equity-cpf;
 
- const bench=cap>0?cap/.75:0;
- const benchFive=bench*.05;
- const benchTwenty=bench*.20;
- const benchDown=benchFive+benchTwenty;
- const benchFees=cap>0?
-  bsd(bench)+3000+bench*absd:0;
- const benchUp=benchDown+benchFees;
+  /* Buyer income */
 
- // Mandatory cash 5%
- const benchCash5=Math.min(availableCash,benchFive);
- const benchCashShort=Math.max(0,benchFive-benchCash5);
- const benchCashAfter5=Math.max(0,availableCash-benchCash5);
+  const ids=people();
 
- // Remaining 20%: CPF, followed by additional cash
- const benchCPF20=Math.min(cpf,benchTwenty);
- const benchCash20=Math.min(
-  benchCashAfter5,
-  Math.max(0,benchTwenty-benchCPF20)
- );
- const benchTwentyShort=Math.max(
-  0,benchTwenty-benchCPF20-benchCash20
- );
+  const income=ids.reduce(
+    (a,i)=>a+num(v["wage"+i]),
+    0
+  );
 
- // Fees funded by remaining CPF, then remaining cash
- const benchCPFBeforeFees=Math.max(0,cpf-benchCPF20);
- const benchCashBeforeFees=Math.max(
-  0,benchCashAfter5-benchCash20
- );
- const benchCPFFees=Math.min(benchCPFBeforeFees,benchFees);
- const benchCashFees=Math.min(
-  benchCashBeforeFees,
-  Math.max(0,benchFees-benchCPFFees)
- );
- const benchFeesShort=Math.max(
-  0,benchFees-benchCPFFees-benchCashFees
- );
+  const age=income?
+    ids.reduce(
+      (a,i)=>
+        a+
+        num(v["age"+i])*
+        num(v["wage"+i]),
+      0
+    )/income:
+    0;
 
- const benchCashLeft=Math.max(
-  0,benchCashBeforeFees-benchCashFees
- );
- const benchCPFLeft=Math.max(
-  0,benchCPFBeforeFees-benchCPFFees
- );
- const benchDownShort=benchCashShort+benchTwentyShort;
- const benchShortfall=benchDownShort+benchFeesShort;
- const benchSurplus=benchShortfall<.01?
-  benchCashLeft+benchCPFLeft:0;
- const benchNet=benchShortfall>.005?
-  -benchShortfall:benchSurplus;
- const benchOK=cap>0&&benchShortfall<.01;
- const benchBarSurplus=benchOK?benchSurplus:0;
+  const tenure=income?
+    Math.max(
+      0,
+      Math.min(
+        30,
+        Math.floor(65-age)
+      )
+    ):
+    0;
 
- return {
-  commission,fee,net,cash:availableCash,cpf,equity,
-  income,age,tenure,cap,absd,perBuyer,combined,
-  A,B,spare,reduction,
-  extraPurchase:v.protection&&originalB&&baselineB?
-   Math.max(0,originalB.price-baselineB.price):0,
-  bench,benchFive,benchTwenty,benchDown,benchFees,benchUp,
-  benchCash5,benchCash20,benchCPF20,
-  benchCashShort,benchTwentyShort,benchDownShort,
-  benchFeesShort,benchCashLeft,benchCPFLeft,
-  benchShortfall,benchSurplus,benchNet,benchOK,benchBarSurplus
- };
+  /* Assessment and loan */
+
+  const assessment=factor(
+    4,
+    tenure
+  );
+
+  const cap=Number.isFinite(
+    assessment
+  )?
+    roundLoan(
+      Math.max(
+        0,
+        income*.55-num(v.debts)
+      )/assessment
+    ):
+    0;
+
+  const monthlyFactor=factor(
+    num(v.rate),
+    tenure
+  );
+
+  const absd=ids.every(
+    i=>v["status"+i]==="PR"
+  )?.05:0;
+
+  /* CPF OA projection */
+
+  const perBuyer=ids.map(
+    i=>Array.from(
+      {length:10},
+      (_,year)=>
+        Math.min(
+          8000,
+          num(v["wage"+i])
+        )*
+        oaRate(
+          num(v["age"+i])+year
+        )
+    )
+  );
+
+  const combined=Array.from(
+    {length:10},
+    (_,y)=>
+      perBuyer.reduce(
+        (s,arr)=>s+arr[y],
+        0
+      )
+  );
+
+  const flows=Array.from(
+    {length:48},
+    (_,month)=>
+      combined[Math.floor(month/12)]
+  );
+
+  /* ==================================
+     FOUR-YEAR MORTGAGE FORECAST
+  ================================== */
+
+  function forecast(
+    loan,
+    commit,
+    protect,
+    period
+  ){
+
+    const monthly=Number.isFinite(
+      monthlyFactor
+    )?
+      loan*monthlyFactor:
+      0;
+
+    let carry=0;
+    let needed=0;
+
+    const years=[];
+
+    for(let year=0;year<4;year++){
+
+      let cpfPaid=0;
+      let cashPaid=0;
+      let shieldPaid=0;
+
+      for(let m=0;m<12;m++){
+
+        const index=year*12+m;
+
+        const pool=
+          carry+flows[index];
+
+        const cp=Math.min(
+          pool,
+          monthly
+        );
+
+        const gap=Math.max(
+          0,
+          monthly-cp
+        );
+
+        const active=
+          protect&&index<period;
+
+        const ca=active?
+          Math.min(commit,gap):
+          gap;
+
+        const sh=active?
+          gap-ca:
+          0;
+
+        carry=Math.max(
+          0,
+          pool-cp
+        );
+
+        cpfPaid+=cp;
+        cashPaid+=ca;
+        shieldPaid+=sh;
+        needed+=sh;
+      }
+
+      years.push({
+        cpf:cpfPaid/12,
+        cash:cashPaid/12,
+        shield:shieldPaid/12
+      });
+    }
+
+    return{
+      monthly,
+      years,
+      shield:protect?
+        Math.ceil(needed/1000)*1000:
+        0
+    };
+  }
+
+  /* ==================================
+     PROPERTY PURCHASE FEASIBILITY
+  ================================== */
+
+  function fit(
+    price,
+    loan,
+    backup,
+    commit,
+    protect,
+    period
+  ){
+
+    if(
+      price<=0||
+      cap<=0||
+      !Number.isFinite(monthlyFactor)||
+      loan<0||
+      loan>Math.min(
+        cap,
+        .75*price
+      )+.001||
+      loan!==roundLoan(loan)||
+      backup>availableCash||
+      (
+        v.journey==="private"&&
+        sale>0&&
+        net<0
+      )
+    ){
+      return null;
+    }
+
+    const fees=
+      bsd(price)+
+      3000+
+      price*absd;
+
+    const down=
+      price-loan;
+
+    const upfront=
+      down+fees;
+
+    const payment=forecast(
+      loan,
+      commit,
+      protect,
+      period
+    );
+
+    const cpfFee=Math.min(
+      cpf,
+      fees
+    );
+
+    const cashFee=
+      fees-cpfFee;
+
+    const cpfShield=Math.min(
+      Math.max(
+        0,
+        cpf-cpfFee
+      ),
+      payment.shield
+    );
+
+    const cashShield=
+      payment.shield-cpfShield;
+
+    const cpfDownAvailable=
+      cpf-cpfFee-cpfShield;
+
+    const cashDownAvailable=
+      availableCash-
+      backup-
+      cashFee-
+      cashShield;
+
+    const cashDP=Math.max(
+      .05*price,
+      down-cpfDownAvailable
+    );
+
+    const cpfDP=
+      down-cashDP;
+
+    if(
+      cashDP>cashDownAvailable+.001||
+      cpfDP<-.001||
+      cpfDP>cpfDownAvailable+.001
+    ){
+      return null;
+    }
+
+    return{
+      price,
+      loan,
+      fees,
+      down,
+      upfront,
+      cpfFee,
+      cashFee,
+      cpfDP,
+      cashDP,
+      cpfShield,
+      cashShield,
+      ltv:100*loan/price,
+      ...payment
+    };
+  }
+
+  /* ==================================
+     CHECK PROPERTY PRICE
+  ================================== */
+
+  function at(
+    price,
+    backup,
+    commit,
+    protect,
+    period
+  ){
+
+    const loan=roundLoan(
+      Math.min(
+        cap,
+        .75*price
+      )
+    );
+
+    let found=fit(
+      price,
+      loan,
+      backup,
+      commit,
+      protect,
+      period
+    );
+
+    if(found||!protect){
+      return found;
+    }
+
+    for(
+      let reduction=10000;
+      reduction<=Math.min(
+        300000,
+        loan
+      );
+      reduction+=10000
+    ){
+
+      found=fit(
+        price,
+        loan-reduction,
+        backup,
+        commit,
+        protect,
+        period
+      );
+
+      if(found){
+        return found;
+      }
+    }
+
+    return null;
+  }
+
+  /* ==================================
+     SOLVE MAXIMUM PURCHASE PRICE
+  ================================== */
+
+  function solve(
+    backup,
+    commit,
+    protect,
+    period
+  ){
+
+    if(!cap){
+      return null;
+    }
+
+    let lo=1;
+    let hi=4500;
+    let best=null;
+
+    while(lo<=hi){
+
+      const mid=Math.floor(
+        (lo+hi)/2
+      );
+
+      const candidate=at(
+        mid*1000,
+        backup,
+        commit,
+        protect,
+        period
+      );
+
+      if(candidate){
+        best=candidate;
+        lo=mid+1;
+      }else{
+        hi=mid-1;
+      }
+    }
+
+    return best;
+  }
+
+  /* ==================================
+     STRUCTURE A
+  ================================== */
+
+  const A=solve(
+    0,
+    0,
+    false,
+    48
+  );
+
+  /* ==================================
+     STRUCTURE B
+  ================================== */
+
+  const originalB=solve(
+    num(v.backup),
+    num(v.commit),
+    v.protection,
+    v.period
+  );
+
+  const baselineB=v.protection?
+    solve(
+      num(v.backup),
+      0,
+      true,
+      v.period
+    ):
+    null;
+
+  const spare=originalB?
+    Math.max(
+      0,
+      cpf-
+      originalB.cpfFee-
+      originalB.cpfShield-
+      originalB.cpfDP
+    ):
+    0;
+
+  let B=originalB;
+  let reduction=0;
+
+  if(
+    B&&
+    v.choice==="reduce"&&
+    spare>=10000
+  ){
+
+    const amount=Math.min(
+      roundLoan(spare),
+      B.loan
+    );
+
+    const candidate=fit(
+      B.price,
+      B.loan-amount,
+      num(v.backup),
+      0,
+      false,
+      v.period
+    );
+
+    if(candidate){
+      B=candidate;
+      reduction=amount;
+    }
+  }
+
+  /* ==================================
+     INCOME-BASED PURCHASE CAPACITY
+  ================================== */
+
+  const bench=
+    cap/.75;
+
+  const benchFees=cap>0?
+    bsd(bench)+
+    3000+
+    bench*absd:
+    0;
+
+  const benchUp=
+    .25*bench+benchFees;
+
+  const funding=allocateFunding(
+    bench,
+    availableCash,
+    cpf,
+    benchFees
+  );
+
+  return{
+    commission,
+    fee,
+    net,
+
+    cash:availableCash,
+    cpf,
+    equity,
+
+    income,
+    age,
+    tenure,
+    cap,
+    absd,
+
+    perBuyer,
+    combined,
+
+    A,
+    B,
+    spare,
+    reduction,
+
+    extraPurchase:
+      v.protection&&
+      originalB&&
+      baselineB?
+        Math.max(
+          0,
+          originalB.price-
+          baselineB.price
+        ):
+        0,
+
+    bench,
+    benchFees,
+    benchUp,
+
+    benchOK:
+      cap>0&&
+      funding.shortfall<.005,
+
+    funding
+  };
 }
 
 /* ======================================
@@ -541,83 +2157,119 @@ function calc(){
 ====================================== */
 
 function field(label,key,opts={}){
- return `<div class="field">
-  <label>${label}</label>
-  <div class="input-row">
-   ${opts.prefix?'<span>$</span>':""}
-   <input data-field="${key}"
-    type="${opts.text?'text':'number'}"
-    ${opts.text?'':'min="0"'}
-    value="${esc(v[key])}">
-  </div>
- </div>`;
+  const val=esc(v[key]);
+
+  return `<div class="field">
+    <label>${label}</label>
+
+    <div class="input-row">
+      ${opts.prefix?'<span>$</span>':""}
+
+      <input
+        data-field="${key}"
+        type="${opts.text?'text':'number'}"
+        ${opts.text?'':'min="0"'}
+        value="${val}">
+    </div>
+  </div>`;
 }
 
 function intro(k,top,bottom){
- return `<div class="intro">
-  <small>${k}</small>
-  <h2><span>${top}</span>${bottom}</h2>
-  <div class="gold-rule"></div>
- </div>`;
+  return `<div class="intro">
+    <small>${k}</small>
+
+    <h2>
+      <span>${top}</span>
+      ${bottom}
+    </h2>
+
+    <div class="gold-rule"></div>
+  </div>`;
 }
 
 function selectButton(label,key,value){
- return `<button
-  class="${v[key]===value?'active':''}"
-  data-set="${key}"
-  data-value="${value}">
-  ${label}
- </button>`;
+  return `<button
+    class="${v[key]===value?'active':''}"
+    data-set="${key}"
+    data-value="${value}">
+    ${label}
+  </button>`;
 }
 
 function presets(key,amounts){
- return `<div class="presets">
-  ${amounts.map(a=>`
-   <button class="btn ${num(v[key])===a?'active':''}"
-    data-set="${key}" data-value="${a}">
-    ${a?'$'+a/1000+'k':'$0'}
-   </button>
-  `).join("")}
- </div>`;
+  return `<div class="presets">
+    ${amounts.map(a=>`
+      <button
+        class="btn ${num(v[key])===a?'active':''}"
+        data-set="${key}"
+        data-value="${a}">
+        ${a?'$'+a/1000+'k':'$0'}
+      </button>
+    `).join("")}
+  </div>`;
 }
 
 function balanceBar(c,cpf){
- const total=c+cpf;
- return `<div class="stack">
-  <div style="width:${total?c/total*100:0}%;
-   background:var(--orange)"></div>
-  <div style="flex:1;background:var(--teal)"></div>
- </div>`;
+  const total=c+cpf;
+
+  return `<div class="stack">
+    <div style="
+      width:${total?c/total*100:0}%;
+      background:var(--orange)">
+    </div>
+
+    <div style="
+      flex:1;
+      background:var(--teal)">
+    </div>
+  </div>`;
 }
 
-/* AVAILABLE EQUITY PANEL */
+/* ======================================
+   AVAILABLE EQUITY PANEL
+====================================== */
 
 function equityPanel(R){
- return `<div class="panel">
-  <span class="eyebrow">YOUR AVAILABLE EQUITY</span>
-  <div class="big" style="margin-top:7px">
-   ${cash(R.equity)}
-  </div>
-  ${balanceBar(R.cash,R.cpf)}
-  <div class="grid2">
-   <div>
-    <div class="small">
-     <i class="label-dot"
-      style="background:var(--orange)"></i>
-     Cash Equity
+  return `<div class="panel">
+
+    <span class="eyebrow">
+      YOUR AVAILABLE EQUITY
+    </span>
+
+    <div class="big" style="margin-top:7px">
+      ${cash(R.equity)}
     </div>
-    <div class="mid">${cash(R.cash)}</div>
-   </div>
-   <div>
-    <div class="small">
-     <i class="label-dot"
-      style="background:var(--teal)"></i>
-     CPF OA Equity
+
+    ${balanceBar(R.cash,R.cpf)}
+
+    <div class="grid2">
+
+      <div>
+        <div class="small">
+          <i class="label-dot"
+            style="background:var(--orange)"></i>
+          Cash Equity
+        </div>
+
+        <div class="mid">
+          ${cash(R.cash)}
+        </div>
+      </div>
+
+      <div>
+        <div class="small">
+          <i class="label-dot"
+            style="background:var(--teal)"></i>
+          CPF OA Equity
+        </div>
+
+        <div class="mid">
+          ${cash(R.cpf)}
+        </div>
+      </div>
+
     </div>
-    <div class="mid">${cash(R.cpf)}</div>
-   </div>
-  </div>
- </div>`;
+  </div>`;
 }
 
 /* ======================================
@@ -625,101 +2277,166 @@ function equityPanel(R){
 ====================================== */
 
 function step1(R){
- return `${intro(
-  "01 / YOUR STARTING POSITION",
-  "Let's Start With",
-  "What You've Built."
- )}
+  return `${intro(
+    "01 / YOUR STARTING POSITION",
+    "Let's Start With",
+    "What You've Built."
+  )}
 
- <span class="section-label">YOUR PURCHASE JOURNEY</span>
+  <span class="section-label">
+    YOUR PURCHASE JOURNEY
+  </span>
 
- <div class="journeys">
-  ${[
-   ["private","▤","HDB → Private"],
-   ["first","⚿","First Property"]
-  ].map(([id,icon,label])=>`
-   <button class="journey ${
-    v.journey===id?'active':''
-   }" data-set="journey" data-value="${id}">
-    <span class="ico">${icon}</span>
-    <span>${label}</span>
-    <span class="tick">
-     ${v.journey===id?"●":"○"}
-    </span>
-   </button>
-  `).join("")}
- </div>
+  <div class="journeys">
 
- <span class="section-label">
+    ${[
+      ["private","▤","HDB → Private"],
+      ["first","⚿","First Property"]
+    ].map(([id,icon,label])=>`
+      <button
+        class="journey ${v.journey===id?'active':''}"
+        data-set="journey"
+        data-value="${id}">
+
+        <span class="ico">${icon}</span>
+        <span>${label}</span>
+
+        <span class="tick">
+          ${v.journey===id?"●":"○"}
+        </span>
+      </button>
+    `).join("")}
+
+  </div>
+
+  <span class="section-label">
+    ${v.journey==="first"?
+      "YOUR AVAILABLE PURCHASE FUNDS":
+      "YOUR HDB SALE DETAILS"}
+  </span>
+
   ${v.journey==="first"?
-   "YOUR AVAILABLE PURCHASE FUNDS":
-   "YOUR HDB SALE DETAILS"}
- </span>
+    `<div class="grid2">
 
- ${v.journey==="first"?`
-  <div class="grid2">
-   ${field("Available Cash","pureCash",{prefix:true})}
-   ${field("Available CPF (OA)","pureCPF",{prefix:true})}
-  </div>
- `:`
-  <div class="grid2">
-   ${field("HDB Selling Price","sale",{prefix:true})}
-   ${field("Outstanding Loan","hdb",{prefix:true})}
-   ${field("CPF Refund + Int","refund",{prefix:true})}
-   ${field("Existing CPF (OA)","oa",{prefix:true})}
-  </div>
+      ${field(
+        "Available Cash",
+        "pureCash",
+        {prefix:true}
+      )}
 
-  <div class="panel">
-   <span class="eyebrow">ESTIMATED SALE BREAKDOWN</span>
-   <div class="line">
-    Commission incl. GST
-    <strong>${cash(R.commission)}</strong>
-   </div>
-   <div class="line">
-    Selling Legal Fees
-    <strong>${cash(R.fee)}</strong>
-   </div>
-   <div class="line">
-    Outstanding Loan
-    <strong>${cash(v.hdb)}</strong>
-   </div>
-   <hr>
-   <div class="row">
-    <strong style="font-size:13px">
-     Net Sale Proceeds
-    </strong>
-    <strong style="color:var(--navy)">
-     ${cash(R.net)}
-    </strong>
-   </div>
-  </div>
+      ${field(
+        "Available CPF (OA)",
+        "pureCPF",
+        {prefix:true}
+      )}
 
-  <hr>
+    </div>`:
 
-  <div class="row">
-   <div>
-    <strong style="font-size:13px">
-     Additional Cash Savings
-    </strong>
-    <div class="small">
-     Savings outside the amounts above
+    `<div class="grid2">
+
+      ${field(
+        "HDB Selling Price",
+        "sale",
+        {prefix:true}
+      )}
+
+      ${field(
+        "Outstanding Loan",
+        "hdb",
+        {prefix:true}
+      )}
+
+      ${field(
+        "CPF Refund + Int",
+        "refund",
+        {prefix:true}
+      )}
+
+      ${field(
+        "Existing CPF (OA)",
+        "oa",
+        {prefix:true}
+      )}
+
     </div>
-   </div>
-   <button class="btn ${v.extraOn?'active':''}"
-    data-toggle="extraOn">
-    ${v.extraOn?'ON':'OFF'}
-   </button>
-  </div>
 
-  ${v.extraOn?`
-   ${presets("extra",[0,50000,100000,200000])}
-   <div style="margin-top:14px">
-    ${field("Additional Cash Savings","extra",{prefix:true})}
-   </div>
-  `:""}
- `}
+    <div class="panel">
 
- ${equityPanel(R)}`;
+      <span class="eyebrow">
+        ESTIMATED SALE BREAKDOWN
+      </span>
+
+      <div class="line">
+        Commission incl. GST
+        <strong>${cash(R.commission)}</strong>
+      </div>
+
+      <div class="line">
+        Selling Legal Fees
+        <strong>${cash(R.fee)}</strong>
+      </div>
+
+      <div class="line">
+        Outstanding Loan
+        <strong>${cash(v.hdb)}</strong>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <strong style="font-size:13px">
+          Net Sale Proceeds
+        </strong>
+
+        <strong style="color:var(--navy)">
+          ${cash(R.net)}
+        </strong>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+      <div>
+        <strong style="font-size:13px">
+          Additional Cash Savings
+        </strong>
+
+        <div class="small">
+          Savings outside the amounts above
+        </div>
+      </div>
+
+      <button
+        class="btn ${v.extraOn?'active':''}"
+        data-toggle="extraOn">
+        ${v.extraOn?'ON':'OFF'}
+      </button>
+
+    </div>
+
+    ${v.extraOn?`
+
+      ${presets(
+        "extra",
+        [0,50000,100000,200000]
+      )}
+
+      <div style="margin-top:14px">
+        ${field(
+          "Additional Cash Savings",
+          "extra",
+          {prefix:true}
+        )}
+      </div>
+
+    `:""}
+    `
+  }
+
+  ${equityPanel(R)}`;
 }
 
 /* ======================================
@@ -727,25 +2444,33 @@ function step1(R){
 ====================================== */
 
 function cpfChart(series,start,color){
- const highest=Math.max(1,...series);
- return series.map((amount,i)=>`
-  <div class="chart-row">
-   <span class="chart-label">
-    Age ${start+i}
-   </span>
-   <div class="chart-track">
-    <div style="
-     height:100%;
-     width:${amount/highest*100}%;
-     background:${color};
-     border-radius:20px">
+  const highest=Math.max(
+    1,
+    ...series
+  );
+
+  return series.map((amount,i)=>`
+    <div class="chart-row">
+
+      <span class="chart-label">
+        Age ${start+i}
+      </span>
+
+      <div class="chart-track">
+        <div style="
+          height:100%;
+          width:${amount/highest*100}%;
+          background:${color};
+          border-radius:20px">
+        </div>
+      </div>
+
+      <span class="chart-value">
+        ${cash(amount)}
+      </span>
+
     </div>
-   </div>
-   <span class="chart-value">
-    ${cash(amount)}
-   </span>
-  </div>
- `).join("");
+  `).join("");
 }
 
 /* ======================================
@@ -753,114 +2478,177 @@ function cpfChart(series,start,color){
 ====================================== */
 
 function step2(R){
- const ids=people();
- const colors=["#65ADA2","#426A9B","#DDA45C"];
+  const ids=people();
 
- return `${intro(
-  "02 / YOUR MONTHLY RESOURCES",
-  "Understanding Your Income.",
-  "Knowing Your Capacity."
- )}
+  const colors=[
+    "#65ADA2",
+    "#426A9B",
+    "#DDA45C"
+  ];
 
- ${ids.map((id,j)=>`
-  ${j?"<hr>":""}
+  return `${intro(
+    "02 / YOUR MONTHLY RESOURCES",
+    "Understanding Your Income.",
+    "Knowing Your Capacity."
+  )}
 
-  <div class="buyer-head">
-   <div class="buyer-name">
-    <span class="buyer-icon">♙</span>
-    BUYER ${id}
-   </div>
+  ${ids.map((id,j)=>`
+    ${j?"<hr>":""}
 
-   ${id<3?`
-    <div class="row">
-     <span class="small">
-      Add Buyer ${id+1}
-     </span>
-     <button class="btn ${
-      v[id===1?'b2':'b3']?'active':''
-     }" data-toggle="${id===1?'b2':'b3'}">
-      ${v[id===1?'b2':'b3']?'ON':'OFF'}
-     </button>
-    </div>
-   `:""}
-  </div>
+    <div class="buyer-head">
 
-  ${field("Buyer Name","name"+id,{text:true})}
-
-  <div class="grid2" style="margin-top:15px">
-   ${field("Age","age"+id)}
-   ${field("Monthly Income","wage"+id,{prefix:true})}
-  </div>
-
-  <div style="margin-top:14px">
-   <span class="section-label">RESIDENCY</span>
-   <div class="segment">
-    ${selectButton("Singapore Citizen","status"+id,"SC")}
-    ${selectButton("PR","status"+id,"PR")}
-   </div>
-  </div>
- `).join("")}
-
- <hr>
-
- <h3 style="font-size:18px">
-  Your CPF OA Projection.
- </h3>
-
- <div class="small">
-  Estimated monthly CPF OA contributions over 10 years.
- </div>
-
- ${ids.map((id,j)=>`
-  <div style="margin-top:20px">
-   <div class="row">
-    <strong style="font-size:13px;color:var(--navy)">
-     <i class="label-dot"
-      style="background:${colors[j]}"></i>
-     ${esc(v["name"+id])}
-    </strong>
-    <span class="small">
-     Year 1: ${cash(R.perBuyer[j][0])}/mo
-    </span>
-   </div>
-   ${cpfChart(
-    R.perBuyer[j],
-    num(v["age"+id]),
-    colors[j]
-   )}
-  </div>
- `).join("")}
-
- ${ids.length>1?`
-  <hr>
-  <strong style="font-size:13px;color:var(--navy)">
-   Combined Monthly CPF OA
-  </strong>
-
-  ${R.combined.map((total,i)=>`
-   <div class="chart-row">
-    <span class="chart-label">
-     Year ${i+1}
-    </span>
-    <div class="chart-track">
-     ${R.perBuyer.map((arr,j)=>`
-      <div style="
-       width:${total?100*arr[i]/total:0}%;
-       background:${colors[j]}">
+      <div class="buyer-name">
+        <span class="buyer-icon">♙</span>
+        BUYER ${id}
       </div>
-     `).join("")}
-    </div>
-    <span class="chart-value">
-     ${cash(total)}
-    </span>
-   </div>
-  `).join("")}
- `:""}
 
- <p class="small">
-  Indicative CPF OA forecast using simplified
-  age-banded allocations and an $8,000 wage ceiling.
- </p>`;
+      ${id<3?`
+        <div class="row">
+          <span class="small">
+            Add Buyer ${id+1}
+          </span>
+
+          <button
+            class="btn ${
+              v[id===1?'b2':'b3']?'active':''
+            }"
+            data-toggle="${id===1?'b2':'b3'}">
+
+            ${v[id===1?'b2':'b3']?'ON':'OFF'}
+          </button>
+        </div>
+      `:""}
+
+    </div>
+
+    ${field(
+      "Buyer Name",
+      "name"+id,
+      {text:true}
+    )}
+
+    <div class="grid2" style="margin-top:15px">
+
+      ${field(
+        "Age",
+        "age"+id
+      )}
+
+      ${field(
+        "Monthly Income",
+        "wage"+id,
+        {prefix:true}
+      )}
+
+    </div>
+
+    <div style="margin-top:14px">
+
+      <span class="section-label">
+        RESIDENCY
+      </span>
+
+      <div class="segment">
+
+        ${selectButton(
+          "Singapore Citizen",
+          "status"+id,
+          "SC"
+        )}
+
+        ${selectButton(
+          "PR",
+          "status"+id,
+          "PR"
+        )}
+
+      </div>
+    </div>
+
+  `).join("")}
+
+  <hr>
+
+  <h3 style="font-size:18px">
+    Your CPF OA Projection.
+  </h3>
+
+  <div class="small">
+    Estimated monthly CPF OA contributions over 10 years.
+  </div>
+
+  ${ids.map((id,j)=>`
+    <div style="margin-top:20px">
+
+      <div class="row">
+
+        <strong style="
+          font-size:13px;
+          color:var(--navy)">
+
+          <i class="label-dot"
+            style="background:${colors[j]}"></i>
+
+          ${esc(v["name"+id])}
+        </strong>
+
+        <span class="small">
+          Year 1:
+          ${cash(R.perBuyer[j][0])}/mo
+        </span>
+
+      </div>
+
+      ${cpfChart(
+        R.perBuyer[j],
+        num(v["age"+id]),
+        colors[j]
+      )}
+
+    </div>
+  `).join("")}
+
+  ${ids.length>1?`
+    <hr>
+
+    <strong style="
+      font-size:13px;
+      color:var(--navy)">
+      Combined Monthly CPF OA
+    </strong>
+
+    ${R.combined.map((total,i)=>`
+      <div class="chart-row">
+
+        <span class="chart-label">
+          Year ${i+1}
+        </span>
+
+        <div class="chart-track">
+
+          ${R.perBuyer.map((arr,j)=>`
+            <div style="
+              width:${
+                total?100*arr[i]/total:0
+              }%;
+              background:${colors[j]}">
+            </div>
+          `).join("")}
+
+        </div>
+
+        <span class="chart-value">
+          ${cash(total)}
+        </span>
+
+      </div>
+    `).join("")}
+  `:""}
+
+  <p class="small">
+    Indicative CPF OA forecast based on simplified
+    age-banded allocations and an $8,000 wage ceiling.
+  </p>`;
 }
 
 /* ======================================
@@ -868,146 +2656,228 @@ function step2(R){
 ====================================== */
 
 function step3(R){
- const protectedCash=num(v.backup);
- const available=Math.max(0,R.cash-protectedCash);
+  const protectedCash=num(v.backup);
 
- return `${intro(
-  "03 / YOUR CASH RESERVE",
-  "Set Something Aside.",
-  "For Life or Renovation."
- )}
+  return `${intro(
+    "03 / YOUR CASH RESERVE",
+    "Set Something Aside.",
+    "For Life or Renovation."
+  )}
 
- <span class="section-label">
-  YOUR CASH RESERVE
- </span>
-
- ${field("Cash to Protect","backup",{prefix:true})}
-
- ${presets("backup",[0,25000,50000,100000])}
-
- <div class="panel">
-  <span class="eyebrow">
-   YOUR PURCHASE CASH POSITION
+  <span class="section-label">
+    YOUR CASH RESERVE
   </span>
 
-  <div class="big" style="margin-top:9px">
-   ${cash(available)}
+  ${field(
+    "Cash to Protect",
+    "backup",
+    {prefix:true}
+  )}
+
+  ${presets(
+    "backup",
+    [0,25000,50000,100000]
+  )}
+
+  <div class="panel">
+
+    <span class="eyebrow">
+      YOUR PURCHASE CASH POSITION
+    </span>
+
+    <div class="big" style="margin-top:9px">
+      ${cash(
+        Math.max(
+          0,
+          R.cash-protectedCash
+        )
+      )}
+    </div>
+
+    <div class="small">
+      Cash remaining for your next purchase
+    </div>
+
+    <div class="stack">
+
+      <div style="
+        width:${
+          R.cash?
+            Math.max(
+              0,
+              (R.cash-protectedCash)/R.cash*100
+            ):0
+        }%;
+        background:var(--orange)">
+      </div>
+
+      <div style="
+        flex:1;
+        background:var(--loan)">
+      </div>
+
+    </div>
+
+    <div class="row small">
+
+      <span>
+        Cash for Purchase
+        ${cash(
+          Math.max(
+            0,
+            R.cash-protectedCash
+          )
+        )}
+      </span>
+
+      <span>
+        Protected
+        ${cash(protectedCash)}
+      </span>
+
+    </div>
+
+    ${protectedCash>R.cash?`
+      <div class="warning">
+        Protected cash exceeds available cash by
+        ${cash(protectedCash-R.cash)}.
+      </div>
+    `:""}
+
   </div>
 
-  <div class="small">
-   Cash remaining for your next purchase
-  </div>
-
-  <div class="stack">
-   <div style="
-    width:${R.cash?available/R.cash*100:0}%;
-    background:var(--orange)">
-   </div>
-   <div style="
-    flex:1;
-    background:var(--loan)">
-   </div>
-  </div>
-
-  <div class="row small">
-   <span>
-    Cash for Purchase ${cash(available)}
-   </span>
-   <span>
-    Protected ${cash(protectedCash)}
-   </span>
-  </div>
-
-  ${protectedCash>R.cash?`
-   <div class="warning">
-    Protected cash exceeds available cash by
-    ${cash(protectedCash-R.cash)}.
-   </div>
-  `:""}
- </div>
-
- <p class="small">
-  The cash reserve applies to Structure B only.
-  Structure A uses the full available equity.
- </p>`;
+  <p class="small">
+    The cash reserve applies to Structure B only.
+    Structure A continues to use the full available equity.
+  </p>`;
 }
 
 /* ======================================
    PURCHASE FUNDING MIX
+   FIXED MARKERS: 5%, 25%, 100%
 ====================================== */
 
 function fundingMix(X){
- const p=Math.max(1,X.price);
- const cashPct=X.cashDP/p*100;
- const cpfPct=X.cpfDP/p*100;
- const loanPct=X.loan/p*100;
+  const p=Math.max(
+    1,
+    X.price
+  );
 
- return `<div class="funding-mix">
-  <div class="funding-head">
-   <strong>Purchase Funding Mix</strong>
-   <span>${cash(X.price)}</span>
-  </div>
+  const cashPct=X.cashDP/p*100;
+  const cpfPct=X.cpfDP/p*100;
+  const loanPct=X.loan/p*100;
 
-  <div class="funding-guide">
-   <span class="funding-guide-label"
-    style="left:5%">5%</span>
-   <span class="funding-guide-label"
-    style="left:25%">25%</span>
-   <span class="funding-guide-label last"
-    style="left:100%">100%</span>
+  return `<div class="funding-mix">
 
-   <div class="funding-track">
-    <div class="funding-fill">
-     <div style="
-      width:${cashPct}%;
-      background:var(--orange)">
-     </div>
-     <div style="
-      width:${cpfPct}%;
-      background:var(--teal)">
-     </div>
-     <div style="
-      width:${loanPct}%;
-      background:var(--loan)">
-     </div>
+    <div class="funding-head">
+
+      <strong>
+        Purchase Funding Mix
+      </strong>
+
+      <span>
+        ${cash(X.price)}
+      </span>
+
     </div>
 
-    <div class="funding-marker"
-     style="left:5%"></div>
-    <div class="funding-marker"
-     style="left:25%"></div>
-    <div class="funding-marker end"
-     style="left:100%"></div>
-   </div>
-  </div>
+    <div class="funding-guide">
 
-  <div class="funding-legend">
-   ${[
-    ["Cash",X.cashDP,"orange"],
-    ["CPF OA",X.cpfDP,"teal"],
-    ["Bank Loan",X.loan,"loan"]
-   ].map(([name,amount,color])=>`
-    <div>
-     <div class="small">
-      <i class="label-dot"
-       style="background:var(--${color})"></i>
-      ${name}
-     </div>
-     <div class="mid">
-      ${cash(amount)}
-     </div>
-     <div class="small">
-      ${(amount/p*100).toFixed(1)}%
-     </div>
+      <span
+        class="funding-guide-label"
+        style="left:5%">
+        5%
+      </span>
+
+      <span
+        class="funding-guide-label"
+        style="left:25%">
+        25%
+      </span>
+
+      <span
+        class="funding-guide-label last"
+        style="left:100%">
+        100%
+      </span>
+
+      <div class="funding-track">
+
+        <div class="funding-fill">
+
+          <div style="
+            width:${cashPct}%;
+            background:var(--orange)">
+          </div>
+
+          <div style="
+            width:${cpfPct}%;
+            background:var(--teal)">
+          </div>
+
+          <div style="
+            width:${loanPct}%;
+            background:var(--loan)">
+          </div>
+
+        </div>
+
+        <div
+          class="funding-marker"
+          style="left:5%">
+        </div>
+
+        <div
+          class="funding-marker"
+          style="left:25%">
+        </div>
+
+        <div
+          class="funding-marker end"
+          style="left:100%">
+        </div>
+
+      </div>
     </div>
-   `).join("")}
-  </div>
 
-  <div class="funding-note">
-   Mandatory 5% Cash:
-   ${cash(X.price*.05)}
-  </div>
- </div>`;
+    <div class="funding-legend">
+
+      ${[
+        ["Cash",X.cashDP,"orange"],
+        ["CPF OA",X.cpfDP,"teal"],
+        ["Bank Loan",X.loan,"loan"]
+      ].map(([name,amount,color])=>`
+
+        <div>
+
+          <div class="small">
+            <i
+              class="label-dot"
+              style="background:var(--${color})">
+            </i>
+            ${name}
+          </div>
+
+          <div class="mid">
+            ${cash(amount)}
+          </div>
+
+          <div class="small">
+            ${(amount/p*100).toFixed(1)}%
+          </div>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+
+    <div class="funding-note">
+      Mandatory 5% Cash:
+      ${cash(X.price*.05)}
+    </div>
+
+  </div>`;
 }
 
 /* ======================================
@@ -1015,52 +2885,81 @@ function fundingMix(X){
 ====================================== */
 
 function uiIcon(type){
- const icons={
+  const icons={
 
-  key:`
-   <svg viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="8" cy="8" r="4.5"/>
-    <path d="M11.3 11.3L21 21"/>
-    <path d="M17.5 17.5l2.5-2.5"/>
-    <path d="M14.5 14.5l2.5-2.5"/>
-    <circle cx="8" cy="8" r="1"
-     fill="currentColor" stroke="none"/>
-   </svg>`,
+    key:`
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true">
+        <circle cx="8" cy="8" r="4.5"/>
+        <path d="M11.3 11.3L21 21"/>
+        <path d="M17.5 17.5l2.5-2.5"/>
+        <path d="M14.5 14.5l2.5-2.5"/>
+        <circle
+          cx="8"
+          cy="8"
+          r="1"
+          fill="currentColor"
+          stroke="none"/>
+      </svg>`,
 
-  checkShield:`
-   <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/>
-    <path d="M9 12l2 2 4-5"/>
-   </svg>`,
+    checkShield:`
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true">
+        <path
+          d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/>
+        <path d="M9 12l2 2 4-5"/>
+      </svg>`,
 
-  home:`
-   <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M3 10.5L12 3l9 7.5"/>
-    <path d="M5 9.5V21h14V9.5"/>
-    <path d="M10 21v-6h4v6"/>
-   </svg>`,
+    home:`
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true">
+        <path d="M3 10.5L12 3l9 7.5"/>
+        <path d="M5 9.5V21h14V9.5"/>
+        <path d="M10 21v-6h4v6"/>
+      </svg>`,
 
-  wallet:`
-   <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5.5A2.5 2.5 0 0 1 3 16.5v-9z"/>
-    <path d="M3 8h13M16 13h4"/>
-   </svg>`,
+    wallet:`
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true">
+        <path
+          d="M3 7.5A2.5 2.5 0 0 1 5.5 5H18
+          a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2
+          H5.5A2.5 2.5 0 0 1 3 16.5v-9z"/>
+        <path d="M3 8h13"/>
+        <path d="M16 13h4"/>
+      </svg>`,
 
-  shield:`
-   <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/>
-    <path d="M9 12l2 2 4-5"/>
-   </svg>`,
+    shield:`
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true">
+        <path
+          d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/>
+        <path d="M9 12l2 2 4-5"/>
+      </svg>`,
 
-  calendar:`
-   <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M7 2v4M17 2v4"/>
-    <rect x="3" y="5" width="18"
-     height="16" rx="2"/>
-    <path d="M3 10h18M9 15l2 2 4-4"/>
-   </svg>`
- };
- return icons[type]||"";
+    calendar:`
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true">
+        <path d="M7 2v4M17 2v4"/>
+        <rect
+          x="3"
+          y="5"
+          width="18"
+          height="16"
+          rx="2"/>
+        <path d="M3 10h18"/>
+        <path d="M9 15l2 2 4-4"/>
+      </svg>`
+
+  };
+
+  return icons[type]||"";
 }
 
 /* ======================================
@@ -1068,12 +2967,14 @@ function uiIcon(type){
 ====================================== */
 
 function lifestyleMessage(){
- const commit=num(v.commit);
- const period=num(v.period);
- if(commit<=0){
-  return "No additional monthly cash outlay.";
- }
- return `Up to ${cash(commit)} monthly cash commitment for ${period} months.`;
+  const commit=num(v.commit);
+  const period=num(v.period);
+
+  if(commit<=0){
+    return "No additional monthly cash outlay.";
+  }
+
+  return `Up to ${cash(commit)} monthly cash commitment for ${period} months.`;
 }
 
 /* ======================================
@@ -1081,68 +2982,106 @@ function lifestyleMessage(){
 ====================================== */
 
 function mortgageChart(X,id){
- return `
-  <strong style="font-size:13px;color:var(--navy)">
-   Four-Year Mortgage Funding
-  </strong>
+  return `
+    <strong style="
+      font-size:13px;
+      color:var(--navy)">
+      Four-Year Mortgage Funding
+    </strong>
 
-  <div class="small">Monthly averages</div>
-
-  ${X.years.map((y,i)=>`
-   <div class="year-row">
-    <div class="row">
-     <span>Year ${i+1}</span>
-     <span>Mortgage ${cash(X.monthly)}/mo</span>
+    <div class="small">
+      Monthly averages
     </div>
 
-    <div class="stack">
-     <div style="
-      width:${X.monthly?y.cpf/X.monthly*100:0}%;
-      background:var(--loan)">
-     </div>
-     <div style="
-      width:${X.monthly?y.cash/X.monthly*100:0}%;
-      background:var(--orange)">
-     </div>
-     <div style="
-      width:${X.monthly?y.shield/X.monthly*100:0}%;
-      background:var(--purple)">
-     </div>
-    </div>
+    ${X.years.map((y,i)=>`
+      <div class="year-row">
+
+        <div class="row">
+          <span>Year ${i+1}</span>
+          <span>
+            Mortgage ${cash(X.monthly)}/mo
+          </span>
+        </div>
+
+        <div class="stack">
+
+          <div style="
+            width:${
+              X.monthly?
+                y.cpf/X.monthly*100:0
+            }%;
+            background:var(--loan)">
+          </div>
+
+          <div style="
+            width:${
+              X.monthly?
+                y.cash/X.monthly*100:0
+            }%;
+            background:var(--orange)">
+          </div>
+
+          <div style="
+            width:${
+              X.monthly?
+                y.shield/X.monthly*100:0
+            }%;
+            background:var(--purple)">
+          </div>
+
+        </div>
+
+        <div class="row small">
+          <span>
+            CPF ${cash(y.cpf)}
+          </span>
+
+          <span>
+            Cash ${cash(y.cash)}
+          </span>
+
+          ${id==="B"&&v.protection?`
+            <span>
+              Shield ${cash(y.shield)}
+            </span>
+          `:""}
+        </div>
+
+      </div>
+    `).join("")}
+
+    <hr>
 
     <div class="row small">
-     <span>CPF ${cash(y.cpf)}</span>
-     <span>Cash ${cash(y.cash)}</span>
-     ${id==="B"&&v.protection?`
-      <span>Shield ${cash(y.shield)}</span>
-     `:""}
+      <span>48-month totals</span>
+
+      <span>
+        CPF ${short(
+          X.years.reduce(
+            (a,y)=>a+y.cpf*12,0
+          )
+        )}
+      </span>
+
+      <span>
+        Cash ${short(
+          X.years.reduce(
+            (a,y)=>a+y.cash*12,0
+          )
+        )}
+      </span>
+
+      ${id==="B"&&v.protection?`
+        <span>
+          Shield ${short(
+            X.years.reduce(
+              (a,y)=>a+y.shield*12,0
+            )
+          )}
+        </span>
+      `:""}
     </div>
-   </div>
-  `).join("")}
-
-  <hr>
-
-  <div class="row small">
-   <span>48-month totals</span>
-   <span>
-    CPF ${short(X.years.reduce(
-     (a,y)=>a+y.cpf*12,0
-    ))}
-   </span>
-   <span>
-    Cash ${short(X.years.reduce(
-     (a,y)=>a+y.cash*12,0
-    ))}
-   </span>
-   ${id==="B"&&v.protection?`
-    <span>
-     Shield ${short(X.years.reduce(
-      (a,y)=>a+y.shield*12,0
-     ))}
-    </span>
-   `:""}
-  </div>
- `;
+  `;
 }
 
 /* ======================================
@@ -1150,275 +3089,427 @@ function mortgageChart(X,id){
 ====================================== */
 
 function resultCard(id,R){
- const X=R[id];
- const open=opened[id];
- const B=id==="B";
+  const X=R[id];
+  const open=opened[id];
+  const B=id==="B";
 
- return `
-  <section class="result-card ${B?'b':'a'}">
+  return `
+    <section class="result-card ${B?'b':'a'}">
 
-   <div class="card-head" data-open="${id}">
-    <div style="flex:1">
+      <div class="card-head" data-open="${id}">
+        <div style="flex:1">
 
-     <small>
-      STRUCTURE ${id} ·
-      ${B?
-       "PROTECTED UPGRADE":
-       "MAXIMUM PURCHASING POWER"}
-     </small>
+          <small>
+            STRUCTURE ${id} ·
+            ${B?
+              "PROTECTED UPGRADE":
+              "MAXIMUM PURCHASING POWER"}
+          </small>
 
-     <h3>
-      <span>
-       ${B?
-        "Elevate Your Address.":
-        "Just Because You Can."}
-      </span>
-      ${B?
-       "Preserve Your Lifestyle.":
-       "Doesn't Mean You Should."}
-     </h3>
-     <div class="gold-rule"></div>
-    </div>
-    <span style="color:var(--navy)">
-     ${open?"⌃":"⌄"}
-    </span>
-   </div>
+          <h3>
+            <span>
+              ${B?
+                "Elevate Your Address.":
+                "Just Because You Can."}
+            </span>
 
-   ${open?`
-    ${X?`
-     <div class="metrics">
-      <div class="metric">
-       <span class="small">Max Purchase Price</span>
-       <div class="mid">${cash(X.price)}</div>
-      </div>
-      <div class="metric">
-       <span class="small">Monthly Mortgage</span>
-       <div class="mid">${cash(X.monthly)}</div>
-      </div>
-     </div>
+            ${B?
+              "Preserve Your Lifestyle.":
+              "Doesn't Mean You Should."}
+          </h3>
 
-     <hr>
+          <div class="gold-rule"></div>
 
-     <div class="metrics">
-      <div class="metric">
-       <span class="small">Max Eligible Loan</span>
-       <div class="mid">${cash(R.cap)}</div>
-      </div>
-      <div class="metric">
-       <span class="small">Total Avail Equity</span>
-       <div class="mid">${cash(R.equity)}</div>
-      </div>
-      <div class="metric">
-       <span class="small">
-        ${B?"Adjusted Loan":"Selected Loan"}
-       </span>
-       <div class="mid">${cash(X.loan)}</div>
-       <span class="small">
-        ${X.ltv.toFixed(1)}% LTV
-       </span>
-      </div>
-      <div class="metric">
-       <span class="small">
-        ${B?"Adjusted Upfront":"Upfront Required"}
-       </span>
-       <div class="mid">${cash(X.upfront)}</div>
-       <div class="upfront-breakdown">
-        <div>Downpay: ${cash(X.down)}</div>
-        <div>
-         ${R.absd?"BSD + ABSD + Legal":"BSD + Legal"}:
-         ${cash(X.fees)}
         </div>
-       </div>
-      </div>
-     </div>
 
-     <hr>
-     ${fundingMix(X)}
-    `:`
-     <div class="small" style="margin:17px 0">
-      No feasible purchase at the current settings.
-      Enter your funds in Step 1 or adjust
-      your cash reserve.
-     </div>
-    `}
+        <span style="color:var(--navy)">
+          ${open?"⌃":"⌄"}
+        </span>
 
-    ${B?`
-     ${X&&R.spare>=10000?`
-      <hr>
-      <div class="row">
-       <strong style="font-size:13px">
-        Smart CPF Allocation
-       </strong>
-       <span class="small">
-        Spare CPF: ${cash(R.spare)}
-       </span>
       </div>
 
-      <div class="segment" style="margin-top:10px">
-       ${selectButton(
-        "Protect Mortgage","choice","protect"
-       )}
-       ${selectButton(
-        "Reduce Loan","choice","reduce"
-       )}
-      </div>
+      ${open?`
 
-      ${R.reduction?`
-       <p class="small">
-        Loan Reduction: ${cash(R.reduction)}
-       </p>
+        ${X?`
+
+          <div class="metrics">
+
+            <div class="metric">
+              <span class="small">
+                Max Purchase Price
+              </span>
+
+              <div class="mid">
+                ${cash(X.price)}
+              </div>
+            </div>
+
+            <div class="metric">
+              <span class="small">
+                Monthly Mortgage
+              </span>
+
+              <div class="mid">
+                ${cash(X.monthly)}
+              </div>
+            </div>
+
+          </div>
+
+          <hr>
+
+          <div class="metrics">
+
+            <div class="metric">
+              <span class="small">
+                Max Eligible Loan
+              </span>
+
+              <div class="mid">
+                ${cash(R.cap)}
+              </div>
+            </div>
+
+            <div class="metric">
+              <span class="small">
+                Total Avail Equity
+              </span>
+
+              <div class="mid">
+                ${cash(R.equity)}
+              </div>
+            </div>
+
+            <div class="metric">
+              <span class="small">
+                ${B?
+                  "Adjusted Loan":
+                  "Selected Loan"}
+              </span>
+
+              <div class="mid">
+                ${cash(X.loan)}
+              </div>
+
+              <span class="small">
+                ${X.ltv.toFixed(1)}% LTV
+              </span>
+            </div>
+
+            <div class="metric">
+              <span class="small">
+                ${B?
+                  "Adjusted Upfront":
+                  "Upfront Required"}
+              </span>
+
+              <div class="mid">
+                ${cash(X.upfront)}
+              </div>
+
+              <div class="upfront-breakdown">
+                <div>
+                  Downpay: ${cash(X.down)}
+                </div>
+
+                <div>
+                  ${R.absd?
+                    "BSD + ABSD + Legal":
+                    "BSD + Legal"}:
+                  ${cash(X.fees)}
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <hr>
+
+          ${fundingMix(X)}
+
+        `:`
+
+          <div class="small" style="margin:17px 0">
+            No feasible purchase at the current settings.
+            Enter your funds in Step 1 or adjust
+            your cash reserve.
+          </div>
+
+        `}
+
+        ${B?`
+
+          ${X&&R.spare>=10000?`
+
+            <hr>
+
+            <div class="row">
+              <strong style="font-size:13px">
+                Smart CPF Allocation
+              </strong>
+
+              <span class="small">
+                Spare CPF: ${cash(R.spare)}
+              </span>
+            </div>
+
+            <div class="segment" style="margin-top:10px">
+
+              ${selectButton(
+                "Protect Mortgage",
+                "choice",
+                "protect"
+              )}
+
+              ${selectButton(
+                "Reduce Loan",
+                "choice",
+                "reduce"
+              )}
+
+            </div>
+
+            ${R.reduction?`
+              <p class="small">
+                Loan Reduction:
+                ${cash(R.reduction)}
+              </p>
+            `:""}
+
+          `:""}
+
+          <hr>
+
+          <div class="protect-head">
+
+            <div>
+              <h4>
+                Mortgage Protection
+              </h4>
+
+              <div class="protect-sub">
+                ${v.protection?
+                  v.period+"-month protection enabled":
+                  "Protection not activated"}
+              </div>
+            </div>
+
+            <button
+              class="protect-toggle ${
+                v.protection?"":"off"
+              }"
+              data-toggle="protection"
+              aria-pressed="${v.protection}">
+
+              ${uiIcon("checkShield")}
+
+              <span>
+                ${v.protection?"ON":"OFF"}
+              </span>
+
+            </button>
+
+          </div>
+
+          ${v.protection?`
+
+            <div class="protect-row2">
+
+              <div class="protect-period-label">
+                Protection Period
+              </div>
+
+              <div class="period-pills">
+
+                <button
+                  class="period-pill ${
+                    Number(v.period)===24?
+                      "active":""
+                  }"
+                  data-set="period"
+                  data-value="24">
+                  24 months
+                </button>
+
+                <button
+                  class="period-pill ${
+                    Number(v.period)===48?
+                      "active":""
+                  }"
+                  data-set="period"
+                  data-value="48">
+                  48 months
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="commit-head">
+
+              <h4>
+                Monthly Cash Commitment ($)
+              </h4>
+
+              <div class="commit-pp">
+                PP + ${cash(R.extraPurchase)}
+              </div>
+
+            </div>
+
+            <div class="commit-input">
+              <input
+                data-field="commit"
+                type="number"
+                min="0"
+                aria-label="Monthly Cash Commitment"
+                value="${esc(v.commit)}">
+            </div>
+
+            <div class="commit-presets">
+
+              ${[
+                [0,"$0"],
+                [1000,"$1k"],
+                [2000,"$2k"],
+                [3000,"$3k"]
+              ].map(([amount,label])=>`
+
+                <button
+                  class="commit-pill ${
+                    num(v.commit)===amount?
+                      "active":""
+                  }"
+                  data-set="commit"
+                  data-value="${amount}">
+                  ${label}
+                </button>
+
+              `).join("")}
+
+            </div>
+
+            ${X?`
+
+              <div class="protect-shield">
+                <span>
+                  Mortgage Shield Required
+                </span>
+
+                <strong>
+                  ${cash(X.shield)}
+                </strong>
+              </div>
+
+            `:""}
+
+          `:""}
+
+          <hr>
+
+          <span class="eyebrow">
+            YOUR LIFESTYLE PROTECTION SUMMARY
+          </span>
+
+          <h3 style="
+            font-size:18px;
+            margin:15px 0">
+            Your home. Your peace of mind.
+          </h3>
+
+          <div class="summary-grid">
+
+            <div class="summary-item">
+
+              ${uiIcon("home")}
+
+              <div class="summary-label">
+                Your Home
+              </div>
+
+              <div class="summary-value">
+                ${X?cash(X.price):"—"}
+              </div>
+
+            </div>
+
+            <div class="summary-item">
+
+              ${uiIcon("wallet")}
+
+              <div class="summary-label">
+                Cash Kept
+              </div>
+
+              <div class="summary-value">
+                ${cash(v.backup)}
+              </div>
+
+            </div>
+
+            <div class="summary-item">
+
+              ${uiIcon("shield")}
+
+              <div class="summary-label">
+                Mortgage Shield
+              </div>
+
+              <div class="summary-value">
+                ${X?cash(X.shield):"—"}
+              </div>
+
+            </div>
+
+          </div>
+
+          <hr>
+
+          ${v.protection?`
+
+            <div class="life-card">
+
+              <div class="life-icon">
+                ${uiIcon("calendar")}
+              </div>
+
+              <div>
+
+                <div class="life-kicker">
+                  ${v.period}-MONTH
+                  LIFESTYLE PROTECTION
+                </div>
+
+                <div class="life-text">
+                  ${lifestyleMessage()}
+                </div>
+
+              </div>
+
+            </div>
+
+          `:`
+
+            <div class="small">
+              Mortgage protection is not activated.
+            </div>
+
+          `}
+
+        `:""}
+
+        ${X?`
+
+          <hr>
+          ${mortgageChart(X,id)}
+
+        `:""}
+
       `:""}
-     `:""}
 
-     <hr>
-
-     <div class="protect-top">
-      <div class="protect-head">
-       <div>
-        <h4>Mortgage Protection</h4>
-        <div class="protect-sub">
-         ${v.protection?
-          v.period+"-month protection enabled":
-          "Protection not activated"}
-        </div>
-       </div>
-
-       <button
-        class="protect-toggle ${v.protection?"":"off"}"
-        data-toggle="protection"
-        aria-pressed="${v.protection}">
-        ${uiIcon("checkShield")}
-        <span>${v.protection?"ON":"OFF"}</span>
-       </button>
-      </div>
-
-      ${v.protection?`
-       <div class="protect-row2">
-        <div class="protect-period-label">
-         Protection Period
-        </div>
-
-        <div class="period-pills">
-         ${[24,48].map(p=>`
-          <button
-           class="period-pill ${
-            Number(v.period)===p?"active":""
-           }"
-           data-set="period"
-           data-value="${p}">
-           ${p} months
-          </button>
-         `).join("")}
-        </div>
-       </div>
-
-       <div class="commit-head">
-        <h4>Monthly Cash Commitment ($)</h4>
-        <div class="commit-pp">
-         PP + ${cash(R.extraPurchase)}
-        </div>
-       </div>
-
-       <div class="commit-input">
-        <input
-         data-field="commit"
-         type="number"
-         min="0"
-         aria-label="Monthly Cash Commitment"
-         value="${esc(v.commit)}">
-       </div>
-
-       <div class="commit-presets">
-        ${[
-         [0,"$0"],[1000,"$1k"],
-         [2000,"$2k"],[3000,"$3k"]
-        ].map(([amount,label])=>`
-         <button
-          class="commit-pill ${
-           num(v.commit)===amount?"active":""
-          }"
-          data-set="commit"
-          data-value="${amount}">
-          ${label}
-         </button>
-        `).join("")}
-       </div>
-
-       ${X?`
-        <div class="protect-shield">
-         <span>Mortgage Shield Required</span>
-         <strong>${cash(X.shield)}</strong>
-        </div>
-       `:""}
-      `:""}
-
-      <hr>
-
-      <span class="eyebrow">
-       YOUR LIFESTYLE PROTECTION SUMMARY
-      </span>
-
-      <h3 style="font-size:18px;margin:15px 0">
-       Your home. Your peace of mind.
-      </h3>
-
-      <div class="summary-grid">
-       <div class="summary-item">
-        ${uiIcon("home")}
-        <div class="summary-label">Your Home</div>
-        <div class="summary-value">
-         ${X?cash(X.price):"—"}
-        </div>
-       </div>
-
-       <div class="summary-item">
-        ${uiIcon("wallet")}
-        <div class="summary-label">Cash Kept</div>
-        <div class="summary-value">
-         ${cash(v.backup)}
-        </div>
-       </div>
-
-       <div class="summary-item">
-        ${uiIcon("shield")}
-        <div class="summary-label">Mortgage Shield</div>
-        <div class="summary-value">
-         ${X?cash(X.shield):"—"}
-        </div>
-       </div>
-      </div>
-
-      <hr>
-
-      ${v.protection?`
-       <div class="life-card">
-        <div class="life-icon">
-         ${uiIcon("calendar")}
-        </div>
-        <div>
-         <div class="life-kicker">
-          ${v.period}-MONTH LIFESTYLE PROTECTION
-         </div>
-         <div class="life-text">
-          ${lifestyleMessage()}
-         </div>
-        </div>
-       </div>
-      `:`
-       <div class="small">
-        Mortgage protection is not activated.
-       </div>
-      `}
-     </div>
-    `:""}
-
-    ${X?`
-     <hr>
-     ${mortgageChart(X,id)}
-    `:""}
-   `:""}
-  </section>
- `;
+    </section>
+  `;
 }
 
 /* ======================================
@@ -1427,548 +3518,733 @@ function resultCard(id,R){
 
 function incomeCapacity(R){
 
- const hasCapacity=R.cap>0;
+  const F=R.funding;
 
- const positive=R.benchNet>.005;
- const negative=R.benchNet<-.005;
+  const valid=R.cap>0;
 
- const statusClass=amount=>
-  amount>.005?"capacity-success":
-  amount<-.005?"capacity-danger":
-  "capacity-neutral";
+  const isShort=
+    valid&&F.shortfall>.005;
 
- const signed=amount=>
-  (amount<-.005?"−":amount>.005?"+":"")+
-  cash(Math.abs(amount));
+  const isSurplus=
+    valid&&!isShort&&F.surplus>.005;
 
- const width=(amount,total)=>
-  total>0?
-   clamp(amount/total*100,0,100):
-   0;
+  const fmtColor=n=>
+    n>.005?
+      "capacity-success":
+    n<-.005?
+      "capacity-danger":
+      "capacity-neutral";
 
- const cash5Width=width(
-  R.benchCash5,R.benchFive
- );
-
- const cash5ShortWidth=width(
-  R.benchCashShort,R.benchFive
- );
-
- const cpf20Width=width(
-  R.benchCPF20,R.benchTwenty
- );
-
- const cash20Width=width(
-  R.benchCash20,R.benchTwenty
- );
-
- const twentyShortWidth=width(
-  R.benchTwentyShort,R.benchTwenty
- );
-
- const showSurplus=R.benchBarSurplus>.005;
-
- return `
-  <section class="accordion">
-
-   <button
-    class="acc-button capacity-header"
-    data-open="capacity"
-    aria-expanded="${opened.capacity}">
-
-    <span class="capacity-title">
-     ${uiIcon("key")}
-     <span>
-      INCOME-BASED PURCHASE CAPACITY
-     </span>
-    </span>
-
-    <span>
-     ${opened.capacity?"⌃":"⌄"}
-    </span>
-
-   </button>
-
-   ${opened.capacity?`
-
-    <!-- ESTIMATED PROPERTY PRICE -->
-
-    <div class="capacity-price">
-     <div class="small">
-      Potential Property Price
-     </div>
-
-     <div class="big">
-      ${cash(R.bench)}
-     </div>
-
-     <div class="small">
-      Based on estimated 75% bank financing
-     </div>
+  const barPiece=(n,den,cls)=>`
+    <div
+      class="capacity-bar-part ${cls}"
+      style="width:${
+        den?
+          clamp(n/den*100,0,100):
+          0
+      }%">
     </div>
+  `;
 
-    <hr style="margin:18px 0">
+  const five=F.cashNeed;
+  const twenty=F.twentyNeed;
 
-    <!-- 25% DOWNPAYMENT FUNDING -->
+  const netValue=isShort?
+    F.shortfall:
+    isSurplus?
+      F.surplus:
+      0;
 
-    <div class="capacity-downpayment">
+  const primaryTitle=!valid?
+    "No assessed capacity":
+    isShort?
+      "Funding Shortfall":
+      isSurplus?
+        "Funding Surplus":
+        "Fully Funded";
 
-     <div class="capacity-downpayment-head">
-      <strong>25% DOWNPAYMENT FUNDING</strong>
-      <span>${cash(R.benchDown)}</span>
-     </div>
+  return `
+    <section class="accordion">
 
-     <div class="capacity-bar-line ${
-      showSurplus?"has-surplus":""
-     }">
+      <button
+        class="acc-button capacity-header"
+        data-open="capacity"
+        aria-expanded="${opened.capacity}">
 
-      <div
-       class="capacity-bar"
-       role="img"
-       aria-label="
-        Mandatory cash shortfall
-        ${cash(R.benchCashShort)}.
-        Remaining downpayment shortfall
-        ${cash(R.benchTwentyShort)}.
-       ">
+        <span class="capacity-title">
+          ${uiIcon("key")}
 
-       <!-- 5% MINIMUM CASH SECTION -->
+          <span>
+            INCOME-BASED PURCHASE CAPACITY
+          </span>
+        </span>
 
-       <div class="capacity-five">
+        <span>
+          ${opened.capacity?"⌃":"⌄"}
+        </span>
 
-        <div class="capacity-bar-piece cash"
-         style="width:${cash5Width}%">
+      </button>
+
+      ${opened.capacity?`
+
+        <!-- PROPERTY PRICE -->
+
+        <div class="capacity-price">
+
+          <div class="small">
+            Potential Property Price
+          </div>
+
+          <div class="big">
+            ${cash(R.bench)}
+          </div>
+
+          <div class="small">
+            Based on estimated 75% bank financing
+          </div>
+
         </div>
 
-        <div class="capacity-bar-piece cash-short"
-         style="width:${cash5ShortWidth}%">
+        <hr style="margin:18px 0">
+
+        <!-- 25% DOWNPAYMENT BAR -->
+
+        <div class="capacity-down-head">
+
+          <strong>
+            25% DOWNPAYMENT FUNDING
+          </strong>
+
+          <span>
+            ${cash(five+twenty)}
+          </span>
+
         </div>
 
-       </div>
+        <div
+          class="capacity-fund-bar"
+          role="img"
+          aria-label="
+            Cash shortfall ${cash(F.cashShort)}.
+            CPF or cash shortfall
+            ${cash(F.twentyShort)}.
+          ">
 
-       <!-- 20% CPF / CASH SECTION -->
+          <!-- BLUE 5% CASH PORTION -->
 
-       <div class="capacity-twenty">
+          <div class="capacity-five">
 
-        <div class="capacity-bar-piece cpf"
-         style="width:${cpf20Width}%">
+            ${barPiece(
+              F.cash5,
+              five,
+              "capacity-good-cash"
+            )}
+
+            ${barPiece(
+              F.cashShort,
+              five,
+              "capacity-missing-cash"
+            )}
+
+          </div>
+
+          <!-- GREEN 20% CPF/CASH PORTION -->
+
+          <div class="capacity-twenty">
+
+            ${barPiece(
+              F.cpf20+F.cash20,
+              twenty,
+              "capacity-good-cpf"
+            )}
+
+            ${barPiece(
+              F.twentyShort,
+              twenty,
+              "capacity-missing-cpf"
+            )}
+
+          </div>
+
         </div>
 
-        <div class="capacity-bar-piece cash"
-         style="width:${cash20Width}%">
+        <!-- BAR LABELS -->
+
+        <div class="capacity-bar-labels">
+
+          <div class="capacity-bar-label">
+
+            <span
+              class="capacity-dot"
+              style="background:#3D85BC">
+            </span>
+
+            <div>
+              <strong>
+                Cash (5%)
+              </strong>
+
+              <small>
+                ${cash(five)}
+              </small>
+            </div>
+
+          </div>
+
+          <div class="capacity-bar-label">
+
+            <span
+              class="capacity-dot"
+              style="background:#53A98A">
+            </span>
+
+            <div>
+              <strong>
+                CPF (20%)
+              </strong>
+
+              <small>
+                ${cash(twenty)}
+              </small>
+            </div>
+
+          </div>
+
         </div>
 
-        <div class="capacity-bar-piece cpf-short"
-         style="width:${twentyShortWidth}%">
+        <!-- SHORTFALL LEGEND -->
+
+        ${F.cashShort>.005||
+          F.twentyShort>.005?`
+
+          <div class="capacity-legend">
+
+            ${F.cashShort>.005?`
+
+              <span>
+
+                <i class="
+                  capacity-dot
+                  capacity-missing-cash">
+                </i>
+
+                Cash Shortfall
+
+                <b class="capacity-danger">
+                  ${
+                    (
+                      F.cashShort/
+                      R.bench*100
+                    ).toFixed(1)
+                  }%
+                </b>
+
+              </span>
+
+            `:""}
+
+            ${F.twentyShort>.005?`
+
+              <span>
+
+                <i class="
+                  capacity-dot
+                  capacity-missing-cpf">
+                </i>
+
+                CPF Shortfall
+
+                <b class="capacity-danger">
+                  ${
+                    (
+                      F.twentyShort/
+                      R.bench*100
+                    ).toFixed(1)
+                  }%
+                </b>
+
+              </span>
+
+            `:""}
+
+          </div>
+
+        `:""}
+
+        <hr style="margin:19px 0">
+
+        <!-- UPFRONT SUMMARY -->
+
+        <div class="capacity-metrics">
+
+          <div>
+
+            <div class="small">
+              Upfront Required
+            </div>
+
+            <div class="mid">
+              ${cash(R.benchUp)}
+            </div>
+
+            <div class="capacity-subtext">
+              Downpay + BSD/Legal
+            </div>
+
+          </div>
+
+          <div>
+
+            <div class="small">
+              ${primaryTitle}
+            </div>
+
+            <div class="mid ${
+              isShort?
+                "capacity-danger":
+                isSurplus?
+                  "capacity-success":
+                  "capacity-neutral"
+            }">
+
+              ${cash(netValue)}
+
+            </div>
+
+            <div class="capacity-subtext">
+
+              ${isShort?
+                "Additional funding needed":
+                isSurplus?
+                  "Available funding after purchase":
+                  valid?
+                    "Fully funded":
+                    "No assessed loan capacity"}
+
+            </div>
+
+          </div>
+
         </div>
 
-       </div>
+        <!-- FUNDING POSITION -->
 
-      </div>
+        <div class="panel capacity-position">
 
-      <!-- SURPLUS EXTENDS BEYOND 25% BAR -->
+          <div class="capacity-position-title">
+            FUNDING POSITION
+          </div>
 
-      <div class="capacity-surplus-tail">
-       +${cash(R.benchBarSurplus)}
-      </div>
+          <div class="capacity-position-primary">
 
-     </div>
+            <!-- PRIMARY AMOUNT -->
 
-     <!-- DOWNPAYMENT SECTION LABELS -->
+            <div>
 
-     <div class="capacity-bar-captions">
+              <div class="small">
 
-      <div class="capacity-bar-caption-five">
-       <strong>5% Cash</strong>
-       <small>
-        ${cash(R.benchFive)}
-       </small>
-      </div>
+                ${isShort?
+                  "Net Funding Shortfall":
+                  isSurplus?
+                    "Net Funding Surplus":
+                    valid?
+                      "Fully Funded":
+                      "No Assessed Capacity"}
 
-      <div class="capacity-bar-caption-twenty">
-       <strong>20% CPF / Cash</strong>
-       <small>
-        ${cash(R.benchTwenty)}
-       </small>
-      </div>
+              </div>
 
-     </div>
+              <div class="
+                capacity-position-amount
+                ${
+                  isShort?
+                    "capacity-danger":
+                    isSurplus?
+                      "capacity-success":
+                      "capacity-neutral"
+                }">
 
-     <!-- ONE-LINE LEGEND AND AMOUNTS -->
+                ${
+                  isShort?
+                    "−":
+                    isSurplus?
+                      "+":
+                      ""
+                }${cash(netValue)}
 
-     <div class="capacity-legend">
+              </div>
 
-      <div class="capacity-legend-item">
-       <span class="capacity-legend-dot cash"></span>
-       <span>Cash Avail</span>
-       <strong>
-        ${cash(R.cash)}
-       </strong>
-      </div>
+              <div class="small">
 
-      <div class="capacity-legend-item">
-       <span class="capacity-legend-dot cpf"></span>
-       <span>CPF Avail</span>
-       <strong>
-        ${cash(R.cpf)}
-       </strong>
-      </div>
+                ${isShort?
+                  "Additional funds needed":
+                  isSurplus?
+                    "Available funding after purchase":
+                    "No surplus or shortfall"}
 
-      ${R.benchDownShort>.005?`
-       <div class="capacity-legend-item">
-        <span class="capacity-legend-dot short"></span>
-        <span>Shortfall</span>
-        <strong class="capacity-danger">
-         ${cash(R.benchDownShort)}
-        </strong>
-       </div>
+              </div>
+
+            </div>
+
+            <!-- ONE STATE ONLY -->
+
+            <div class="capacity-position-breakdown">
+
+              ${isShort?`
+
+                <!-- SHORTFALL BREAKDOWN -->
+
+                <div class="capacity-pos-line">
+
+                  <span>
+                    Cash Shortfall (5%)
+                  </span>
+
+                  <strong class="${
+                    fmtColor(-F.cashShort)
+                  }">
+                    ${cash(F.cashShort)}
+                  </strong>
+
+                </div>
+
+                <div class="capacity-pos-line">
+
+                  <span>
+                    CPF/Cash Shortfall (20%)
+                  </span>
+
+                  <strong class="${
+                    fmtColor(-F.twentyShort)
+                  }">
+                    ${cash(F.twentyShort)}
+                  </strong>
+
+                </div>
+
+                ${F.feeShort>.005?`
+
+                  <div class="capacity-pos-line">
+
+                    <span>
+                      BSD / Legal Shortfall
+                    </span>
+
+                    <strong class="capacity-danger">
+                      ${cash(F.feeShort)}
+                    </strong>
+
+                  </div>
+
+                `:""}
+
+              `:isSurplus?`
+
+                <!-- SURPLUS BREAKDOWN -->
+
+                <div class="capacity-pos-line">
+
+                  <span>
+                    <i
+                      class="label-dot"
+                      style="background:#3D85BC">
+                    </i>
+                    Cash Surplus
+                  </span>
+
+                  <strong class="${
+                    fmtColor(F.cashRemain)
+                  }">
+                    ${cash(F.cashRemain)}
+                  </strong>
+
+                </div>
+
+                <div class="capacity-pos-line">
+
+                  <span>
+                    <i
+                      class="label-dot"
+                      style="background:#53A98A">
+                    </i>
+                    CPF Surplus
+                  </span>
+
+                  <strong class="${
+                    fmtColor(F.cpfRemain)
+                  }">
+                    ${cash(F.cpfRemain)}
+                  </strong>
+
+                </div>
+
+              `:`
+
+                <!-- FULLY FUNDED -->
+
+                <div class="capacity-pos-line">
+
+                  <span>
+                    Cash Remaining
+                  </span>
+
+                  <strong class="capacity-neutral">
+                    $0
+                  </strong>
+
+                </div>
+
+                <div class="capacity-pos-line">
+
+                  <span>
+                    CPF Remaining
+                  </span>
+
+                  <strong class="capacity-neutral">
+                    $0
+                  </strong>
+
+                </div>
+
+              `}
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- FUNDING WARNING -->
+
+        ${isShort?`
+
+          <p class="capacity-message">
+            This income-based purchase price is not
+            fully funded by the available cash and
+            CPF OA allocation.
+          </p>
+
+        `:""}
+
+        <!-- PURCHASE BREAKDOWN -->
+
+        <button
+          class="acc-button capacity-breakdown"
+          data-open="breakdown"
+          aria-expanded="${opened.breakdown}">
+
+          <span>
+            Explore Purchase Breakdown
+          </span>
+
+          <span>
+            ${opened.breakdown?"⌃":"⌄"}
+          </span>
+
+        </button>
+
+        ${opened.breakdown?`
+
+          <hr style="margin:17px 0">
+
+          <div class="capacity-breakdown-rows">
+
+            ${[
+              [
+                "Estimated Loan",
+                R.cap
+              ],
+              [
+                "Mandatory Cash (5%)",
+                five
+              ],
+              [
+                "CPF / Cash Portion (20%)",
+                twenty
+              ],
+              [
+                "Downpayment (25%)",
+                five+twenty
+              ],
+              [
+                "BSD + Legal",
+                R.benchFees-
+                R.bench*R.absd
+              ],
+              ...(
+                R.absd?
+                  [[
+                    "Assumed ABSD",
+                    R.bench*R.absd
+                  ]]:
+                  []
+              ),
+              [
+                "Cash used toward downpayment",
+                F.cash5+F.cash20
+              ],
+              [
+                "CPF used toward downpayment",
+                F.cpf20
+              ],
+              [
+                "Fees funded from Cash",
+                F.feeCash
+              ],
+              [
+                "Fees funded from CPF",
+                F.feeCPF
+              ]
+            ].map(([label,amount])=>`
+
+              <div class="line">
+
+                ${label}
+
+                <strong>
+                  ${cash(amount)}
+                </strong>
+
+              </div>
+
+            `).join("")}
+
+            <div class="line">
+
+              Buyer Age / Loan Tenure
+
+              <strong>
+                ${R.age.toFixed(1)} yrs /
+                ${R.tenure} yrs
+              </strong>
+
+            </div>
+
+          </div>
+
+          <div class="capacity-footnote">
+            55% TDSR · 4% assessment rate ·
+            75% LTV assumption ·
+            Loan rounded down to nearest $10,000
+          </div>
+
+        `:""}
+
       `:""}
 
-     </div>
-
-    </div>
-
-    <hr style="margin:18px 0">
-
-    <!-- UPFRONT SUMMARY -->
-
-    <div class="capacity-metrics">
-
-     <div>
-      <div class="small">
-       Upfront Required
-      </div>
-
-      <div class="mid">
-       ${cash(R.benchUp)}
-      </div>
-
-      <div class="capacity-subtext">
-       Downpay + BSD/Legal
-      </div>
-     </div>
-
-     <div>
-      <div class="small">
-       ${negative?
-        "Funding Shortfall":
-        positive?
-         "Funding Surplus":
-         "Funding Balanced"}
-      </div>
-
-      <div class="mid ${
-       statusClass(R.benchNet)
-      }">
-       ${cash(Math.abs(R.benchNet))}
-      </div>
-
-      <div class="capacity-subtext">
-       ${negative?
-        "Additional funding needed":
-        positive?
-         "Available funding after purchase":
-         "Fully funded"}
-      </div>
-     </div>
-
-    </div>
-
-    <!-- FUNDING POSITION - NO RIGHT ICON -->
-
-    <div class="panel capacity-position">
-
-     <span class="eyebrow">
-      FUNDING POSITION
-     </span>
-
-     <div style="margin-top:13px">
-
-      <div class="line">
-
-       <span>
-        5% Minimum Cash
-       </span>
-
-       <strong class="${
-        statusClass(-R.benchCashShort)
-       }">
-        ${signed(-R.benchCashShort)}
-       </strong>
-
-      </div>
-
-      <div class="line">
-
-       <span>
-        20% CPF / Cash
-       </span>
-
-       <strong class="${
-        statusClass(-R.benchTwentyShort)
-       }">
-        ${signed(-R.benchTwentyShort)}
-       </strong>
-
-      </div>
-
-      <div class="line">
-
-       <span>
-        BSD / Legal Funding
-       </span>
-
-       <strong class="${
-        statusClass(-R.benchFeesShort)
-       }">
-        ${signed(-R.benchFeesShort)}
-       </strong>
-
-      </div>
-
-      <div class="line capacity-net-row">
-
-       <span>
-        Net Funding Position
-       </span>
-
-       <strong class="${
-        statusClass(R.benchNet)
-       }">
-        ${signed(R.benchNet)}
-       </strong>
-
-      </div>
-
-     </div>
-    </div>
-
-    <!-- FUNDING WARNING -->
-
-    ${hasCapacity&&!R.benchOK?`
-
-     <p class="capacity-message">
-
-      The estimated income-based purchase price
-      is not fully funded.
-
-      ${R.benchCashShort>0?`
-       The mandatory 5% cash requirement
-       has a shortfall.
-      `:""}
-
-      ${R.benchTwentyShort>0?`
-       The remaining 20% downpayment
-       has a shortfall.
-      `:""}
-
-      ${R.benchFeesShort>0?`
-       Additional funds are required
-       for stamp duties and legal fees.
-      `:""}
-
-     </p>
-
-    `:""}
-
-    <!-- EXPANDABLE PURCHASE BREAKDOWN -->
-
-    <button
-     class="acc-button capacity-breakdown"
-     data-open="breakdown"
-     aria-expanded="${opened.breakdown}">
-
-     <span>
-      Explore Purchase Breakdown
-     </span>
-
-     <span>
-      ${opened.breakdown?"⌃":"⌄"}
-     </span>
-
-    </button>
-
-    ${opened.breakdown?`
-
-     <hr style="margin:17px 0">
-
-     <div class="capacity-breakdown-rows">
-
-      <div class="line">
-       Estimated Loan
-       <strong>
-        ${cash(R.cap)}
-       </strong>
-      </div>
-
-      <div class="line">
-       Mandatory Cash (5%)
-       <strong>
-        ${cash(R.benchFive)}
-       </strong>
-      </div>
-
-      <div class="line">
-       CPF / Cash Portion (20%)
-       <strong>
-        ${cash(R.benchTwenty)}
-       </strong>
-      </div>
-
-      <div class="line">
-       Total Downpayment (25%)
-       <strong>
-        ${cash(R.benchDown)}
-       </strong>
-      </div>
-
-      <div class="line">
-       BSD + Legal
-       <strong>
-        ${cash(
-         R.benchFees-R.bench*R.absd
-        )}
-       </strong>
-      </div>
-
-      ${R.absd?`
-       <div class="line">
-        Assumed ABSD
-        <strong>
-         ${cash(R.bench*R.absd)}
-        </strong>
-       </div>
-      `:""}
-
-      <div class="line">
-       Buyer Age / Loan Tenure
-       <strong>
-        ${R.age.toFixed(1)} yrs /
-        ${R.tenure} yrs
-       </strong>
-      </div>
-
-      <div class="line">
-       Downpayment Shortfall
-       <strong class="${
-        statusClass(-R.benchDownShort)
-       }">
-        ${cash(R.benchDownShort)}
-       </strong>
-      </div>
-
-      <div class="line">
-       Total Funding Shortfall
-       <strong class="${
-        statusClass(-R.benchShortfall)
-       }">
-        ${cash(R.benchShortfall)}
-       </strong>
-      </div>
-
-     </div>
-
-     <div class="capacity-footnote">
-      55% TDSR · 4% assessment rate ·
-      75% LTV assumption · Loan rounded
-      down to nearest $10,000
-     </div>
-
-    `:""}
-
-   `:""}
-
-  </section>
- `;
+    </section>
+  `;
 }
 
 /* ======================================
-   STEP 4 — RESULTS AND CAPACITY
+   STEP 4 — RESULTS
 ====================================== */
 
 function step4(R){
 
- return `${intro(
-  "YOUR FINANCIAL FOUNDATION",
-  "Resources You've Built",
-  "Over the Years."
- )}
+  return `${intro(
+    "YOUR FINANCIAL FOUNDATION",
+    "Resources You've Built",
+    "Over the Years."
+  )}
 
- <div class="panel">
+  <div class="panel">
 
-  <div class="row">
-   <strong style="font-size:13px">
-    ▣ What You Have
-   </strong>
-   <span class="small">
-    Available Equity
-   </span>
+    <div class="row">
+
+      <strong style="font-size:13px">
+        ▣ What You Have
+      </strong>
+
+      <span class="small">
+        Available Equity
+      </span>
+
+    </div>
+
+    <div class="big" style="margin-top:10px">
+      ${cash(R.equity)}
+    </div>
+
+    ${balanceBar(R.cash,R.cpf)}
+
+    <div class="row small">
+
+      <span>
+        Cash ${cash(R.cash)}
+      </span>
+
+      <span>
+        CPF ${cash(R.cpf)}
+      </span>
+
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+      <strong style="font-size:13px">
+        Your Maximum Loan
+      </strong>
+
+      <span class="small">
+        Est. Capacity
+      </span>
+
+    </div>
+
+    <div class="row" style="margin-top:8px">
+
+      <div class="big">
+        ${cash(R.cap)}
+      </div>
+
+      <span class="small">
+        ${R.tenure}-year tenure
+      </span>
+
+    </div>
+
+    <hr>
+
+    <div class="grid2">
+
+      ${field(
+        "Monthly Debts",
+        "debts",
+        {prefix:true}
+      )}
+
+      ${field(
+        "Mortgage Rate (%)",
+        "rate"
+      )}
+
+    </div>
+
+    <p class="small">
+      Estimated affordability uses a 4% assessment
+      interest rate, 55% TDSR and up to 75% LTV.
+
+      The mortgage rate above is used for
+      the repayment forecast.
+
+      Loan amounts are rounded down to
+      the nearest $10,000.
+    </p>
+
   </div>
 
-  <div class="big" style="margin-top:10px">
-   ${cash(R.equity)}
-  </div>
+  <!-- INCOME-BASED PURCHASE CAPACITY -->
 
-  ${balanceBar(R.cash,R.cpf)}
+  ${incomeCapacity(R)}
 
-  <div class="row small">
-   <span>
-    Cash ${cash(R.cash)}
-   </span>
-   <span>
-    CPF ${cash(R.cpf)}
-   </span>
-  </div>
+  <!-- STRUCTURES A AND B -->
 
-  <hr>
+  ${resultCard("A",R)}
 
-  <div class="row">
-   <strong style="font-size:13px">
-    Your Maximum Loan
-   </strong>
-   <span class="small">
-    Est. Capacity
-   </span>
-  </div>
-
-  <div class="row" style="margin-top:8px">
-   <div class="big">
-    ${cash(R.cap)}
-   </div>
-   <span class="small">
-    ${R.tenure}-year tenure
-   </span>
-  </div>
-
-  <hr>
-
-  <div class="grid2">
-   ${field("Monthly Debts","debts",{prefix:true})}
-   ${field("Mortgage Rate (%)","rate")}
-  </div>
-
-  <p class="small">
-   Estimated affordability uses a 4% assessment
-   interest rate, 55% TDSR and up to 75% LTV.
-   Eligible loans are rounded down to the
-   nearest $10,000.
-
-   The mortgage rate above is used
-   for the repayment forecast.
-  </p>
-
- </div>
-
- <!-- INCOME-BASED PURCHASE CAPACITY -->
-
- ${incomeCapacity(R)}
-
- <!-- STRUCTURES A AND B -->
-
- ${resultCard("A",R)}
-
- ${resultCard("B",R)}
- `;
+  ${resultCard("B",R)}
+  `;
 }
 
 /* ======================================
@@ -1977,129 +4253,139 @@ function step4(R){
 
 function render(){
 
- const R=calc();
+  const R=calc();
 
- $("#app").innerHTML=`
+  $("#app").innerHTML=`
 
-  <div class="brand">
-   <span>
-    ▤ &nbsp;
-    JONATHAN FOK · PROPERTY ADVISORY
-   </span>
+    <div class="brand">
 
-   <button
-    class="reset"
-    data-action="reset">
-    ↺ Reset
-   </button>
-  </div>
+      <span>
+        ▤ &nbsp;
+        JONATHAN FOK · PROPERTY ADVISORY
+      </span>
 
-  <div class="hero">
+      <button
+        class="reset"
+        data-action="reset">
+        ↺ Reset
+      </button>
 
-   <div class="avatar">
-    <img
-     src="https://i.postimg.cc/VN3MnPjk/IMG-5337.jpg"
-     alt="Jonathan Fok"
-     onerror="this.style.display='none'">
-   </div>
+    </div>
 
-   <div>
-    <span class="eyebrow">
-     PERSONAL UPGRADE DISCOVERY
-    </span>
+    <div class="hero">
 
-    <h1>
-     <span>5 Minutes.</span>
-     The Full Picture.
-    </h1>
+      <div class="avatar">
 
-    <p>
-     No more guessing about your Budget.
-    </p>
-   </div>
+        <img
+          src="https://i.postimg.cc/VN3MnPjk/IMG-5337.jpg"
+          alt="Jonathan Fok"
+          onerror="this.style.display='none'">
 
-  </div>
+      </div>
 
-  <div class="rule"></div>
+      <div>
 
-  <nav class="tabs">
+        <span class="eyebrow">
+          PERSONAL UPGRADE DISCOVERY
+        </span>
 
-   ${[
-    "Funds",
-    "CPF OA",
-    "Backup",
-    "Results"
-   ].map((label,i)=>`
+        <h1>
+          <span>5 Minutes.</span>
+          The Full Picture.
+        </h1>
 
-    <button
-     class="tab ${tab===i?'active':''}"
-     data-tab="${i}">
+        <p>
+          No more guessing about your Budget.
+        </p>
 
-     <small>
-      STEP ${i+1}
-     </small>
+      </div>
 
-     ${label}
+    </div>
 
-    </button>
+    <div class="rule"></div>
 
-   `).join("")}
+    <nav class="tabs">
 
-  </nav>
+      ${[
+        "Funds",
+        "CPF OA",
+        "Backup",
+        "Results"
+      ].map((label,i)=>`
 
-  ${tab===0?step1(R):
-    tab===1?step2(R):
-    tab===2?step3(R):
-    step4(R)}
+        <button
+          class="tab ${tab===i?'active':''}"
+          data-tab="${i}">
 
-  <hr>
+          <small>
+            STEP ${i+1}
+          </small>
 
-  <div class="nav">
+          ${label}
 
-   <button
-    class="btn"
-    data-action="back"
-    ${tab===0?"disabled":""}>
-    ← Back
-   </button>
+        </button>
 
-   <span class="small">
-    ${tab+1} of 4
-   </span>
+      `).join("")}
 
-   <button
-    class="btn"
-    data-action="next">
+    </nav>
 
-    ${tab===3?
-     "Review Funds":
-     "Continue →"}
+    ${
+      tab===0?
+        step1(R):
+      tab===1?
+        step2(R):
+      tab===2?
+        step3(R):
+        step4(R)
+    }
 
-   </button>
+    <hr>
 
-  </div>
+    <div class="nav">
 
-  <footer>
-   <strong>Disclaimer:</strong>
+      <button
+        class="btn"
+        data-action="back"
+        ${tab===0?"disabled":""}>
+        ← Back
+      </button>
 
-   Independently designed by Jonathan Fok.
-   All figures are estimates and may vary
-   based on actual CPF, financing and
-   stamp duty requirements.
+      <span class="small">
+        ${tab+1} of 4
+      </span>
 
-   This planning version uses a simplified
-   ABSD assumption: 0% where any buyer is
-   a Singapore Citizen; otherwise 5% for
-   all-PR buyers.
+      <button
+        class="btn"
+        data-action="next">
 
-   Actual IRAS treatment and financing
-   eligibility may differ.
+        ${tab===3?
+          "Review Funds":
+          "Continue →"}
 
-   The loan and CPF projections are
-   indicative and do not constitute
-   bank loan or CPF approval.
-  </footer>
- `;
+      </button>
+
+    </div>
+
+    <footer>
+
+      <strong>Disclaimer:</strong>
+
+      Independently designed by Jonathan Fok.
+
+      All figures are estimates and may vary based
+      on actual CPF, financing and stamp duty
+      requirements.
+
+      This planning version uses a simplified
+      ABSD assumption: 0% where any buyer is
+      a Singapore Citizen; otherwise 5% for
+      all-PR buyers.
+
+      Actual IRAS treatment, eligibility for
+      CPF use and financing may differ.
+
+    </footer>
+  `;
 }
 
 /* ======================================
@@ -2108,17 +4394,17 @@ function render(){
 
 document.addEventListener("change",e=>{
 
- const key=e.target.dataset.field;
+  const key=e.target.dataset.field;
 
- if(!key){
-  return;
- }
+  if(!key){
+    return;
+  }
 
- v[key]=e.target.type==="text"?
-  e.target.value:
-  num(e.target.value);
+  v[key]=e.target.type==="text"?
+    e.target.value:
+    num(e.target.value);
 
- render();
+  render();
 });
 
 /* ======================================
@@ -2127,69 +4413,76 @@ document.addEventListener("change",e=>{
 
 document.addEventListener("click",e=>{
 
- const node=e.target.closest(
-  "button,[data-open]"
- );
+  const node=e.target.closest(
+    "button,[data-open]"
+  );
 
- if(!node){
-  return;
- }
-
- if(node.dataset.tab!==undefined){
-
-  tab=Number(node.dataset.tab);
-
- }else if(node.dataset.set){
-
-  const key=node.dataset.set;
-  const raw=node.dataset.value;
-
-  v[key]=["period"].includes(key)?
-   Number(raw):
-   ["backup","extra","commit"].includes(key)?
-    Number(raw):
-    raw;
-
- }else if(node.dataset.toggle){
-
-  const key=node.dataset.toggle;
-
-  v[key]=!v[key];
-
-  if(key==="b2"&&!v.b2){
-   v.b3=false;
+  if(!node){
+    return;
   }
 
- }else if(node.dataset.open){
+  if(node.dataset.tab!==undefined){
 
-  const key=node.dataset.open;
+    tab=Number(node.dataset.tab);
 
-  opened[key]=!opened[key];
+  }else if(node.dataset.set){
 
- }else if(node.dataset.action==="back"){
+    const key=node.dataset.set;
+    const raw=node.dataset.value;
 
-  tab=Math.max(0,tab-1);
+    v[key]=[
+      "period",
+      "backup",
+      "extra",
+      "commit"
+    ].includes(key)?
+      Number(raw):
+      raw;
 
- }else if(node.dataset.action==="next"){
+  }else if(node.dataset.toggle){
 
-  tab=tab===3?0:tab+1;
+    const key=node.dataset.toggle;
 
- }else if(node.dataset.action==="reset"){
+    v[key]=!v[key];
 
-  v=initial();
-  tab=0;
+    if(key==="b2"&&!v.b2){
+      v.b3=false;
+    }
 
-  Object.keys(opened).forEach(k=>{
-   opened[k]=false;
-  });
+  }else if(node.dataset.open){
 
- }else{
+    const key=node.dataset.open;
 
-  return;
+    opened[key]=!opened[key];
 
- }
+  }else if(node.dataset.action==="back"){
 
- render();
+    tab=Math.max(
+      0,
+      tab-1
+    );
+
+  }else if(node.dataset.action==="next"){
+
+    tab=tab===3?
+      0:
+      tab+1;
+
+  }else if(node.dataset.action==="reset"){
+
+    v=initial();
+    tab=0;
+
+    Object.keys(opened).forEach(k=>{
+      opened[k]=false;
+    });
+
+  }else{
+
+    return;
+  }
+
+  render();
 });
 
 /* ======================================
