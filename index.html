@@ -478,6 +478,7 @@ hr{
 .result-card{
   border-radius:13px;
   padding:17px;
+
   margin:14px 0;
 }
 
@@ -898,6 +899,7 @@ footer{
 
 .capacity-legend b{
   color:var(--navy);
+
   font-weight:700;
 }
 
@@ -1378,13 +1380,10 @@ const people=()=>[
   ...(v.b2&&v.b3?[3]:[])
 ];
 
-/* All calculated loans rounded DOWN
-   to nearest $10,000. */
+/* Round calculated loans DOWN to the nearest $1,000. */
 
 const roundLoan=n=>
-  Math.floor(
-    Math.max(0,n)/10000
-  )*10000;
+  Math.floor(Math.max(0,n)/1000)*1000;
 
 /* =====================================
    STAMP DUTY
@@ -1476,113 +1475,33 @@ function oaRate(age){
   cash and CPF OA.
 */
 
-function allocateFunding(
-  price,
-  availableCash,
-  cpf,
-  fees
-){
+function allocateFunding(price, availableCash, cpf, fees){
+  // Fees are funded first (eligible CPF OA, then cash).
+  const feeCPF=Math.min(cpf,fees);
+  const feeCash=Math.min(availableCash,fees-feeCPF);
+  const feeShort=Math.max(0,fees-feeCPF-feeCash);
+  let cpfRemain=cpf-feeCPF;
+  let cashRemain=availableCash-feeCash;
 
-  /* Mandatory 5% cash */
-
+  // Preserve the mandatory 5% cash downpayment.
   const cashNeed=.05*price;
-
   const twentyNeed=.20*price;
+  const cash5=Math.min(cashRemain,cashNeed);
+  const cashShort=Math.max(0,cashNeed-cash5);
+  cashRemain-=cash5;
 
-  const cash5=Math.min(
-    availableCash,
-    cashNeed
-  );
-
-  const cashShort=Math.max(
-    0,
-    cashNeed-cash5
-  );
-
-  const cashAfter5=Math.max(
-    0,
-    availableCash-cash5
-  );
-
-  /* Remaining 20% */
-
-  const cpf20=Math.min(
-    cpf,
-    twentyNeed
-  );
-
-  const cash20=Math.min(
-    cashAfter5,
-    twentyNeed-cpf20
-  );
-
-  const twentyShort=Math.max(
-    0,
-    twentyNeed-cpf20-cash20
-  );
-
-  /* Remaining funds */
-
-  let cashRemain=
-    cashAfter5-cash20;
-
-  let cpfRemain=
-    cpf-cpf20;
-
-  /* Allocate eligible fees */
-
-  const feeCPF=Math.min(
-    cpfRemain,
-    fees
-  );
-
-  cpfRemain-=feeCPF;
-
-  const feeCash=Math.min(
-    cashRemain,
-    fees-feeCPF
-  );
-
-  cashRemain-=feeCash;
-
-  const feeShort=Math.max(
-    0,
-    fees-feeCPF-feeCash
-  );
-
-  /* Net shortfall */
-
-  const shortfall=
-    cashShort+
-    twentyShort+
-    feeShort;
-
-  /* Surplus only if fully funded */
-
-  const surplus=shortfall<=.005?
-    cashRemain+cpfRemain:0;
-
-  const net=shortfall>.005?
-    -shortfall:
-    surplus;
-
-  return{
-    cashNeed,
-    twentyNeed,
-    cash5,
-    cashShort,
-    cpf20,
-    cash20,
-    twentyShort,
-    feeShort,
-    cashRemain,
-    cpfRemain,
-    shortfall,
-    surplus,
-    net,
-    feeCash,
-    feeCPF
-  };
+  // Remaining 20% may be funded by CPF OA or cash.
+  const cpf20=Math.min(cpfRemain,twentyNeed);
+  cpfRemain-=cpf20;
+  const cash20=Math.min(cashRemain,twentyNeed-cpf20);
+  cashRemain-=cash20;
+  const twentyShort=Math.max(0,twentyNeed-cpf20-cash20);
+  const shortfall=feeShort+cashShort+twentyShort;
+  const surplus=shortfall<=.005?cashRemain+cpfRemain:0;
+  const net=shortfall>.005?-shortfall:surplus;
+  return {cashNeed,twentyNeed,cash5,cashShort,cpf20,cash20,
+    twentyShort,feeShort,cashRemain,cpfRemain,shortfall,surplus,
+    net,feeCash,feeCPF};
 }
 
 /* =====================================
@@ -1821,6 +1740,7 @@ function calc(){
         cap,
         .75*price
       )+.001||
+
       loan!==roundLoan(loan)||
       backup>availableCash||
       (
@@ -1944,12 +1864,12 @@ function calc(){
     }
 
     for(
-      let reduction=10000;
+      let reduction=1000;
       reduction<=Math.min(
         300000,
         loan
       );
-      reduction+=10000
+      reduction+=1000
     ){
 
       found=fit(
@@ -2060,7 +1980,7 @@ function calc(){
   if(
     B&&
     v.choice==="reduce"&&
-    spare>=10000
+    spare>=1000
   ){
 
     const amount=Math.min(
@@ -2088,7 +2008,7 @@ function calc(){
   ================================== */
 
   const bench=
-    cap/.75;
+    Math.round((cap/.75)/1000)*1000;
 
   const benchFees=cap>0?
     bsd(bench)+
@@ -2661,6 +2581,7 @@ function step3(R){
   return `${intro(
     "03 / YOUR CASH RESERVE",
     "Set Something Aside.",
+
     "For Life or Renovation."
   )}
 
@@ -3081,6 +3002,7 @@ function mortgageChart(X,id){
         </span>
       `:""}
     </div>
+
   `;
 }
 
@@ -3240,7 +3162,7 @@ function resultCard(id,R){
 
         ${B?`
 
-          ${X&&R.spare>=10000?`
+          ${X&&R.spare>=1000?`
 
             <hr>
 
@@ -3517,620 +3439,77 @@ function resultCard(id,R){
 ====================================== */
 
 function incomeCapacity(R){
-
   const F=R.funding;
-
   const valid=R.cap>0;
-
-  const isShort=
-    valid&&F.shortfall>.005;
-
-  const isSurplus=
-    valid&&!isShort&&F.surplus>.005;
-
-  const fmtColor=n=>
-    n>.005?
-      "capacity-success":
-    n<-.005?
-      "capacity-danger":
-      "capacity-neutral";
-
-  const barPiece=(n,den,cls)=>`
-    <div
-      class="capacity-bar-part ${cls}"
-      style="width:${
-        den?
-          clamp(n/den*100,0,100):
-          0
-      }%">
-    </div>
-  `;
-
-  const five=F.cashNeed;
-  const twenty=F.twentyNeed;
-
-  const netValue=isShort?
-    F.shortfall:
-    isSurplus?
-      F.surplus:
-      0;
-
-  const primaryTitle=!valid?
-    "No assessed capacity":
-    isShort?
-      "Funding Shortfall":
-      isSurplus?
-        "Funding Surplus":
-        "Fully Funded";
+  const isShort=valid&&F.shortfall>.005;
+  const cashOnlyIssue=isShort&&F.cashShort>.005&&F.twentyShort<.005&&F.feeShort<.005;
+  const available=R.cash+R.cpf;
+  const price=R.bench;
+  const minCash=.05*R.bench;
+  const down=.25*R.bench;
+  const cashShort=F.cashShort;
+  const remainingShort=F.twentyShort+F.feeShort;
+  // Surplus CPF remains visible even when mandatory cash is short.
+  // Cash may substitute for CPF in the 20% downpayment, not vice versa.
+  const cashSurplus=F.cashRemain;
+  const cpfSurplus=F.cpfRemain;
+  const detail=(label,amount,tone="")=>`<div class="line" style="margin:7px 0;align-items:baseline"><span>${label}</span><strong style="color:${tone||'var(--navy)'};font-variant-numeric:tabular-nums">${cash(amount)}</strong></div>`;
 
   return `
     <section class="accordion">
-
-      <button
-        class="acc-button capacity-header"
-        data-open="capacity"
-        aria-expanded="${opened.capacity}">
-
+      <button class="acc-button capacity-header"
+        data-open="capacity" aria-expanded="${opened.capacity}">
         <span class="capacity-title">
           ${uiIcon("key")}
-
-          <span>
-            INCOME-BASED PURCHASE CAPACITY
-          </span>
+          <span>INCOME-BASED PURCHASE CAPACITY</span>
         </span>
-
-        <span>
-          ${opened.capacity?"⌃":"⌄"}
-        </span>
-
+        <span>${opened.capacity?"⌃":"⌄"}</span>
       </button>
 
       ${opened.capacity?`
-
-        <!-- PROPERTY PRICE -->
-
         <div class="capacity-price">
-
-          <div class="small">
-            Potential Property Price
-          </div>
-
-          <div class="big">
-            ${cash(R.bench)}
-          </div>
-
-          <div class="small">
-            Based on estimated 75% bank financing
-          </div>
-
+          <div class="small">Potential Property Price</div>
+          <div class="big">${cash(price)}</div>
         </div>
-
-        <hr style="margin:18px 0">
-
-        <!-- 25% DOWNPAYMENT BAR -->
-
-        <div class="capacity-down-head">
-
-          <strong>
-            25% DOWNPAYMENT FUNDING
-          </strong>
-
-          <span>
-            ${cash(five+twenty)}
-          </span>
-
+        <div class="panel" style="margin-top:10px">
+          <div class="row"><strong style="color:var(--navy)">Max Loan (75% LTV)</strong><strong>${cash(R.cap)}</strong></div>
+          <div class="small" style="margin-top:5px">Income-assessed loan ceiling; property price rounded to nearest $1,000.</div>
         </div>
-
-        <div
-          class="capacity-fund-bar"
-          role="img"
-          aria-label="
-            Cash shortfall ${cash(F.cashShort)}.
-            CPF or cash shortfall
-            ${cash(F.twentyShort)}.
-          ">
-
-          <!-- BLUE 5% CASH PORTION -->
-
-          <div class="capacity-five">
-
-            ${barPiece(
-              F.cash5,
-              five,
-              "capacity-good-cash"
-            )}
-
-            ${barPiece(
-              F.cashShort,
-              five,
-              "capacity-missing-cash"
-            )}
-
+        <div class="capacity-metrics" style="margin:20px 0 12px;align-items:start;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px">
+          <div style="min-width:0">
+            <div class="small">Upfront Required</div>
+            <div class="mid" style="font-variant-numeric:tabular-nums">${cash(R.benchUp)}</div>
+            <div class="small" style="margin-top:10px">5% Cash ${cash(minCash)}</div>
+            <div class="small">20% Downpay ${cash(down-minCash)}</div>
+            <div class="small">BSD + Legal + ABSD ${cash(R.benchFees)}</div>
           </div>
-
-          <!-- GREEN 20% CPF/CASH PORTION -->
-
-          <div class="capacity-twenty">
-
-            ${barPiece(
-              F.cpf20+F.cash20,
-              twenty,
-              "capacity-good-cpf"
-            )}
-
-            ${barPiece(
-              F.twentyShort,
-              twenty,
-              "capacity-missing-cpf"
-            )}
-
+          <div style="min-width:0">
+            <div class="small">Upfront Available</div>
+            <div class="mid" style="font-variant-numeric:tabular-nums">${cash(available)}</div>
+            <div class="small" style="margin-top:10px">Cash ${cash(R.cash)}</div>
+            <div class="small">CPF ${cash(R.cpf)}</div>
           </div>
-
         </div>
-
-        <!-- BAR LABELS -->
-
-        <div class="capacity-bar-labels">
-
-          <div class="capacity-bar-label">
-
-            <span
-              class="capacity-dot"
-              style="background:#3D85BC">
-            </span>
-
-            <div>
-              <strong>
-                Cash (5%)
-              </strong>
-
-              <small>
-                ${cash(five)}
-              </small>
-            </div>
-
+        <div class="panel capacity-position" style="margin-top:12px">
+          <div class="row" style="justify-content:flex-start;gap:8px;align-items:center">
+            ${isShort?`<span style="color:var(--danger);font-size:19px" aria-hidden="true">⚠</span>`:valid?`<span style="color:var(--success);font-size:19px" aria-hidden="true">✓</span>`:""}
+            <strong style="color:${isShort?'var(--danger)':'var(--success)'};font-size:13px">${!valid?"No Assessed Capacity":cashOnlyIssue?"Cash Requirement Not Met":isShort?"Funding Shortfall":"Funding Surplus"}</strong>
           </div>
-
-          <div class="capacity-bar-label">
-
-            <span
-              class="capacity-dot"
-              style="background:#53A98A">
-            </span>
-
-            <div>
-              <strong>
-                CPF (20%)
-              </strong>
-
-              <small>
-                ${cash(twenty)}
-              </small>
-            </div>
-
+          <div class="capacity-position-amount ${isShort?"capacity-danger":valid?"capacity-success":"capacity-neutral"}">
+            ${isShort?"−":""}${cash(!valid?0:isShort?F.shortfall:F.surplus)}
           </div>
-
+          ${valid?(isShort?`
+            ${cashShort+F.feeShort>.005?detail("Cash shortfall",cashShort+F.feeShort,"var(--danger)"):""}
+            ${F.twentyShort>.005?detail("20% downpayment shortfall",F.twentyShort,"var(--danger)"):""}
+            ${cpfSurplus>.005?detail("CPF surplus",cpfSurplus,"var(--success)"):""}
+            ${cashSurplus>.005?detail("Cash surplus",cashSurplus,"var(--success)"):""}
+            ${cashOnlyIssue?`<div class="small" style="margin-top:12px">Total funds are sufficient, but more cash is needed for the minimum 5% downpayment.</div>`:""}
+          `:`
+            ${detail("Cash surplus",cashSurplus,"var(--success)")}
+            ${detail("CPF surplus",cpfSurplus,"var(--success)")}
+          `):""}
         </div>
-
-        <!-- SHORTFALL LEGEND -->
-
-        ${F.cashShort>.005||
-          F.twentyShort>.005?`
-
-          <div class="capacity-legend">
-
-            ${F.cashShort>.005?`
-
-              <span>
-
-                <i class="
-                  capacity-dot
-                  capacity-missing-cash">
-                </i>
-
-                Cash Shortfall
-
-                <b class="capacity-danger">
-                  ${
-                    (
-                      F.cashShort/
-                      R.bench*100
-                    ).toFixed(1)
-                  }%
-                </b>
-
-              </span>
-
-            `:""}
-
-            ${F.twentyShort>.005?`
-
-              <span>
-
-                <i class="
-                  capacity-dot
-                  capacity-missing-cpf">
-                </i>
-
-                CPF Shortfall
-
-                <b class="capacity-danger">
-                  ${
-                    (
-                      F.twentyShort/
-                      R.bench*100
-                    ).toFixed(1)
-                  }%
-                </b>
-
-              </span>
-
-            `:""}
-
-          </div>
-
-        `:""}
-
-        <hr style="margin:19px 0">
-
-        <!-- UPFRONT SUMMARY -->
-
-        <div class="capacity-metrics">
-
-          <div>
-
-            <div class="small">
-              Upfront Required
-            </div>
-
-            <div class="mid">
-              ${cash(R.benchUp)}
-            </div>
-
-            <div class="capacity-subtext">
-              Downpay + BSD/Legal
-            </div>
-
-          </div>
-
-          <div>
-
-            <div class="small">
-              ${primaryTitle}
-            </div>
-
-            <div class="mid ${
-              isShort?
-                "capacity-danger":
-                isSurplus?
-                  "capacity-success":
-                  "capacity-neutral"
-            }">
-
-              ${cash(netValue)}
-
-            </div>
-
-            <div class="capacity-subtext">
-
-              ${isShort?
-                "Additional funding needed":
-                isSurplus?
-                  "Available funding after purchase":
-                  valid?
-                    "Fully funded":
-                    "No assessed loan capacity"}
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- FUNDING POSITION -->
-
-        <div class="panel capacity-position">
-
-          <div class="capacity-position-title">
-            FUNDING POSITION
-          </div>
-
-          <div class="capacity-position-primary">
-
-            <!-- PRIMARY AMOUNT -->
-
-            <div>
-
-              <div class="small">
-
-                ${isShort?
-                  "Net Funding Shortfall":
-                  isSurplus?
-                    "Net Funding Surplus":
-                    valid?
-                      "Fully Funded":
-                      "No Assessed Capacity"}
-
-              </div>
-
-              <div class="
-                capacity-position-amount
-                ${
-                  isShort?
-                    "capacity-danger":
-                    isSurplus?
-                      "capacity-success":
-                      "capacity-neutral"
-                }">
-
-                ${
-                  isShort?
-                    "−":
-                    isSurplus?
-                      "+":
-                      ""
-                }${cash(netValue)}
-
-              </div>
-
-              <div class="small">
-
-                ${isShort?
-                  "Additional funds needed":
-                  isSurplus?
-                    "Available funding after purchase":
-                    "No surplus or shortfall"}
-
-              </div>
-
-            </div>
-
-            <!-- ONE STATE ONLY -->
-
-            <div class="capacity-position-breakdown">
-
-              ${isShort?`
-
-                <!-- SHORTFALL BREAKDOWN -->
-
-                <div class="capacity-pos-line">
-
-                  <span>
-                    Cash Shortfall (5%)
-                  </span>
-
-                  <strong class="${
-                    fmtColor(-F.cashShort)
-                  }">
-                    ${cash(F.cashShort)}
-                  </strong>
-
-                </div>
-
-                <div class="capacity-pos-line">
-
-                  <span>
-                    CPF/Cash Shortfall (20%)
-                  </span>
-
-                  <strong class="${
-                    fmtColor(-F.twentyShort)
-                  }">
-                    ${cash(F.twentyShort)}
-                  </strong>
-
-                </div>
-
-                ${F.feeShort>.005?`
-
-                  <div class="capacity-pos-line">
-
-                    <span>
-                      BSD / Legal Shortfall
-                    </span>
-
-                    <strong class="capacity-danger">
-                      ${cash(F.feeShort)}
-                    </strong>
-
-                  </div>
-
-                `:""}
-
-              `:isSurplus?`
-
-                <!-- SURPLUS BREAKDOWN -->
-
-                <div class="capacity-pos-line">
-
-                  <span>
-                    <i
-                      class="label-dot"
-                      style="background:#3D85BC">
-                    </i>
-                    Cash Surplus
-                  </span>
-
-                  <strong class="${
-                    fmtColor(F.cashRemain)
-                  }">
-                    ${cash(F.cashRemain)}
-                  </strong>
-
-                </div>
-
-                <div class="capacity-pos-line">
-
-                  <span>
-                    <i
-                      class="label-dot"
-                      style="background:#53A98A">
-                    </i>
-                    CPF Surplus
-                  </span>
-
-                  <strong class="${
-                    fmtColor(F.cpfRemain)
-                  }">
-                    ${cash(F.cpfRemain)}
-                  </strong>
-
-                </div>
-
-              `:`
-
-                <!-- FULLY FUNDED -->
-
-                <div class="capacity-pos-line">
-
-                  <span>
-                    Cash Remaining
-                  </span>
-
-                  <strong class="capacity-neutral">
-                    $0
-                  </strong>
-
-                </div>
-
-                <div class="capacity-pos-line">
-
-                  <span>
-                    CPF Remaining
-                  </span>
-
-                  <strong class="capacity-neutral">
-                    $0
-                  </strong>
-
-                </div>
-
-              `}
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- FUNDING WARNING -->
-
-        ${isShort?`
-
-          <p class="capacity-message">
-            This income-based purchase price is not
-            fully funded by the available cash and
-            CPF OA allocation.
-          </p>
-
-        `:""}
-
-        <!-- PURCHASE BREAKDOWN -->
-
-        <button
-          class="acc-button capacity-breakdown"
-          data-open="breakdown"
-          aria-expanded="${opened.breakdown}">
-
-          <span>
-            Explore Purchase Breakdown
-          </span>
-
-          <span>
-            ${opened.breakdown?"⌃":"⌄"}
-          </span>
-
-        </button>
-
-        ${opened.breakdown?`
-
-          <hr style="margin:17px 0">
-
-          <div class="capacity-breakdown-rows">
-
-            ${[
-              [
-                "Estimated Loan",
-                R.cap
-              ],
-              [
-                "Mandatory Cash (5%)",
-                five
-              ],
-              [
-                "CPF / Cash Portion (20%)",
-                twenty
-              ],
-              [
-                "Downpayment (25%)",
-                five+twenty
-              ],
-              [
-                "BSD + Legal",
-                R.benchFees-
-                R.bench*R.absd
-              ],
-              ...(
-                R.absd?
-                  [[
-                    "Assumed ABSD",
-                    R.bench*R.absd
-                  ]]:
-                  []
-              ),
-              [
-                "Cash used toward downpayment",
-                F.cash5+F.cash20
-              ],
-              [
-                "CPF used toward downpayment",
-                F.cpf20
-              ],
-              [
-                "Fees funded from Cash",
-                F.feeCash
-              ],
-              [
-                "Fees funded from CPF",
-                F.feeCPF
-              ]
-            ].map(([label,amount])=>`
-
-              <div class="line">
-
-                ${label}
-
-                <strong>
-                  ${cash(amount)}
-                </strong>
-
-              </div>
-
-            `).join("")}
-
-            <div class="line">
-
-              Buyer Age / Loan Tenure
-
-              <strong>
-                ${R.age.toFixed(1)} yrs /
-                ${R.tenure} yrs
-              </strong>
-
-            </div>
-
-          </div>
-
-          <div class="capacity-footnote">
-            55% TDSR · 4% assessment rate ·
-            75% LTV assumption ·
-            Loan rounded down to nearest $10,000
-          </div>
-
-        `:""}
-
       `:""}
-
     </section>
   `;
 }
@@ -4494,3 +3873,5 @@ render();
 </script>
 </body>
 </html>
+
+
